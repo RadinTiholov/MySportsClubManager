@@ -1,8 +1,8 @@
 ﻿namespace MySportsClubManager.Data.Configurations
 {
-    using MySportsClubManager.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using MySportsClubManager.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

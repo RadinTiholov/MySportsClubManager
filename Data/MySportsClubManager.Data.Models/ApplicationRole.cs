@@ -3,9 +3,8 @@ namespace MySportsClubManager.Data.Models
 {
     using System;
 
-    using MySportsClubManager.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using MySportsClubManager.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

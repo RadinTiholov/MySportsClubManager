@@ -3,9 +3,8 @@
     using System;
     using System.Threading.Tasks;
 
-    using MySportsClubManager.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+    using MySportsClubManager.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {
