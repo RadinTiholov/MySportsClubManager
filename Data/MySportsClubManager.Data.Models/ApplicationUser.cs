@@ -22,6 +22,8 @@ namespace MySportsClubManager.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Reviews = new HashSet<Review>();
             this.Trainings = new HashSet<Training>();
+            this.Contests = new HashSet<Contest>();
+            this.Wins = new HashSet<Win>();
         }
 
         // Audit info
@@ -61,6 +63,10 @@ namespace MySportsClubManager.Data.Models
         public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<Training> Trainings { get; set; }
+
+        public virtual ICollection<Contest> Contests { get; set; }
+
+        public virtual ICollection<Win> Wins { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

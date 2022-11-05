@@ -21,6 +21,7 @@
             this.Trainers = new HashSet<ApplicationUser>();
             this.Reviews = new HashSet<Review>();
             this.Trainings = new HashSet<Training>();
+            this.Contests = new HashSet<Contest>();
         }
 
         [Required]
@@ -52,6 +53,8 @@
         [Required]
         public decimal Fee { get; set; }
 
+        [Required]
+        [Url]
         public string ImageUrl { get; set; }
 
         [InverseProperty("EnrolledClub")]
@@ -63,5 +66,7 @@
         public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<Training> Trainings { get; set; }
+
+        public virtual ICollection<Contest> Contests { get; set; }
     }
 }

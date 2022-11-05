@@ -40,5 +40,16 @@
         {
             public const int ReviewTextMaxLength = 200;
         }
+
+        public static class Contest
+        {
+            public const int NameMaxLength = 100;
+            public const int AddressMaxLength = 200;
+        }
+
+        public static class Training
+        {
+            public const int TopicMaxLength = 100;
+        }
     }
 }

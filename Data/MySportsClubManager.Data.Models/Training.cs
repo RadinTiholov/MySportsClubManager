@@ -10,6 +10,8 @@
 
     using MySportsClubManager.Data.Common.Models;
 
+    using static MySportsClubManager.Data.Common.DataValidation.Training;
+
     public class Training : BaseDeletableModel<int>
     {
         public Training()
@@ -17,8 +19,10 @@
             this.EnrolledUsers = new HashSet<ApplicationUser>();
         }
 
+        [Required]
         public DateTime Date { get; set; }
 
+        [Required]
         public TimeSpan Duration { get; set; }
 
         [Required]
@@ -27,6 +31,8 @@
 
         public Club Club { get; set; }
 
+        [Required]
+        [MaxLength(TopicMaxLength)]
         public string Topic { get; set; }
 
         public virtual ICollection<ApplicationUser> EnrolledUsers { get; set; }

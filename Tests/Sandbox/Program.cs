@@ -16,7 +16,6 @@
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Data.Repositories;
     using MySportsClubManager.Data.Seeding;
-    using MySportsClubManager.Services.Data;
     using MySportsClubManager.Services.Messaging;
 
     public static class Program
@@ -50,9 +49,6 @@
         {
             var sw = Stopwatch.StartNew();
 
-            var settingsService = serviceProvider.GetService<ISettingsService>();
-            Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
-
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);
         }
@@ -79,7 +75,6 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
         }
     }
 }
