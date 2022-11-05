@@ -8,6 +8,11 @@
 
     public static class DataValidation
     {
+        public static class ApplicationUser
+        {
+            public const int FirstNameMaxLength = 50;
+            public const int LastNameMaxLength = 50;
+        }
         public static class Club
         {
             public const int NameMaxLength = 60;
@@ -30,6 +35,7 @@
         {
             public const int NameMaxLength = 50;
         }
+
         public static class Review
         {
             public const int ReviewTextMaxLength = 200;

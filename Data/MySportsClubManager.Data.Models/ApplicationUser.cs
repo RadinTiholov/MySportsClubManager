@@ -3,11 +3,14 @@ namespace MySportsClubManager.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Security.Cryptography;
 
     using Microsoft.AspNetCore.Identity;
     using MySportsClubManager.Data.Common.Models;
+
+    using static MySportsClubManager.Data.Common.DataValidation.ApplicationUser;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -30,6 +33,18 @@ namespace MySportsClubManager.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        [Required]
+        [MaxLength(FirstNameMaxLength)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(LastNameMaxLength)]
+        public string LastName { get; set; }
+
+        [Required]
+        [Url]
+        public string ImageUrl { get; set; }
 
         public Club OwnedClub { get; set; }
 
