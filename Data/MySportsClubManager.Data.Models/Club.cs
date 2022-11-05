@@ -19,6 +19,8 @@
         {
             this.Students = new HashSet<ApplicationUser>();
             this.Trainers = new HashSet<ApplicationUser>();
+            this.Reviews = new HashSet<Review>();
+            this.Trainings = new HashSet<Training>();
         }
 
         [Required]
@@ -38,7 +40,7 @@
 
         [Required]
         [ForeignKey(nameof(Owner))]
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
         [Required]
         public ApplicationUser Owner { get; set; }
@@ -56,6 +58,10 @@
         public ICollection<ApplicationUser> Students { get; set; }
 
         [InverseProperty("TrainedClub")]
-        public ICollection<ApplicationUser> Trainers { get; set; }
+        public virtual ICollection<ApplicationUser> Trainers { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
+
+        public virtual ICollection<Training> Trainings { get; set; }
     }
 }

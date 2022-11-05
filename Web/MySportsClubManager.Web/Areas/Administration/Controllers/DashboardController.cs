@@ -1,9 +1,8 @@
 ﻿namespace MySportsClubManager.Web.Areas.Administration.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Services.Data;
     using MySportsClubManager.Web.ViewModels.Administration.Dashboard;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class DashboardController : AdministrationController
     {

@@ -6,11 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using MySportsClubManager.Data.Common.Models;
-    using MySportsClubManager.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using MySportsClubManager.Data.Common.Models;
+    using MySportsClubManager.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +24,18 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Club> Clubs { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<Creator> Creators { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<Sport> Sports { get; set; }
+
+        public DbSet<Training> Trainings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
