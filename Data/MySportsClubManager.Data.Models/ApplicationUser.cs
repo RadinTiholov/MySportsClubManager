@@ -4,6 +4,8 @@ namespace MySportsClubManager.Data.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Security.Cryptography;
+
     using Microsoft.AspNetCore.Identity;
     using MySportsClubManager.Data.Common.Models;
 
@@ -15,6 +17,7 @@ namespace MySportsClubManager.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Reviews = new HashSet<Review>();
         }
 
         // Audit info
@@ -27,6 +30,19 @@ namespace MySportsClubManager.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        public Club OwnedClub { get; set; }
+
+        [ForeignKey(nameof(EnrolledClub))]
+        public int EnrolledClubId { get; set; }
+
+        public Club EnrolledClub { get; set; }
+
+        [ForeignKey(nameof(TrainedClub))]
+        public int TrainedClubId { get; set; }
+
+        public Club TrainedClub { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }

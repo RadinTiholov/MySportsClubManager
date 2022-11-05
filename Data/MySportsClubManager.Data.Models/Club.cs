@@ -52,8 +52,10 @@
 
         public string ImageUrl { get; set; }
 
+        [InverseProperty("EnrolledClub")]
         public ICollection<ApplicationUser> Students { get; set; }
 
+        [InverseProperty("TrainedClub")]
         public ICollection<ApplicationUser> Trainers { get; set; }
     }
 }

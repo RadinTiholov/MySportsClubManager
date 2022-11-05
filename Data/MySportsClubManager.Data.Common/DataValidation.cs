@@ -30,5 +30,9 @@
         {
             public const int NameMaxLength = 50;
         }
+        public static class Review
+        {
+            public const int ReviewTextMaxLength = 200;
+        }
     }
 }
