@@ -2,9 +2,8 @@
 {
     using System.Linq;
 
-    using MySportsClubManager.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+    using MySportsClubManager.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {
