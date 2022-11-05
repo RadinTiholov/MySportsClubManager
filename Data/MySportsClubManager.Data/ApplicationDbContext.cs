@@ -23,8 +23,6 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
-
         public DbSet<Club> Clubs { get; set; }
 
         public DbSet<Country> Countries { get; set; }
