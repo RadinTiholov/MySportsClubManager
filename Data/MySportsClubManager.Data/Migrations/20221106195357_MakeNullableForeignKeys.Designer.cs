@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MySportsClubManager.Data;
 
@@ -11,9 +12,10 @@ using MySportsClubManager.Data;
 namespace MySportsClubManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221106195357_MakeNullableForeignKeys")]
+    partial class MakeNullableForeignKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,9 +278,6 @@ namespace MySportsClubManager.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("OwnedClubId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -314,8 +313,6 @@ namespace MySportsClubManager.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("OwnedClubId");
 
                     b.HasIndex("TrainedClubId");
 
@@ -375,7 +372,8 @@ namespace MySportsClubManager.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("OwnerId")
+                        .IsUnique();
 
                     b.HasIndex("SportId");
 
@@ -744,17 +742,11 @@ namespace MySportsClubManager.Data.Migrations
                         .WithMany("Students")
                         .HasForeignKey("EnrolledClubId");
 
-                    b.HasOne("MySportsClubManager.Data.Models.Club", "OwnedClub")
-                        .WithMany()
-                        .HasForeignKey("OwnedClubId");
-
                     b.HasOne("MySportsClubManager.Data.Models.Club", "TrainedClub")
                         .WithMany("Trainers")
                         .HasForeignKey("TrainedClubId");
 
                     b.Navigation("EnrolledClub");
-
-                    b.Navigation("OwnedClub");
 
                     b.Navigation("TrainedClub");
                 });
@@ -762,8 +754,8 @@ namespace MySportsClubManager.Data.Migrations
             modelBuilder.Entity("MySportsClubManager.Data.Models.Club", b =>
                 {
                     b.HasOne("MySportsClubManager.Data.Models.ApplicationUser", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
+                        .WithOne("OwnedClub")
+                        .HasForeignKey("MySportsClubManager.Data.Models.Club", "OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -851,6 +843,8 @@ namespace MySportsClubManager.Data.Migrations
                     b.Navigation("Claims");
 
                     b.Navigation("Logins");
+
+                    b.Navigation("OwnedClub");
 
                     b.Navigation("Reviews");
 

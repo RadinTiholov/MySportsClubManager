@@ -29,6 +29,10 @@
         public string Email { get; set; } = null!;
 
         [Required]
+        [Url]
+        public string ImageUrl { get; set; }
+
+        [Required]
         [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;

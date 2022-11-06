@@ -48,15 +48,18 @@ namespace MySportsClubManager.Data.Models
         [Url]
         public string ImageUrl { get; set; }
 
+        [ForeignKey(nameof(OwnedClub))]
+        public int? OwnedClubId { get; set; }
+
         public Club OwnedClub { get; set; }
 
         [ForeignKey(nameof(EnrolledClub))]
-        public int EnrolledClubId { get; set; }
+        public int? EnrolledClubId { get; set; }
 
         public Club EnrolledClub { get; set; }
 
         [ForeignKey(nameof(TrainedClub))]
-        public int TrainedClubId { get; set; }
+        public int? TrainedClubId { get; set; }
 
         public Club TrainedClub { get; set; }
 
