@@ -55,6 +55,10 @@
 
             services.AddSingleton(configuration);
 
+            services.ConfigureApplicationCookie(options => {
+                options.LoginPath = "/ApplicationUser/Login";
+            });
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
