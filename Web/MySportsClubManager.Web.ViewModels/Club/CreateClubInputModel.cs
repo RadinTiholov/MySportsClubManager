@@ -18,8 +18,6 @@
         public string Description { get; set; }
 
         [Required]
-        public string Sport { get; set; }
-
         public int SportId { get; set; }
 
         public IEnumerable<SportListViewModel> Sports { get; set; } = new List<SportListViewModel>();

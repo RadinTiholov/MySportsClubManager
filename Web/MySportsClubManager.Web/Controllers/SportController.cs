@@ -1,11 +1,14 @@
 ﻿namespace MySportsClubManager.Web.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.Sport;
-    using System;
-    using System.Threading.Tasks;
+
+    using static MySportsClubManager.Common.GlobalConstants;
 
     public class SportController : BaseController
     {
@@ -42,7 +45,7 @@
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, "Something went wrong");
+                this.ModelState.AddModelError(string.Empty, CreationErrorMessage);
 
                 return this.View(model);
             }

@@ -1,5 +1,8 @@
 ﻿namespace MySportsClubManager.Web.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -7,13 +10,17 @@
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.Club;
 
+    using static MySportsClubManager.Common.GlobalConstants;
+
     public class ClubController : BaseController
     {
-        private readonly ISportService sportService;
+        private readonly IClubService clubService;
+        private readonly ISportService sportsService;
 
-        public ClubController(ISportService sportService)
+        public ClubController(IClubService clubService, ISportService sportsService)
         {
-            this.sportService = sportService;
+            this.clubService = clubService;
+            this.sportsService = sportsService;
         }
 
         [Authorize]
@@ -21,7 +28,7 @@
         public async Task<IActionResult> Create()
         {
             var model = new CreateClubInputModel();
-            var sports = await this.sportService.AllForInputAsync();
+            var sports = await this.sportsService.AllForInputAsync();
             model.Sports = sports;
 
             return this.View(model);
@@ -29,9 +36,26 @@
 
         [Authorize]
         [HttpPost]
-        public IActionResult Create(CreateClubInputModel model)
+        public async Task<IActionResult> Create(CreateClubInputModel model)
         {
-            return this.Ok();
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            try
+            {
+                var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                await this.clubService.Create(model, userId);
+
+                return this.RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, CreationErrorMessage);
+
+                return this.View(model);
+            }
         }
     }
 }

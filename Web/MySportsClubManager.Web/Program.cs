@@ -69,6 +69,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISportService, SportService>();
+            services.AddTransient<IClubService, ClubService>();
         }
 
         private static void Configure(WebApplication app)

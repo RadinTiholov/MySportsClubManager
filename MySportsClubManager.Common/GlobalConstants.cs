@@ -7,5 +7,7 @@
         public const string AdministratorRoleName = "Administrator";
 
         public const string LoginErrorMessage = "Invalid Login!";
+
+        public const string CreationErrorMessage = "Something went wrong! Please try again.";
     }
 }
