@@ -10,7 +10,7 @@
     public class CreateSportInputModel
     {
         [Required]
-        [StringLength(SportNameMaxLength, MinimumLength=SportDescriptionMinLength)]
+        [StringLength(SportNameMaxLength, MinimumLength=SportNameMinLength)]
         public string Name { get; set; }
 
         [Required]
@@ -29,8 +29,12 @@
         [StringLength(CountryNameMaxLength, MinimumLength=CountryNameMinLength)]
         public string Country { get; set; }
 
+        public int CountryId { get; set; }
+
         [Required]
         [StringLength(CreatorNameMaxLength, MinimumLength = CreatorNameMinLength)]
         public string Creator { get; set; }
+
+        public int CreatorId { get; set; }
     }
 }

@@ -8,5 +8,7 @@
     public interface ISportService
     {
         Task<List<SportListViewModel>> AllForInputAsync();
+
+        Task Create(CreateSportInputModel model);
     }
 }
