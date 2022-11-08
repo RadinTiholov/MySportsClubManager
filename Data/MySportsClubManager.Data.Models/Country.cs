@@ -14,7 +14,7 @@
     public class Country : BaseModel<int>
     {
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(CountryNameMaxLength)]
         public string Name { get; set; }
     }
 }

@@ -14,11 +14,11 @@
     public class Sport : BaseModel<int>
     {
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(SportNameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(DescriptionMaxLength)]
+        [MaxLength(SportDescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]

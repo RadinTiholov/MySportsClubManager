@@ -1,11 +1,5 @@
 ﻿namespace MySportsClubManager.Data.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     public static class DataValidation
     {
         public static class ApplicationUser
@@ -34,18 +28,22 @@
 
         public static class Sport
         {
-            public const int NameMaxLength = 60;
-            public const int DescriptionMaxLength = 2000;
+            public const int SportNameMaxLength = 60;
+            public const int SportNameMinLength = 2;
+            public const int SportDescriptionMaxLength = 2000;
+            public const int SportDescriptionMinLength = 50;
         }
 
         public static class Creator
         {
-            public const int NameMaxLength = 100;
+            public const int CreatorNameMaxLength = 100;
+            public const int CreatorNameMinLength = 3;
         }
 
         public static class Country
         {
-            public const int NameMaxLength = 50;
+            public const int CountryNameMaxLength = 50;
+            public const int CountryNameMinLength = 2;
         }
 
         public static class Review

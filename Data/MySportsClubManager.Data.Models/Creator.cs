@@ -14,7 +14,7 @@
     public class Creator : BaseModel<int>
     {
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(CreatorNameMaxLength)]
         public string Name { get; set; }
     }
 }
