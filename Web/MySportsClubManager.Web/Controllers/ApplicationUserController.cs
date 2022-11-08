@@ -11,7 +11,7 @@
     using static MySportsClubManager.Common.GlobalConstants;
 
     [Authorize]
-    public class ApplicationUserController : Controller
+    public class ApplicationUserController : BaseController
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;

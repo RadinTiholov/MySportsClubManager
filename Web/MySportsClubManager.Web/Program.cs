@@ -15,6 +15,8 @@
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Data.Repositories;
     using MySportsClubManager.Data.Seeding;
+    using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Services.Data;
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Services.Messaging;
     using MySportsClubManager.Web.ViewModels;
@@ -66,6 +68,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<ISportService, SportService>();
         }
 
         private static void Configure(WebApplication app)
