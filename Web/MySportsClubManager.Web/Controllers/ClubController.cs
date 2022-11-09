@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Club;
 
     using static MySportsClubManager.Common.GlobalConstants;
@@ -45,7 +46,7 @@
 
             try
             {
-                var userId = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                string userId = this.User.Id();
                 await this.clubService.Create(model, userId);
 
                 return this.RedirectToAction("Index", "Home");
