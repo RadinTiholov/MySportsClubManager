@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+    @*<header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary border-bottom mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
@@ -34,7 +34,37 @@
                 </div>
             </div>
         </nav>
-    </header>
+    </header>*@
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarColor01" style="">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-controller="Home" asp-action="Index">
+                            Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Club" asp-action="Create">Create Club</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Sport" asp-action="Create">Create Sport</a>
+                    </li>
+                    <form class="d-flex">
+                        <input class="form-control me-sm-2" type="text" placeholder="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </ul>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
     
     <div class="container">
         <partial name="_CookieConsentPartial" />
