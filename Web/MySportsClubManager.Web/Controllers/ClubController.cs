@@ -28,8 +28,7 @@
         public async Task<IActionResult> Create()
         {
             var model = new CreateClubInputModel();
-            var sports = await this.sportsService.AllForInputAsync();
-            model.Sports = sports;
+            model.Sports = await this.sportsService.AllForInputAsync();
 
             return this.View(model);
         }
@@ -40,6 +39,7 @@
         {
             if (!this.ModelState.IsValid)
             {
+                model.Sports = await this.sportsService.AllForInputAsync();
                 return this.View(model);
             }
 
@@ -54,6 +54,7 @@
             {
                 this.ModelState.AddModelError(string.Empty, CreationErrorMessage);
 
+                model.Sports = await this.sportsService.AllForInputAsync();
                 return this.View(model);
             }
         }
