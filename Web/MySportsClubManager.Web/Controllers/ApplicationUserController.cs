@@ -66,11 +66,14 @@
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
-            var model = new LoginViewModel();
+            var model = new LoginViewModel()
+            {
+                RreturnUrl = returnUrl,
+            };
 
-            return this.View();
+            return this.View(model);
         }
 
         [AllowAnonymous]
@@ -90,6 +93,11 @@
 
                 if (result.Succeeded)
                 {
+                    if (model.RreturnUrl != null)
+                    {
+                        return this.Redirect(model.RreturnUrl);
+                    }
+
                     return this.RedirectToAction("Index", "Home");
                 }
             }

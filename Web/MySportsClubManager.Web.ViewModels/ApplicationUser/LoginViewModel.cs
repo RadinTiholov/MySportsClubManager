@@ -15,5 +15,8 @@
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
+
+        [UIHint("hidden")]
+        public string RreturnUrl { get; set; }
     }
 }
