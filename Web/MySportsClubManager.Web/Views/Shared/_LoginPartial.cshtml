@@ -7,28 +7,23 @@
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
-        <li class="nav-item mt-1">
+        @*<li class="nav-item mt-1">
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
-        </li>
+        </li>*@
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
             <li class="nav-item mt-1">
                 <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
             </li>
         }
-        <li class="nav-item mt-1">
-            <form class="form-inline" asp-controller="ApplicationUser" asp-action="Logout">
-                <button type="submit" class="nav-link btn btn-link">Logout</button>
-            </form>
-        </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link" asp-controller="ApplicationUser" asp-action="Register">Register</a>
+            <a class="nav-link" asp-area="" asp-controller="ApplicationUser" asp-action="Register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-controller="ApplicationUser" asp-action="Login">Login</a>
+            <a class="nav-link" asp-area=""  asp-controller="ApplicationUser" asp-action="Login">Login</a>
         </li>
     }
 </ul>
