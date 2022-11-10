@@ -1,31 +1,80 @@
 ﻿@using MySportsClubManager.Web.ViewModels.ApplicationUser
 @model LoginViewModel
 @{
-    <p class="text-center h1 fw-bold m-3">Login</p>
-    <form method="post" asp-action="Login" class="mx-1 mx-md-4">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="@Model.RreturnUrl" />
-        <div class="d-flex flex-row align-items-center mb-4">
-            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-            <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.UserName">UserName</label>
-                <input type="text" id="form3Example1c" class="form-control" asp-for="@Model.UserName" />
-                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+    //<p class="text-center h1 fw-bold m-3">Login</p>
+    //<form method="post" asp-action="Login" class="mx-1 mx-md-4">
+    //    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    //    <input type="hidden" asp-for="@Model.RreturnUrl" />
+    //    <div class="d-flex flex-row align-items-center mb-4">
+    //        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+    //        <div class="form-outline flex-fill mb-0">
+    //            <label asp-for="@Model.UserName">UserName</label>
+    //            <input type="text" id="form3Example1c" class="form-control" asp-for="@Model.UserName" />
+    //            <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+    //        </div>
+    //    </div>
+
+    //    <div class="d-flex flex-row align-items-center mb-4">
+    //        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+    //        <div class="form-outline flex-fill mb-0">
+    //            <label asp-for="@Model.Password">Password</label>
+    //            <input type="password" id="form3Example4c" class="form-control" asp-for="@Model.Password" />
+    //            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+    //        </div>
+    //    </div>
+
+    //    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+    //        <button type="submit" class="btn btn-primary btn-lg">Log in</button>
+    //    </div>
+
+    //</form>
+    <div class="container h-100 my-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="card text-black" style="border-radius: 25px; border-width: medium">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-1">
+
+                                <img src="https://img.freepik.com/free-vector/computer-login-concept-illustration_114360-7962.jpg?w=2000"
+                                     class="img-fluid" alt="Sample image">
+                            </div>
+                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-2">
+
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
+
+                                <form method="post" asp-action="Login" class="mx-1 mx-md-4">
+
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="username">UserName</label>
+                                            <input type="text" id="username" class="form-control" asp-for="UserName" />
+                                            <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="password">Password</label>
+                                            <input type="password" id="password" class="form-control" asp-for="Password" />
+                                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                        <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="d-flex flex-row align-items-center mb-4">
-            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-            <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.Password">Password</label>
-                <input type="password" id="form3Example4c" class="form-control" asp-for="@Model.Password" />
-                <span asp-validation-for="@Model.Password" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-            <button type="submit" class="btn btn-primary btn-lg">Log in</button>
-        </div>
-
-    </form>
+    </div>
 }
