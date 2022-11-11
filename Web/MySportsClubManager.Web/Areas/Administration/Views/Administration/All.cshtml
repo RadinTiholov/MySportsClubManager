@@ -1,0 +1,25 @@
+﻿@using MySportsClubManager.Web.ViewModels.ApplicationUser
+@model List<ApplicationUserInformationViewModel>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">FirstName</th>
+                <th scope="col">LastName</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

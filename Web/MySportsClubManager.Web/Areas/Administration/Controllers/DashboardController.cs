@@ -1,14 +1,25 @@
 ﻿namespace MySportsClubManager.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
-    using MySportsClubManager.Web.ViewModels.Administration.Dashboard;
+    using MySportsClubManager.Services.Data.Contracts;
 
     public class DashboardController : AdministrationController
     {
+        private readonly IApplicationUserService applicationUserService;
 
-        public IActionResult Index()
+        public DashboardController(IApplicationUserService applicationUserService)
         {
-            return this.View();
+            this.applicationUserService = applicationUserService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AllUsers()
+        {
+            var users = await this.applicationUserService.AllAsync();
+
+            return this.View(users);
         }
     }
 }
