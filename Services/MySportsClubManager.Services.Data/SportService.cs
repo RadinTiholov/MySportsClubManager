@@ -26,7 +26,7 @@
             this.countryRepository = countryRepository;
         }
 
-        public async Task<List<SportViewModel>> AllAsync() 
+        public async Task<List<SportViewModel>> AllAsync()
         {
             return await this.sportsRepository
                 .All()

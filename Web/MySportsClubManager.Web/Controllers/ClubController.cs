@@ -24,6 +24,14 @@
             this.sportsService = sportsService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var club = await this.clubService.AllAsync();
+
+            return this.View(club);
+        }
+
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> Create()

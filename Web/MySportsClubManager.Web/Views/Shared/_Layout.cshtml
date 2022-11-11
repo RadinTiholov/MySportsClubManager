@@ -54,8 +54,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" asp-area="" asp-controller="Sport" asp-action="All">
+                        <a class="nav-link" asp-area="" asp-controller="Sport" asp-action="All">
                             Sports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Club" asp-action="All">
+                            Clubs
                         </a>
                     </li>
                     @if (User?.Identity?.IsAuthenticated ?? false) 
