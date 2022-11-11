@@ -9,6 +9,8 @@
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.ViewModels.Country;
+    using MySportsClubManager.Web.ViewModels.Creator;
     using MySportsClubManager.Web.ViewModels.Sport;
 
     public class SportService : ISportService
@@ -22,6 +24,23 @@
             this.sportsRepository = sportsRepository;
             this.creatorsRepository = creatorsRepository;
             this.countryRepository = countryRepository;
+        }
+
+        public async Task<List<SportViewModel>> AllAsync() 
+        {
+            return await this.sportsRepository
+                .All()
+                .Select(s => new SportViewModel
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Description = s.Description,
+                    CreationDate = s.CreationDate,
+                    ImageUrl = s.ImageUrl,
+                    Country = new CountryViewModel() { Id = s.CountryId, Name = s.Country.Name },
+                    Creator = new CreatorViewModel() { Id = s.CreatorId, Name = s.Creator.Name },
+                })
+                .ToListAsync();
         }
 
         public async Task<List<SportListViewModel>> AllForInputAsync()

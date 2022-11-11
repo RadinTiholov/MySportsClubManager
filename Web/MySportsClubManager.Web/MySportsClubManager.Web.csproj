@@ -9,6 +9,10 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Sport\All.cshtml" />
+  </ItemGroup>
 	<ItemGroup>
 		<AdditionalFiles Include="..\..\stylecop.json" />
 	</ItemGroup>
@@ -47,5 +51,17 @@
     <ProjectReference Include="..\..\Services\MySportsClubManager.Services\MySportsClubManager.Services.csproj" />
     <ProjectReference Include="..\MySportsClubManager.Web.Infrastructure\MySportsClubManager.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\MySportsClubManager.Web.ViewModels\MySportsClubManager.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Sport\All.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Sport\All.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Sport\All.cshtml" />
   </ItemGroup>
 </Project>

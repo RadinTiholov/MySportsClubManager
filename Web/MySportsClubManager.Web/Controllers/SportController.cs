@@ -41,7 +41,7 @@
             {
                 await this.sportService.Create(model);
 
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("All", "Sport");
             }
             catch (Exception)
             {
@@ -49,6 +49,14 @@
 
                 return this.View(model);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var sports = await this.sportService.AllAsync();
+
+            return this.View(sports);
         }
     }
 }

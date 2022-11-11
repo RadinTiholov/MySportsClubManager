@@ -10,5 +10,7 @@
         Task<List<SportListViewModel>> AllForInputAsync();
 
         Task Create(CreateSportInputModel model);
+
+        Task<List<SportViewModel>> AllAsync();
     }
 }
