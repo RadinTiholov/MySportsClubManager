@@ -63,15 +63,7 @@
                             Clubs
                         </a>
                     </li>
-                    @if (User?.Identity?.IsAuthenticated ?? false) 
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area=""  asp-controller="Club" asp-action="Create">Create Club</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Sport" asp-action="Create">Create Sport</a>
-                        </li>
-                    }
+                    <partial name="_AdminControlsPartial.cshtml"/>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item mt-1">
@@ -102,6 +94,7 @@
     
     <div>
         <partial name="_CookieConsentPartial" />
+        <partial name="_ErrorMessagesPartial" />
         <main role="main">
             @this.RenderBody()
         </main>

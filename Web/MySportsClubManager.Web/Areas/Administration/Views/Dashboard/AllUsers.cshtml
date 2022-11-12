@@ -1,13 +1,15 @@
 ﻿@using MySportsClubManager.Web.ViewModels.ApplicationUser
 @model List<ApplicationUserInformationViewModel>
 <div class="container">
-    <table class="table">
+    <table class="table table-hover  my-5">
         <thead>
-            <tr>
+            <tr class="table-primary">
                 <th scope="col">Username</th>
                 <th scope="col">FirstName</th>
                 <th scope="col">LastName</th>
                 <th scope="col">Email</th>
+                <th scope="col">Admin</th>
+                <th scope="col">Trainer</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +20,12 @@
                     <td>@user.FirstName</td>
                     <td>@user.LastName</td>
                     <td>@user.Email</td>
+                    <td>
+                        <a class="btn btn-primary" asp-area="Administration" asp-controller="Dashboard" asp-action="CreateAdmin" asp-route-id = "@user.Id">Make them Admin</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-area="Administration" asp-controller="Dashboard" asp-action="CreateTrainer" asp-route-id="@user.Id">Make them Trainer</a>
+                    </td>
                 </tr>
             }
         </tbody>

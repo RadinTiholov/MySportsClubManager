@@ -1,5 +1,7 @@
 ﻿namespace MySportsClubManager.Web.ViewModels.ApplicationUser
 {
+    using System.Collections.Generic;
+
     public class ApplicationUserInformationViewModel
     {
         public string Id { get; set; }

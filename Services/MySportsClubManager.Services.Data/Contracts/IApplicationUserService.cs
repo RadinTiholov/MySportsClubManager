@@ -8,5 +8,7 @@
     public interface IApplicationUserService
     {
         Task<List<ApplicationUserInformationViewModel>> AllAsync();
+
+        Task AssignUserToRole(string id, string roleName);
     }
 }

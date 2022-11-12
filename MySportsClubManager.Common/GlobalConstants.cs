@@ -8,6 +8,14 @@
 
         public const string LoginErrorMessage = "Invalid Login!";
 
+        public const string TrainerRoleName = "Trainer";
+
         public const string CreationErrorMessage = "Something went wrong! Please try again.";
+
+        public const string ErrorMessage = "ErrorMessage";
+
+        public const string WarningMessage = "WarningMessage";
+
+        public const string SuccessMessage = "SuccessMessage";
     }
 }
