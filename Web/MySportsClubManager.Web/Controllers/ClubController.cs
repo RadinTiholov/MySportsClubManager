@@ -7,6 +7,7 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Club;
@@ -24,6 +25,7 @@
             this.sportsService = sportsService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> All()
         {
@@ -32,7 +34,7 @@
             return this.View(club);
         }
 
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -42,7 +44,7 @@
             return this.View(model);
         }
 
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Create(CreateClubInputModel model)
         {
