@@ -70,6 +70,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISportService, SportService>();
             services.AddTransient<IClubService, ClubService>();
+            services.AddTransient<IApplicationUserService, ApplicationUserService>();
         }
 
         private static void Configure(WebApplication app)
@@ -106,7 +107,6 @@
 
             app.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
         }
     }
 }

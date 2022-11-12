@@ -64,4 +64,8 @@
   <ItemGroup>
     <None Include="Views\Sport\All.cshtml" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Views\Administration\" />
+  </ItemGroup>
 </Project>
