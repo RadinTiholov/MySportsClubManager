@@ -10,18 +10,21 @@
     using MySportsClubManager.Data;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
+    using MySportsClubManager.Data.Repositories;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.ApplicationUser;
 
     public class ApplicationUserService : IApplicationUserService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> applicationUserRepository;
+        private readonly IRepository<ApplicationRole> applicationRoleRepository;
         private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ApplicationUserService(IDeletableEntityRepository<ApplicationUser> applicationUserRepository, ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        public ApplicationUserService(IDeletableEntityRepository<ApplicationUser> applicationUserRepository, ApplicationDbContext db, UserManager<ApplicationUser> userManager, IRepository<ApplicationRole> applicationRoleRepository)
         {
             this.applicationUserRepository = applicationUserRepository;
+            this.applicationRoleRepository = applicationRoleRepository;
             this.db = db;
             this.userManager = userManager;
         }
@@ -58,10 +61,11 @@
                 throw new InvalidOperationException(ServiceErrorMessages.UserAlreadyInRoleMessage);
             }
 
+            var role = await this.applicationRoleRepository.All().Where(x => x.Name == roleName).FirstOrDefaultAsync();
             await this.db.UserRoles.AddAsync(new IdentityUserRole<string>()
             {
                 UserId = user.Id,
-                RoleId = "f5ccae1a-1755-4c72-be25-0c6cd475ea76",
+                RoleId = role.Id,
             });
 
             await this.db.SaveChangesAsync();

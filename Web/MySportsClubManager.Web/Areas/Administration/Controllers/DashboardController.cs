@@ -45,7 +45,17 @@
         [HttpGet]
         public async Task<IActionResult> CreateTrainer(string id)
         {
-            return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
+            try
+            {
+                await this.applicationUserService.AssignUserToRole(id, GlobalConstants.TrainerRoleName);
+                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessRoleMessage;
+                return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
+            }
+            catch (InvalidOperationException ioe)
+            {
+                this.TempData[GlobalConstants.ErrorMessage] = ioe.Message;
+                return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
+            }
         }
     }
 }
