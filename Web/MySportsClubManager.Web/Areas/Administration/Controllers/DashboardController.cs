@@ -32,6 +32,7 @@
             try
             {
                 await this.applicationUserService.AssignUserToRole(id, GlobalConstants.AdministratorRoleName);
+                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessRoleMessage;
                 return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
             }
             catch (InvalidOperationException ioe)

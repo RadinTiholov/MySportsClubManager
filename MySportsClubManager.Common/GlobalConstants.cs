@@ -6,11 +6,13 @@
 
         public const string AdministratorRoleName = "Administrator";
 
-        public const string LoginErrorMessage = "Invalid Login!";
-
         public const string TrainerRoleName = "Trainer";
 
+        public const string LoginErrorMessage = "Invalid Login!";
+
         public const string CreationErrorMessage = "Something went wrong! Please try again.";
+
+        public const string SuccessRoleMessage = "Successfully added to role!";
 
         public const string ErrorMessage = "ErrorMessage";
 
