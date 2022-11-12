@@ -70,7 +70,7 @@
         {
             var model = new LoginViewModel()
             {
-                RreturnUrl = returnUrl,
+                ReturnUrl = returnUrl,
             };
 
             return this.View(model);
@@ -93,9 +93,9 @@
 
                 if (result.Succeeded)
                 {
-                    if (model.RreturnUrl != null)
+                    if (model.ReturnUrl != null)
                     {
-                        return this.Redirect(model.RreturnUrl);
+                        return this.Redirect(model.ReturnUrl);
                     }
 
                     return this.RedirectToAction("Index", "Home");

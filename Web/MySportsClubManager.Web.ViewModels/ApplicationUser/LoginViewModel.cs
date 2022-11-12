@@ -17,6 +17,6 @@
         public string Password { get; set; } = null!;
 
         [UIHint("hidden")]
-        public string RreturnUrl { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }

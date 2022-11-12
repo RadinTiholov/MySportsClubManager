@@ -20,6 +20,7 @@
             this.sportService = sportService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> All()
         {
