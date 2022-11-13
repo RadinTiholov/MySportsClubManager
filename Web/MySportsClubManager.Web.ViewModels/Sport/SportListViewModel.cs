@@ -2,14 +2,25 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class SportListViewModel
     {
-        public int Id { get; set; }
+        public IEnumerable<SportInListViewModel> Sports { get; set; }
 
-        public string Name { get; set; }
+        public int PageNumber { get; set; }
+
+        public int SportsCount { get; set; }
+
+        public int ItemsPerPage { get; set; }
+
+        public int PreviousPageNumber => this.PageNumber - 1;
+
+        public int NextPageNumber => this.PageNumber + 1;
+
+        public bool HasPreviousPage => this.PageNumber > 1;
+
+        public bool HasNextPage => this.PageNumber < this.PagesCount;
+
+        public int PagesCount => (int)Math.Ceiling((double)this.SportsCount / this.ItemsPerPage);
     }
 }

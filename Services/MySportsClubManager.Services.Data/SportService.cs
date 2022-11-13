@@ -9,6 +9,7 @@
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Country;
     using MySportsClubManager.Web.ViewModels.Creator;
     using MySportsClubManager.Web.ViewModels.Sport;
@@ -26,28 +27,22 @@
             this.countryRepository = countryRepository;
         }
 
-        public async Task<List<SportViewModel>> AllAsync()
+        public async Task<List<T>> AllAsync<T>(int page, int itemsPerPage = 8)
         {
             return await this.sportsRepository
-                .All()
-                .Select(s => new SportViewModel
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Description = s.Description,
-                    CreationDate = s.CreationDate,
-                    ImageUrl = s.ImageUrl,
-                    Country = new CountryViewModel() { Id = s.CountryId, Name = s.Country.Name },
-                    Creator = new CreatorViewModel() { Id = s.CreatorId, Name = s.Creator.Name },
-                })
+                .AllAsNoTracking()
+                .OrderByDescending(x => x.CreatedOn)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
                 .ToListAsync();
         }
 
-        public async Task<List<SportListViewModel>> AllForInputAsync()
+        public async Task<List<SportInDropdownViewModel>> AllForInputAsync()
         {
             return await this.sportsRepository
                 .All()
-                .Select(x => new SportListViewModel
+                .Select(x => new SportInDropdownViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -91,6 +86,11 @@
 
             await this.sportsRepository.AddAsync(sport);
             await this.sportsRepository.SaveChangesAsync();
+        }
+
+        public int GetCount()
+        {
+            return this.sportsRepository.All().Count();
         }
     }
 }

@@ -5,6 +5,7 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore.Diagnostics;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.Sport;
@@ -22,11 +23,23 @@
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int id = 1)
         {
-            var sports = await this.sportService.AllAsync();
+            if (id < 1)
+            {
+                id = 1;
+            }
 
-            return this.View(sports);
+            const int ItemsPerPage = 8;
+            var model = new SportListViewModel()
+            {
+                ItemsPerPage = ItemsPerPage,
+                Sports = await this.sportService.AllAsync<SportInListViewModel>(id, ItemsPerPage),
+                PageNumber = id,
+                SportsCount = this.sportService.GetCount(),
+            };
+
+            return this.View(model);
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]

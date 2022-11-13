@@ -20,7 +20,7 @@
         [Required]
         public int SportId { get; set; }
 
-        public IEnumerable<SportListViewModel> Sports { get; set; } = new List<SportListViewModel>();
+        public IEnumerable<SportInDropdownViewModel> Sports { get; set; } = new List<SportInDropdownViewModel>();
 
         [Required]
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]

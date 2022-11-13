@@ -1,44 +1,48 @@
 ﻿@using MySportsClubManager.Web.ViewModels.Sport
-@model List<SportViewModel>
 @{
-    <h1 class="text-center">All Sports</h1>
+    this.ViewData["Title"] = $"All Sports, Page {Model.PageNumber}";
+}
+@model SportListViewModel
+@{
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
     <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-            @foreach (var item in Model)
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                @foreach (var item in Model.Sports)
         {
-                    <div class="col">
-                        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-                            <div class="card-header">Sport</div>
-                            <img src="@item.ImageUrl" class="card-img-top" alt="sport img" style="height: 20rem;">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <h4 class="card-title">@item.Name</h4>
+                        <div class="col">
+                            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                                <div class="card-header">Sport</div>
+                                <img src="@item.ImageUrl" class="card-img-top" alt="sport img" style="height: 20rem;">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h4 class="card-title">@item.Name</h4>
+                                        </div>
+                                        <div class="col mb-2">
+                                            <a asp-controller="Sport" asp-action="Details" asp-route-sportId = "@item.Id" type="button" class="btn btn-warning">Details</a>
+                                        </div>
                                     </div>
-                                    <div class="col mb-2">
-                                        <a asp-controller="Sport" asp-action="Details" asp-route-sportId = "@item.Id" type="button" class="btn btn-warning">Details</a>
-                                    </div>
-                                </div>
-                                <div class="accordion" id="accordion@{@item.Id}">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="heading@{@item.Id}">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@item.Id}" aria-expanded="false" aria-controls="collapse@{@item.Id}">
-                                                Description
-                                        </button>
-                                        </h2>
-                                        <div id="collapse@{@item.Id}" class="accordion-collapse collapse" aria-labelledby="heading@{@item.Id}" data-bs-parent="#accordion@{@item.Id}" style="">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    @item.Description
-                                                </p>
+                                    <div class="accordion" id="accordion@{@item.Id}">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading@{@item.Id}">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@item.Id}" aria-expanded="false" aria-controls="collapse@{@item.Id}">
+                                                    Description
+                                            </button>
+                                            </h2>
+                                            <div id="collapse@{@item.Id}" class="accordion-collapse collapse" aria-labelledby="heading@{@item.Id}" data-bs-parent="#accordion@{@item.Id}" style="">
+                                                <div class="accordion-body">
+                                                    <p>
+                                                        @item.Description
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
         }
-            </div>
+                </div>
     </div>
+    <partial name="_PaginationPartial"/>
 }

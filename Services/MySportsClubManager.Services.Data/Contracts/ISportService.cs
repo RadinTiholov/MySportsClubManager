@@ -7,10 +7,12 @@
 
     public interface ISportService
     {
-        Task<List<SportListViewModel>> AllForInputAsync();
+        Task<List<SportInDropdownViewModel>> AllForInputAsync();
 
         Task Create(CreateSportInputModel model);
 
-        Task<List<SportViewModel>> AllAsync();
+        Task<List<T>> AllAsync<T>(int page, int itemsPerPage = 8);
+
+        int GetCount();
     }
 }
