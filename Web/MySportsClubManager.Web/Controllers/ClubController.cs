@@ -71,7 +71,7 @@
                 string userId = this.User.Id();
                 await this.clubService.Create(model, userId);
 
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("All", "Club");
             }
             catch (Exception)
             {
