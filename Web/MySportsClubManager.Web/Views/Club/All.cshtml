@@ -1,10 +1,13 @@
 ﻿@using MySportsClubManager.Web.ViewModels.Club
-@model List<ClubViewModel>
 @{
-    <h1 class="text-center">All Clubs</h1>
+    this.ViewData["Title"] = $"All Sports, Page {Model.PageNumber}";
+}
+@model ClubListViewModel
+@{
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
     <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Clubs)
         {
                     <div class="col">
                         <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
@@ -41,5 +44,6 @@
         }
             </div>
     </div>
+    <partial name="_PaginationPartial"/>
 }
 

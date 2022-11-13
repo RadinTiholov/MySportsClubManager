@@ -27,11 +27,23 @@
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int id = 1)
         {
-            var club = await this.clubService.AllAsync();
+            if (id < 1)
+            {
+                id = 1;
+            }
 
-            return this.View(club);
+            const int ItemsPerPage = 8;
+            var model = new ClubListViewModel()
+            {
+                ItemsPerPage = ItemsPerPage,
+                Clubs = await this.clubService.AllAsync<ClubInListViewModel>(id, ItemsPerPage),
+                PageNumber = id,
+                SportsCount = this.clubService.GetCount(),
+            };
+
+            return this.View(model);
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]

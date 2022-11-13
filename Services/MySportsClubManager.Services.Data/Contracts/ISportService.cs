@@ -3,16 +3,13 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using MySportsClubManager.Services.Data.Contracts.Base;
     using MySportsClubManager.Web.ViewModels.Sport;
 
-    public interface ISportService
+    public interface ISportService: IPaginationBase
     {
         Task<List<SportInDropdownViewModel>> AllForInputAsync();
 
         Task Create(CreateSportInputModel model);
-
-        Task<List<T>> AllAsync<T>(int page, int itemsPerPage = 8);
-
-        int GetCount();
     }
 }

@@ -7,6 +7,7 @@
     using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Club;
 
     using Club = MySportsClubManager.Data.Models.Club;
@@ -20,20 +21,14 @@
             this.clubsRepository = clubsRepository;
         }
 
-        public async Task<List<ClubViewModel>> AllAsync()
+        public async Task<List<T>> AllAsync<T>(int page, int itemsPerPage = 8)
         {
             return await this.clubsRepository
-                .All()
-                .Select(c => new ClubViewModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    Description = c.Description,
-                    Sport = c.Sport.Name,
-                    Address = c.Address,
-                    Fee = c.Fee,
-                    ImageUrl = c.ImageUrl,
-                })
+                .AllAsNoTracking()
+                .OrderByDescending(x => x.CreatedOn)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
                 .ToListAsync();
         }
 
@@ -52,6 +47,11 @@
 
             await this.clubsRepository.AddAsync(club);
             await this.clubsRepository.SaveChangesAsync();
+        }
+
+        public int GetCount()
+        {
+            return this.clubsRepository.All().Count();
         }
     }
 }
