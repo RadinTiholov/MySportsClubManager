@@ -1,7 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using MySportsClubManager.Common
 @using MySportsClubManager.Data.Models
+@using MySportsClubManager.Services.Data
+@using MySportsClubManager.Services.Data.Contracts
 @inject UserManager<ApplicationUser> UserManager
+@inject IApplicationUserService applicationUserService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,11 +56,8 @@
                     @if (User?.Identity?.IsAuthenticated ?? false) 
                     {
                         <li class="nav-item dropdown">
-                            @*<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="@UserManager.GetUserAsync(User).Result.Image.URL" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
-                            </a>*@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                @UserManager.GetUserAsync(User).Result.FirstName
+                                <img src="@await applicationUserService.GetCurrentUserProfilePic(UserManager.GetUserAsync(User).Result?.Id)" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Account Manager</a>

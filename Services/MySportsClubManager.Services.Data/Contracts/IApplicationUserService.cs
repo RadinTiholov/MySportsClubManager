@@ -10,5 +10,7 @@
         Task<List<ApplicationUserInformationViewModel>> AllAsync();
 
         Task AssignUserToRole(string id, string roleName);
+
+        Task<string> GetCurrentUserProfilePic(string id);
     }
 }

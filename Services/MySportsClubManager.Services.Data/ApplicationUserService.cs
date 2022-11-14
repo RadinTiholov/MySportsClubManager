@@ -63,5 +63,16 @@
 
             await this.db.SaveChangesAsync();
         }
+
+        public async Task<string> GetCurrentUserProfilePic(string id)
+        {
+            string imageUrl = await this.applicationUserRepository.All()
+                .Where(u => u.Id == id)
+                .Include(u => u.Image)
+                .Select(u => u.Image.URL)
+                .FirstOrDefaultAsync();
+
+            return imageUrl;
+        }
     }
 }
