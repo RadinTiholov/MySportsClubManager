@@ -4,6 +4,7 @@
     <table class="table table-hover  my-5">
         <thead>
             <tr class="table-primary">
+                <th scope="col">Picture</th>
                 <th scope="col">Username</th>
                 <th scope="col">FirstName</th>
                 <th scope="col">LastName</th>
@@ -16,6 +17,9 @@
             @foreach (var user in Model)
             {
                 <tr>
+                    <td>
+                        <img src="@user.Image.URL" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
+                    </td>
                     <td>@user.UserName</td>
                     <td>@user.FirstName</td>
                     <td>@user.LastName</td>
