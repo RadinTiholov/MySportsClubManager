@@ -27,7 +27,7 @@
                 UserName = "admin",
                 NormalizedUserName = "ADMIN",
                 PhoneNumber = "+111111111111",
-                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfTAFxRa7QIR39ejo9tL0zH0-EadbkcrziSSrdA5IrHEGIDfAFZybEvaukbxyHCy4lXJI&usqp=CAU",
+                Image = new Image() { URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfTAFxRa7QIR39ejo9tL0zH0-EadbkcrziSSrdA5IrHEGIDfAFZybEvaukbxyHCy4lXJI&usqp=CAU" },
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D"),

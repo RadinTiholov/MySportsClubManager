@@ -5,10 +5,11 @@
     using AutoMapper;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Web.ViewModels.Base;
     using MySportsClubManager.Web.ViewModels.Country;
     using MySportsClubManager.Web.ViewModels.Creator;
 
-    public class SportInListViewModel : IMapFrom<Sport>/*, IHaveCustomMappings*/
+    public class SportInListViewModel : IMapFrom<Sport>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -16,7 +17,7 @@
 
         public string Description { get; set; }
 
-        public string ImageUrl { get; set; }
+        public ImageViewModel Image { get; set; }
 
         //public CountryViewModel Country { get; set; }
 
@@ -30,5 +31,12 @@
         //        .ForMember(x => x.Creator, opt =>
         //        opt.MapFrom(s => new CreatorViewModel() { Id = s.CountryId, Name = s.Country.Name }));
         //}
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Sport, SportInListViewModel>()
+                .ForMember(x => x.Image, opt =>
+                opt.MapFrom(i => new ImageViewModel() { URL = i.Image.URL }));
+        }
     }
 }

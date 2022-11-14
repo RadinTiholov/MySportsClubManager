@@ -1,14 +1,11 @@
 ﻿namespace MySportsClubManager.Data.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     using MySportsClubManager.Data.Common.Models;
+
     using static MySportsClubManager.Data.Common.DataValidation.Sport;
 
     public class Sport : BaseModel<int>
@@ -25,7 +22,10 @@
         public DateTime CreationDate { get; set; }
 
         [Required]
-        public string ImageUrl { get; set; }
+        [ForeignKey(nameof(Image))]
+        public int ImageId { get; set; }
+
+        public Image Image { get; set; }
 
         [Required]
         [ForeignKey(nameof(Country))]

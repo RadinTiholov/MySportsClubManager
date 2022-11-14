@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Data.Models;
+    using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.ApplicationUser;
 
     using static MySportsClubManager.Common.GlobalConstants;
@@ -15,11 +16,13 @@
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IImageService imageService;
 
-        public ApplicationUserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public ApplicationUserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IImageService imageService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.imageService = imageService;
         }
 
         [AllowAnonymous]
@@ -40,13 +43,14 @@
                 return this.View(model);
             }
 
+            var image = await this.imageService.Add(model.ImageUrl);
             var user = new ApplicationUser()
             {
                 UserName = model.UserName,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
-                ImageUrl = model.ImageUrl,
+                Image = image,
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);

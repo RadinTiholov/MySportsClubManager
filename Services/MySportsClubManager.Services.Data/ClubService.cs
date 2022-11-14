@@ -1,11 +1,13 @@
 ﻿namespace MySportsClubManager.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data.Common.Repositories;
+    using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Club;
@@ -15,10 +17,12 @@
     public class ClubService : IClubService
     {
         private readonly IDeletableEntityRepository<Club> clubsRepository;
+        private readonly IImageService imageService;
 
-        public ClubService(IDeletableEntityRepository<Club> clubsRepository)
+        public ClubService(IDeletableEntityRepository<Club> clubsRepository, IImageService imageService)
         {
             this.clubsRepository = clubsRepository;
+            this.imageService = imageService;
         }
 
         public async Task<List<T>> AllAsync<T>(int page, int itemsPerPage = 8)
@@ -34,6 +38,8 @@
 
         public async Task Create(CreateClubInputModel model, string ownerId)
         {
+            var image = await this.imageService.Add(model.ImageUrl);
+
             var club = new Club()
             {
                 Name = model.Name,
@@ -42,7 +48,7 @@
                 OwnerId = ownerId,
                 Address = model.Address,
                 Fee = model.Fee,
-                ImageUrl = model.ImageUrl,
+                Images = new Image[] { image },
             };
 
             await this.clubsRepository.AddAsync(club);

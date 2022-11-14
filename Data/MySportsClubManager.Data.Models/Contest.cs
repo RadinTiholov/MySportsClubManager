@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using System.ComponentModel.DataAnnotations.Schema;
     using MySportsClubManager.Data.Common.Models;
 
     using static MySportsClubManager.Data.Common.DataValidation.Contest;
@@ -29,8 +29,10 @@
         public DateTime Date { get; set; }
 
         [Required]
-        [Url]
-        public string ImageUrl { get; set; }
+        [ForeignKey(nameof(Image))]
+        public int ImageId { get; set; }
+
+        public Image Image { get; set; }
 
         public virtual ICollection<Club> Clubs { get; set; }
 

@@ -19,12 +19,14 @@
         private readonly IRepository<Sport> sportsRepository;
         private readonly IRepository<Creator> creatorsRepository;
         private readonly IRepository<Country> countryRepository;
+        private readonly IImageService imageService;
 
-        public SportService(IRepository<Sport> sportsRepository, IRepository<Creator> creatorsRepository, IRepository<Country> countryRepository)
+        public SportService(IRepository<Sport> sportsRepository, IRepository<Creator> creatorsRepository, IRepository<Country> countryRepository, IImageService imageService)
         {
             this.sportsRepository = sportsRepository;
             this.creatorsRepository = creatorsRepository;
             this.countryRepository = countryRepository;
+            this.imageService = imageService;
         }
 
         public async Task<List<T>> AllAsync<T>(int page, int itemsPerPage = 8)
@@ -71,8 +73,9 @@
                 };
                 await this.countryRepository.AddAsync(country);
                 await this.countryRepository.SaveChangesAsync();
-
             }
+
+            var image = await this.imageService.Add(model.ImageUrl);
 
             var sport = new Sport()
             {
@@ -81,7 +84,7 @@
                 CreationDate = model.CreationDate,
                 Creator = creator,
                 Country = country,
-                ImageUrl = model.ImageUrl,
+                Image = image,
             };
 
             await this.sportsRepository.AddAsync(sport);

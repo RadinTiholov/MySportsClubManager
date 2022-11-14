@@ -53,8 +53,11 @@
                     @if (User?.Identity?.IsAuthenticated ?? false) 
                     {
                         <li class="nav-item dropdown">
+                            @*<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="@UserManager.GetUserAsync(User).Result.Image.URL" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
+                            </a>*@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="@UserManager.GetUserAsync(User).Result.ImageUrl" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
+                                @UserManager.GetUserAsync(User).Result.FirstName
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Account Manager</a>

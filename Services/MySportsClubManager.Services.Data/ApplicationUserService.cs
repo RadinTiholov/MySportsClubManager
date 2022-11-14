@@ -12,6 +12,7 @@
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Data.Repositories;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.ApplicationUser;
 
     public class ApplicationUserService : IApplicationUserService
@@ -33,15 +34,7 @@
         {
             return await this.applicationUserRepository.All()
                 .Include(x => x.Roles)
-                .Select(u => new ApplicationUserInformationViewModel()
-                {
-                    Id = u.Id.ToString(),
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    Email = u.Email,
-                    UserName = u.UserName,
-                    ImageUrl = u.ImageUrl,
-                })
+                .To<ApplicationUserInformationViewModel>()
                 .ToListAsync();
         }
 

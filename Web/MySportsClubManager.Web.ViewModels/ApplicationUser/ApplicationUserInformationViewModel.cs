@@ -1,8 +1,12 @@
 ﻿namespace MySportsClubManager.Web.ViewModels.ApplicationUser
 {
-    using System.Collections.Generic;
+    using AutoMapper;
+    using MySportsClubManager.Data.Models;
+    using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Web.ViewModels.Base;
+    using MySportsClubManager.Web.ViewModels.Sport;
 
-    public class ApplicationUserInformationViewModel
+    public class ApplicationUserInformationViewModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -14,6 +18,13 @@
 
         public string Email { get; set; }
 
-        public string ImageUrl { get; set; }
+        public ImageViewModel Image { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<ApplicationUser, ApplicationUserInformationViewModel>()
+                .ForMember(x => x.Image, opt =>
+                opt.MapFrom(i => new ImageViewModel() { URL = i.Image.URL }));
+        }
     }
 }

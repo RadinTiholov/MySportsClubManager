@@ -45,8 +45,10 @@ namespace MySportsClubManager.Data.Models
         public string LastName { get; set; }
 
         [Required]
-        [Url]
-        public string ImageUrl { get; set; }
+        [ForeignKey(nameof(Image))]
+        public int ImageId { get; set; }
+
+        public Image Image { get; set; }
 
         [ForeignKey(nameof(OwnedClub))]
         public int? OwnedClubId { get; set; }

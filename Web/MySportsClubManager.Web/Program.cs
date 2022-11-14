@@ -71,6 +71,7 @@
             services.AddTransient<ISportService, SportService>();
             services.AddTransient<IClubService, ClubService>();
             services.AddTransient<IApplicationUserService, ApplicationUserService>();
+            services.AddTransient<IImageService, ImageService>();
         }
 
         private static void Configure(WebApplication app)
