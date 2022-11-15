@@ -13,7 +13,7 @@
         public Contest()
         {
             this.Clubs = new HashSet<Club>();
-            this.Participants = new HashSet<ApplicationUser>();
+            this.Participants = new HashSet<Athlete>();
             this.Wins = new HashSet<Win>();
         }
 
@@ -36,7 +36,7 @@
 
         public virtual ICollection<Club> Clubs { get; set; }
 
-        public virtual ICollection<ApplicationUser> Participants { get; set; }
+        public virtual ICollection<Athlete> Participants { get; set; }
 
         public virtual ICollection<Win> Wins { get; set; }
     }

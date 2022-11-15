@@ -12,11 +12,11 @@
 
     public class Win : BaseModel<int>
     {
-        [ForeignKey(nameof(User))]
+        [ForeignKey(nameof(Athlete))]
         [Required]
-        public string UserId { get; set; }
+        public int AthleteId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public Athlete Athlete { get; set; }
 
         [ForeignKey(nameof(Contest))]
         [Required]

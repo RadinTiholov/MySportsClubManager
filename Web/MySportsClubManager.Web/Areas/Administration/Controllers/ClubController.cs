@@ -41,8 +41,9 @@
 
             try
             {
-                string userId = this.User.Id();
-                await this.clubService.Create(model, userId);
+                //string userId = this.User.Id();
+                //ToDo get triner Id from user
+                await this.clubService.Create(model, 0);
 
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
             }

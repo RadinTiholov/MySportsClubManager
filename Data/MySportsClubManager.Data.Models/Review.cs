@@ -1,12 +1,7 @@
 ﻿namespace MySportsClubManager.Data.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     using MySportsClubManager.Data.Common.Models;
 
@@ -16,9 +11,9 @@
     {
         [Required]
         [ForeignKey(nameof(Owner))]
-        public string OwnerId { get; set; }
+        public int OwnerId { get; set; }
 
-        public ApplicationUser Owner { get; set; }
+        public Athlete Owner { get; set; }
 
         [Required]
         [ForeignKey(nameof(Club))]

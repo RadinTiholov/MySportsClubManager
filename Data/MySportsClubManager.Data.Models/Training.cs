@@ -16,7 +16,7 @@
     {
         public Training()
         {
-            this.EnrolledUsers = new HashSet<ApplicationUser>();
+            this.EnrolledAthletes = new HashSet<Athlete>();
         }
 
         [Required]
@@ -35,6 +35,6 @@
         [MaxLength(TopicMaxLength)]
         public string Topic { get; set; }
 
-        public virtual ICollection<ApplicationUser> EnrolledUsers { get; set; }
+        public virtual ICollection<Athlete> EnrolledAthletes { get; set; }
     }
 }

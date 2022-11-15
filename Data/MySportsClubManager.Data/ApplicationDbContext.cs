@@ -41,6 +41,10 @@
 
         public DbSet<Image> Images { get; set; }
 
+        public DbSet<Trainer> Trainers { get; set; }
+
+        public DbSet<Athlete> Athletes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

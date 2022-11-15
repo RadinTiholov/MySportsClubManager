@@ -20,10 +20,6 @@ namespace MySportsClubManager.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-            this.Reviews = new HashSet<Review>();
-            this.Trainings = new HashSet<Training>();
-            this.Contests = new HashSet<Contest>();
-            this.Wins = new HashSet<Win>();
         }
 
         // Audit info
@@ -50,28 +46,15 @@ namespace MySportsClubManager.Data.Models
 
         public Image Image { get; set; }
 
-        [ForeignKey(nameof(OwnedClub))]
-        public int? OwnedClubId { get; set; }
+        [ForeignKey(nameof(Trainer))]
+        public int? TrainerId { get; set; }
 
-        public Club OwnedClub { get; set; }
+        public Trainer Trainer { get; set; }
 
-        [ForeignKey(nameof(EnrolledClub))]
-        public int? EnrolledClubId { get; set; }
+        [ForeignKey(nameof(Athlete))]
+        public int? AthleteId { get; set; }
 
-        public Club EnrolledClub { get; set; }
-
-        [ForeignKey(nameof(TrainedClub))]
-        public int? TrainedClubId { get; set; }
-
-        public Club TrainedClub { get; set; }
-
-        public virtual ICollection<Review> Reviews { get; set; }
-
-        public virtual ICollection<Training> Trainings { get; set; }
-
-        public virtual ICollection<Contest> Contests { get; set; }
-
-        public virtual ICollection<Win> Wins { get; set; }
+        public Athlete Athlete { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

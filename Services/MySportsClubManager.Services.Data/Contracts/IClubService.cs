@@ -8,6 +8,6 @@
 
     public interface IClubService : IPaginationBase
     {
-        Task Create(CreateClubInputModel model, string ownerId);
+        Task Create(CreateClubInputModel model, int trainerId);
     }
 }

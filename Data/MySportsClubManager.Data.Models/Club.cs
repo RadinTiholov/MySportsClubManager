@@ -17,8 +17,7 @@
     {
         public Club()
         {
-            this.Students = new HashSet<ApplicationUser>();
-            this.Trainers = new HashSet<ApplicationUser>();
+            this.Athletes = new HashSet<Athlete>();
             this.Reviews = new HashSet<Review>();
             this.Trainings = new HashSet<Training>();
             this.Contests = new HashSet<Contest>();
@@ -41,11 +40,11 @@
         public Sport Sport { get; set; }
 
         [Required]
-        [ForeignKey(nameof(Owner))]
-        public string OwnerId { get; set; }
+        [ForeignKey(nameof(Trainer))]
+        public int TrainerId { get; set; }
 
         [Required]
-        public ApplicationUser Owner { get; set; }
+        public Trainer Trainer { get; set; }
 
         [Required]
         [MaxLength(AddressMaxLength)]
@@ -57,11 +56,7 @@
         [Required]
         public virtual ICollection<Image> Images { get; set; }
 
-        [InverseProperty("EnrolledClub")]
-        public ICollection<ApplicationUser> Students { get; set; }
-
-        [InverseProperty("TrainedClub")]
-        public virtual ICollection<ApplicationUser> Trainers { get; set; }
+        public ICollection<Athlete> Athletes { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
 

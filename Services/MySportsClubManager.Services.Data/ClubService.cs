@@ -36,7 +36,7 @@
                 .ToListAsync();
         }
 
-        public async Task Create(CreateClubInputModel model, string ownerId)
+        public async Task Create(CreateClubInputModel model, int trainerId)
         {
             var image = await this.imageService.Add(model.ImageUrl);
 
@@ -45,7 +45,7 @@
                 Name = model.Name,
                 Description = model.Description,
                 SportId = model.SportId,
-                OwnerId = ownerId,
+                TrainerId = trainerId,
                 Address = model.Address,
                 Fee = model.Fee,
                 Images = new Image[] { image },
