@@ -39,13 +39,29 @@
 
             var userStore = new UserStore<ApplicationUser>(dbContext);
             var result = await userStore.CreateAsync(user);
-
-            await this.AsignToRole(dbContext);
+            var createdUser = await dbContext.Users.Where(x => x.UserName == "admin").FirstOrDefaultAsync();
+            await this.AssignToRole(dbContext, createdUser);
+            await this.AssignAthleteAndTrainer(dbContext, createdUser);
         }
 
-        private async Task AsignToRole(ApplicationDbContext dbContext)
+        private async Task AssignAthleteAndTrainer(ApplicationDbContext dbContext, ApplicationUser createdUser)
         {
-            var createdUser = await dbContext.Users.Where(x => x.UserName == "admin").FirstOrDefaultAsync();
+            var athlete = new Athlete()
+            {
+                ApplicationUserId = createdUser.Id,
+            };
+
+            var trainer = new Trainer()
+            {
+                ApplicationUserId = createdUser.Id,
+            };
+
+            await dbContext.Athletes.AddAsync(athlete);
+            await dbContext.Trainers.AddAsync(trainer);
+        }
+
+        private async Task AssignToRole(ApplicationDbContext dbContext, ApplicationUser createdUser)
+        {
             await dbContext.UserRoles.AddAsync(new IdentityUserRole<string>()
             {
                 UserId = createdUser.Id,
