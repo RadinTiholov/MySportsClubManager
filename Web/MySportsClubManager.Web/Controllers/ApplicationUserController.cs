@@ -18,13 +18,15 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IImageService imageService;
         private readonly IApplicationUserService applicationUserService;
+        private readonly IAthleteService athleteService;
 
-        public ApplicationUserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IImageService imageService, IApplicationUserService applicationUserService)
+        public ApplicationUserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IImageService imageService, IApplicationUserService applicationUserService, IAthleteService athleteService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.imageService = imageService;
             this.applicationUserService = applicationUserService;
+            this.athleteService = athleteService;
         }
 
         [AllowAnonymous]
@@ -59,6 +61,7 @@
 
             if (result.Succeeded)
             {
+                await this.athleteService.Create(user.Id);
                 return this.Redirect(nameof(this.Login));
             }
 
