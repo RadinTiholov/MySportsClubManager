@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.IdentityModel.Tokens;
     using MySportsClubManager.Common;
     using MySportsClubManager.Data;
     using MySportsClubManager.Data.Common.Repositories;
@@ -18,15 +19,11 @@
     public class ApplicationUserService : IApplicationUserService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> applicationUserRepository;
-        private readonly IRepository<ApplicationRole> applicationRoleRepository;
-        private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ApplicationUserService(IDeletableEntityRepository<ApplicationUser> applicationUserRepository, ApplicationDbContext db, UserManager<ApplicationUser> userManager, IRepository<ApplicationRole> applicationRoleRepository)
+        public ApplicationUserService(IDeletableEntityRepository<ApplicationUser> applicationUserRepository, UserManager<ApplicationUser> userManager)
         {
             this.applicationUserRepository = applicationUserRepository;
-            this.applicationRoleRepository = applicationRoleRepository;
-            this.db = db;
             this.userManager = userManager;
         }
 
@@ -54,14 +51,7 @@
                 throw new InvalidOperationException(ServiceErrorMessages.UserAlreadyInRoleMessage);
             }
 
-            var role = await this.applicationRoleRepository.All().Where(x => x.Name == roleName).FirstOrDefaultAsync();
-            await this.db.UserRoles.AddAsync(new IdentityUserRole<string>()
-            {
-                UserId = user.Id,
-                RoleId = role.Id,
-            });
-
-            await this.db.SaveChangesAsync();
+            var result = await this.userManager.AddToRoleAsync(user, roleName);
         }
 
         public async Task<string> GetCurrentUserProfilePic(string id)
