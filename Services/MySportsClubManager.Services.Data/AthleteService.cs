@@ -1,6 +1,7 @@
 ﻿namespace MySportsClubManager.Services.Data
 {
     using System.Threading.Tasks;
+
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
@@ -22,6 +23,7 @@
             };
 
             await this.athleteRepository.AddAsync(athlete);
+            await this.athleteRepository.SaveChangesAsync();
         }
     }
 }

@@ -12,10 +12,14 @@
     public class DashboardController : AdministrationController
     {
         private readonly IApplicationUserService applicationUserService;
+        private readonly IAthleteService athleteService;
+        private readonly ITrainerService trainerService;
 
-        public DashboardController(IApplicationUserService applicationUserService)
+        public DashboardController(IApplicationUserService applicationUserService, IAthleteService athleteService, ITrainerService trainerService)
         {
             this.applicationUserService = applicationUserService;
+            this.athleteService = athleteService;
+            this.trainerService = trainerService;
         }
 
         [HttpGet]
@@ -32,6 +36,7 @@
             try
             {
                 await this.applicationUserService.AssignUserToRole(id, GlobalConstants.AdministratorRoleName);
+                await this.trainerService.Create(id);
                 this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessRoleMessage;
                 return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
             }
@@ -48,6 +53,7 @@
             try
             {
                 await this.applicationUserService.AssignUserToRole(id, GlobalConstants.TrainerRoleName);
+                await this.trainerService.Create(id);
                 this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessRoleMessage;
                 return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
             }
