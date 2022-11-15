@@ -46,16 +46,6 @@ namespace MySportsClubManager.Data.Models
 
         public Image Image { get; set; }
 
-        [ForeignKey(nameof(Trainer))]
-        public int? TrainerId { get; set; }
-
-        public Trainer Trainer { get; set; }
-
-        [ForeignKey(nameof(Athlete))]
-        public int? AthleteId { get; set; }
-
-        public Athlete Athlete { get; set; }
-
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
