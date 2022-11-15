@@ -57,8 +57,11 @@
 
             services.AddSingleton(configuration);
 
-            services.ConfigureApplicationCookie(options => {
+            services.ConfigureApplicationCookie(options =>
+            {
                 options.LoginPath = "/ApplicationUser/Login";
+                options.LogoutPath = "/ApplicationUser/Logout";
+                options.AccessDeniedPath = "/ApplicationUser/AccessDenied";
             });
 
             // Data repositories
