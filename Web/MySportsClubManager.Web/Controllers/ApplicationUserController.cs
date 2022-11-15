@@ -17,12 +17,14 @@
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IImageService imageService;
+        private readonly IApplicationUserService applicationUserService;
 
-        public ApplicationUserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IImageService imageService)
+        public ApplicationUserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IImageService imageService, IApplicationUserService applicationUserService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.imageService = imageService;
+            this.applicationUserService = applicationUserService;
         }
 
         [AllowAnonymous]
@@ -97,6 +99,7 @@
 
                 if (result.Succeeded)
                 {
+                    this.TempData["ProfilePicture"] = await this.applicationUserService.GetCurrentUserProfilePic(user.Id);
                     if (model.ReturnUrl != null)
                     {
                         return this.Redirect(model.ReturnUrl);

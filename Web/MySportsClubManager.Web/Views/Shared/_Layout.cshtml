@@ -57,7 +57,7 @@
                     {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="@await applicationUserService.GetCurrentUserProfilePic(UserManager.GetUserAsync(User).Result?.Id)" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
+                                <img src="@this.TempData.Peek("ProfilePicture")" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Account Manager</a>
