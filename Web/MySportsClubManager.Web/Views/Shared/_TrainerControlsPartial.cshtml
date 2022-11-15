@@ -1,0 +1,9 @@
+﻿@using MySportsClubManager.Common
+@{
+    @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Administration" asp-controller="Club" asp-action="Create">Create Club</a>
+        </li>
+    }
+}
