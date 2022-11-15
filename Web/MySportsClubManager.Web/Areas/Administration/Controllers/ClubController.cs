@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Extensions;
@@ -14,11 +14,13 @@
     {
         private readonly IClubService clubService;
         private readonly ISportService sportsService;
+        private readonly ITrainerService trainerService;
 
-        public ClubController(IClubService clubService, ISportService sportsService)
+        public ClubController(IClubService clubService, ISportService sportsService, ITrainerService trainerService)
         {
             this.clubService = clubService;
             this.sportsService = sportsService;
+            this.trainerService = trainerService;
         }
 
         [HttpGet]
@@ -41,9 +43,8 @@
 
             try
             {
-                //string userId = this.User.Id();
-                //ToDo get triner Id from user
-                await this.clubService.Create(model, 0);
+                int trainerId = await this.trainerService.GetTrainerId(this.User.Id());
+                await this.clubService.Create(model, trainerId);
 
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
             }

@@ -5,7 +5,7 @@
     using MySportsClubManager.Common;
     using MySportsClubManager.Web.Controllers;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    [Authorize(Roles = $"{GlobalConstants.TrainerRoleName}, {GlobalConstants.AdministratorRoleName}")]
     [Area("Administration")]
     public class AdministrationController : BaseController
     {

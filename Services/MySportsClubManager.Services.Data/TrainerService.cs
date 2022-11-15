@@ -1,7 +1,9 @@
 ﻿namespace MySportsClubManager.Services.Data
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
@@ -24,6 +26,16 @@
 
             await this.trainerRepository.AddAsync(trainer);
             await this.trainerRepository.SaveChangesAsync();
+        }
+
+        public async Task<int> GetTrainerId(string userId)
+        {
+            var trainerId = await this.trainerRepository.All()
+                .Where(x => x.ApplicationUserId == userId)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
+
+            return trainerId;
         }
     }
 }

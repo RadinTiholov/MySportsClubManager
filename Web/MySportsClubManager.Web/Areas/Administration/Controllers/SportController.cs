@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.Sport;
@@ -19,6 +20,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult Create()
         {
             var model = new CreateSportInputModel();
@@ -27,6 +29,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Create(CreateSportInputModel model)
         {
             if (!this.ModelState.IsValid)

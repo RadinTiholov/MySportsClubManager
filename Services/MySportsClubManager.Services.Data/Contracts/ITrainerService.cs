@@ -5,5 +5,7 @@
     public interface ITrainerService
     {
         Task Create(string userId);
+
+        Task<int> GetTrainerId(string userId);
     }
 }

@@ -2,12 +2,13 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization.Infrastructure;
-    using Microsoft.AspNetCore.Identity;
+
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
+
+    using static MySportsClubManager.Common.GlobalConstants;
 
     public class DashboardController : AdministrationController
     {
@@ -23,6 +24,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> AllUsers()
         {
             var users = await this.applicationUserService.AllAsync();
@@ -31,6 +33,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> CreateAdmin(string id)
         {
             try
@@ -48,6 +51,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> CreateTrainer(string id)
         {
             try
