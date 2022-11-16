@@ -50,5 +50,12 @@
                 return this.View(model);
             }
         }
+
+        [Authorize(Roles = AdministratorRoleName)]
+        public async Task<IActionResult> Delete(int sportId)
+        {
+            await this.sportService.Delete(sportId);
+            return this.RedirectToAction("All", "Sport", new { area = string.Empty });
+        }
     }
 }

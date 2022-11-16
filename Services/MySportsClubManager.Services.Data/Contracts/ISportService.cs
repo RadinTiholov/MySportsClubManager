@@ -11,5 +11,7 @@
         Task<List<SportInDropdownViewModel>> AllForInputAsync();
 
         Task Create(CreateSportInputModel model);
+
+        Task Delete(int sportId);
     }
 }

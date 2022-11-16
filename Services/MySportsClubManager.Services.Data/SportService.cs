@@ -5,23 +5,20 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.VisualBasic;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
-    using MySportsClubManager.Web.ViewModels.Country;
-    using MySportsClubManager.Web.ViewModels.Creator;
     using MySportsClubManager.Web.ViewModels.Sport;
 
     public class SportService : ISportService
     {
-        private readonly IRepository<Sport> sportsRepository;
+        private readonly IDeletableEntityRepository<Sport> sportsRepository;
         private readonly IRepository<Creator> creatorsRepository;
         private readonly IRepository<Country> countryRepository;
         private readonly IImageService imageService;
 
-        public SportService(IRepository<Sport> sportsRepository, IRepository<Creator> creatorsRepository, IRepository<Country> countryRepository, IImageService imageService)
+        public SportService(IDeletableEntityRepository<Sport> sportsRepository, IRepository<Creator> creatorsRepository, IRepository<Country> countryRepository, IImageService imageService)
         {
             this.sportsRepository = sportsRepository;
             this.creatorsRepository = creatorsRepository;
@@ -89,6 +86,18 @@
 
             await this.sportsRepository.AddAsync(sport);
             await this.sportsRepository.SaveChangesAsync();
+        }
+
+        public async Task Delete(int sportId)
+        {
+            var sport = await this.sportsRepository.AllAsNoTracking()
+                .Where(s => s.Id == sportId)
+                .FirstOrDefaultAsync();
+            if (sport != null)
+            {
+                this.sportsRepository.Delete(sport);
+                await this.sportsRepository.SaveChangesAsync();
+            }
         }
 
         public int GetCount()

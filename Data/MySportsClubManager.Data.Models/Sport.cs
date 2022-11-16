@@ -8,7 +8,7 @@
 
     using static MySportsClubManager.Data.Common.DataValidation.Sport;
 
-    public class Sport : BaseModel<int>
+    public class Sport : BaseDeletableModel<int>
     {
         [Required]
         [MaxLength(SportNameMaxLength)]
