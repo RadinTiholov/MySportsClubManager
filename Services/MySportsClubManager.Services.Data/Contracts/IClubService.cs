@@ -9,5 +9,7 @@
     public interface IClubService : IPaginationBase
     {
         Task Create(CreateClubInputModel model, int trainerId);
+
+        Task Delete(int clubId);
     }
 }

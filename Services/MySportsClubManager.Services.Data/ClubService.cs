@@ -11,7 +11,6 @@
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Club;
-
     using Club = MySportsClubManager.Data.Models.Club;
 
     public class ClubService : IClubService
@@ -53,6 +52,18 @@
 
             await this.clubsRepository.AddAsync(club);
             await this.clubsRepository.SaveChangesAsync();
+        }
+
+        public async Task Delete(int clubId)
+        {
+            var club = await this.clubsRepository.AllAsNoTracking()
+            .Where(c => c.Id == clubId)
+                .FirstOrDefaultAsync();
+            if (club != null)
+            {
+                this.clubsRepository.Delete(club);
+                await this.clubsRepository.SaveChangesAsync();
+            }
         }
 
         public int GetCount()
