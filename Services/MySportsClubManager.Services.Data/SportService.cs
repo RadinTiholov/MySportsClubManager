@@ -73,7 +73,7 @@
                 await this.countryRepository.SaveChangesAsync();
             }
 
-            var image = await this.imageService.Add(model.ImageFile, model.Name);
+            var image = await this.imageService.Add(model.ImageFile, model.ImageFile.FileName);
 
             var sport = new Sport()
             {

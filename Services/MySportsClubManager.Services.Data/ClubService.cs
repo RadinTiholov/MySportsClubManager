@@ -40,7 +40,7 @@
             var images = new List<Image>();
             foreach (var image in model.ImageFiles)
             {
-                var imageUrl = await this.imageService.Add(image, model.Name);
+                var imageUrl = await this.imageService.Add(image, image.FileName);
                 images.Add(imageUrl);
             }
 
