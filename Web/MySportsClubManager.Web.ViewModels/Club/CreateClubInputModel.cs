@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
     using MySportsClubManager.Web.ViewModels.Sport;
 
     using static MySportsClubManager.Data.Common.DataValidation.Club;
@@ -27,11 +28,11 @@
         public string Address { get; set; }
 
         [Required]
-        [Range(typeof(decimal), "0.0", "9999", ConvertValueInInvariantCulture = true)]
+        [Range(typeof(decimal), MinFee, MaxFee, ConvertValueInInvariantCulture = true)]
         public decimal Fee { get; set; }
 
         [Required]
-        [Url]
-        public string ImageUrl { get; set; }
+        [DataType(DataType.Upload)]
+        public IList<IFormFile> ImageFiles { get; set; }
     }
 }

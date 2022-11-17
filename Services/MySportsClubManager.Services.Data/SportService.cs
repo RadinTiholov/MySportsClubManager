@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -72,7 +73,7 @@
                 await this.countryRepository.SaveChangesAsync();
             }
 
-            var image = await this.imageService.Add(model.ImageUrl);
+            var image = await this.imageService.Add(model.ImageFile, model.Name);
 
             var sport = new Sport()
             {

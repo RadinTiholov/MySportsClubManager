@@ -24,6 +24,8 @@
             public const int DescriptionMinLength = 50;
             public const int AddressMaxLength = 500;
             public const int AddressMinLength = 10;
+            public const string MaxFee = "9999";
+            public const string MinFee = "0.0";
         }
 
         public static class Sport

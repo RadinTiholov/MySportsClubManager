@@ -2,10 +2,11 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
     using MySportsClubManager.Data.Models;
 
     public interface IImageService
     {
-        Task<Image> Add(string imageUrl);
+        Task<Image> Add(IFormFile imageFile, string name);
     }
 }

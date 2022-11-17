@@ -37,7 +37,12 @@
 
         public async Task Create(CreateClubInputModel model, int trainerId)
         {
-            var image = await this.imageService.Add(model.ImageUrl);
+            var images = new List<Image>();
+            foreach (var image in model.ImageFiles)
+            {
+                var imageUrl = await this.imageService.Add(image, model.Name);
+                images.Add(imageUrl);
+            }
 
             var club = new Club()
             {
@@ -47,7 +52,7 @@
                 TrainerId = trainerId,
                 Address = model.Address,
                 Fee = model.Fee,
-                Images = new Image[] { image },
+                Images = images.ToArray(),
             };
 
             await this.clubsRepository.AddAsync(club);

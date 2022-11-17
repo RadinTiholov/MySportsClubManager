@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
@@ -11,14 +11,21 @@
     public class ImageService : IImageService
     {
         private readonly IRepository<Image> imagesRepository;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public ImageService(IRepository<Image> imagesRepository)
+        public ImageService(IRepository<Image> imagesRepository, ICloudinaryService cloudinaryService)
         {
             this.imagesRepository = imagesRepository;
+            this.cloudinaryService = cloudinaryService;
         }
 
-        public async Task<Image> Add(string imageUrl)
+        public async Task<Image> Add(IFormFile imageFile, string name)
         {
+            // Save image to Cloudinary
+            var imageUrl = await this.cloudinaryService
+                .UploadAsync(imageFile, name);
+
+            // Save image to database
             var existingImage = await this.imagesRepository.All().Where(i => i.URL == imageUrl).FirstOrDefaultAsync();
             if (existingImage != null)
             {

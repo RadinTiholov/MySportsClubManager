@@ -1,5 +1,6 @@
 ﻿namespace MySportsClubManager.Web.ViewModels.ApplicationUser
 {
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -29,8 +30,8 @@
         public string Email { get; set; } = null!;
 
         [Required]
-        [Url]
-        public string ImageUrl { get; set; }
+        [DataType(DataType.Upload)]
+        public IFormFile ImageFile { get; set; }
 
         [Required]
         [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength)]

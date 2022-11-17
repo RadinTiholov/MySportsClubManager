@@ -1,5 +1,6 @@
 ﻿namespace MySportsClubManager.Web.ViewModels.Sport
 {
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.ComponentModel.DataAnnotations;
 
@@ -10,11 +11,11 @@
     public class CreateSportInputModel
     {
         [Required]
-        [StringLength(SportNameMaxLength, MinimumLength=SportNameMinLength)]
+        [StringLength(SportNameMaxLength, MinimumLength = SportNameMinLength)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(SportDescriptionMaxLength, MinimumLength=SportDescriptionMinLength)]
+        [StringLength(SportDescriptionMaxLength, MinimumLength = SportDescriptionMinLength)]
         public string Description { get; set; }
 
         [Required]
@@ -22,11 +23,11 @@
         public DateTime CreationDate { get; set; }
 
         [Required]
-        [Url]
-        public string ImageUrl { get; set; }
+        [DataType(DataType.Upload)]
+        public IFormFile ImageFile { get; set; }
 
         [Required]
-        [StringLength(CountryNameMaxLength, MinimumLength=CountryNameMinLength)]
+        [StringLength(CountryNameMaxLength, MinimumLength = CountryNameMinLength)]
         public string Country { get; set; }
 
         public int CountryId { get; set; }

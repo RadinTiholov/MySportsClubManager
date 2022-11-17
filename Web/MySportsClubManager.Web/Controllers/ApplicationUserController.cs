@@ -47,7 +47,7 @@
                 return this.View(model);
             }
 
-            var image = await this.imageService.Add(model.ImageUrl);
+            var image = await this.imageService.Add(model.ImageFile, model.UserName);
             var user = new ApplicationUser()
             {
                 UserName = model.UserName,

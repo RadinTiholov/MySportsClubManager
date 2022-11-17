@@ -2,7 +2,7 @@
 @model CreateSportInputModel
 @{
     <p class="text-center h1 fw-bold m-3">Create Sport</p>
-    <form method="post" asp-action="Create" class="mx-1 mx-md-4">
+    <form method="post" asp-action="Create" class="mx-1 mx-md-4" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="d-flex flex-row align-items-center mb-4">
@@ -53,9 +53,9 @@
         <div class="d-flex flex-row align-items-center mb-4">
             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
             <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.ImageUrl">ImageUrl</label>
-                <input type="text" class="form-control" asp-for="@Model.ImageUrl" />
-                <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
+                <label asp-for="@Model.ImageFile">Image</label>
+                <input type="file" class="form-control" asp-for="@Model.ImageFile" />
+                <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
             </div>
         </div>
 
