@@ -2,6 +2,7 @@
 {
     using System.Reflection;
 
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -15,14 +16,21 @@
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Data.Repositories;
     using MySportsClubManager.Data.Seeding;
-    using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Data;
+    using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Services.Messaging;
     using MySportsClubManager.Web.ViewModels;
 
     public class Program
     {
+        private readonly IConfiguration configuration;
+
+        public Program(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -77,6 +85,17 @@
             services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IAthleteService, AthleteService>();
             services.AddTransient<ITrainerService, TrainerService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+
+            // Cloudinary service
+            Account account = new Account(
+                            configuration["Cloudinary:AppName"],
+                            configuration["Cloudinary:AppKey"],
+                            configuration["Cloudinary:AppSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
         }
 
         private static void Configure(WebApplication app)
