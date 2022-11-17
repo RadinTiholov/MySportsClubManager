@@ -1,6 +1,7 @@
 ﻿namespace MySportsClubManager.Web.ViewModels.ApplicationUser
 {
     using Microsoft.AspNetCore.Http;
+    using MySportsClubManager.Web.Infrastructure.Attributes;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -30,6 +31,7 @@
         public string Email { get; set; } = null!;
 
         [Required]
+        [AllowedFileExtensions]
         [DataType(DataType.Upload)]
         public IFormFile ImageFile { get; set; }
 

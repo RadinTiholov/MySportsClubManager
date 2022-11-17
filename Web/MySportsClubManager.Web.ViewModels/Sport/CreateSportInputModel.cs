@@ -1,6 +1,7 @@
 ﻿namespace MySportsClubManager.Web.ViewModels.Sport
 {
     using Microsoft.AspNetCore.Http;
+    using MySportsClubManager.Web.Infrastructure.Attributes;
     using System;
     using System.ComponentModel.DataAnnotations;
 
@@ -23,6 +24,7 @@
         public DateTime CreationDate { get; set; }
 
         [Required]
+        [AllowedFileExtensions]
         [DataType(DataType.Upload)]
         public IFormFile ImageFile { get; set; }
 

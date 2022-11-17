@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\MySportsClubManager.Data.Models\MySportsClubManager.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\MySportsClubManager.Services.Mapping\MySportsClubManager.Services.Mapping.csproj" />
+    <ProjectReference Include="..\MySportsClubManager.Web.Infrastructure\MySportsClubManager.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
