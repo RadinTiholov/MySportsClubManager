@@ -2,10 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using MySportsClubManager.Common;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
@@ -40,6 +43,14 @@
             var images = new List<Image>();
             foreach (var image in model.ImageFiles)
             {
+                var extension = Path.GetExtension(image.FileName);
+                var extensions = GlobalConstants.AllowedImageExtensions;
+
+                if (!extensions.Contains(extension.ToLower()))
+                {
+                    throw new InvalidOperationException(GlobalConstants.AllowedExtensionsErrorMessage);
+                }
+
                 var imageUrl = await this.imageService.Add(image, image.FileName);
                 images.Add(imageUrl);
             }
