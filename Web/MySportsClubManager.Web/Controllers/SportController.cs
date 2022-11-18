@@ -36,5 +36,11 @@
 
             return this.View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details()
+        {
+            return this.View();
+        }
     }
 }
