@@ -1,11 +1,13 @@
-﻿@{
+﻿@using MySportsClubManager.Web.ViewModels.Sport
+@model SportDetailsViewModel
+@{
     <div class="container my-5">
         <div class="row gy-3">
             <div class="col-lg-9">
                 <div class="card text-white bg-primary">
                     <div class="card-body">
-                        <h1 class="card-title">Title here</h1>
-                        <img class="img-fluid" src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/400/1.5x/cbbc/SPT_Weird-Sports_Quidditch.jpg" alt="sport's image" style="width: 100%"/>
+                        <h1 class="card-title">@Model.Name</h1>
+                        <img class="img-fluid rounded" src="@Model.ImageUrl" alt="sport's image" style="width: 100%" />
                     </div>
                 </div>
                 <div class="card text-light bg-primary mt-3">
@@ -43,16 +45,16 @@
                     <div class="card-body">
                         <h3>Details</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis molestie iaculis. Vestibulum eu aliquet lacus, tempor fermentum mauris. Morbi dignissim congue lorem et sollicitudin. Mauris et pharetra sapien, id scelerisque ipsum. Curabitur at sapien dui. Nunc vitae mauris lobortis lectus bibendum mollis. Etiam hendrerit sagittis ultricies. Donec sem turpis, interdum eget malesuada a, pretium ut ante. Phasellus eu augue sit amet diam semper aliquet quis at orci. Etiam nibh turpis, porta id nunc luctus, maximus faucibus justo. Vestibulum id ligula sollicitudin, faucibus leo quis, ultrices odio. Vivamus ipsum nisi, bibendum et pretium non, pulvinar sed ipsum. Curabitur tempus tincidunt nunc eu commodoPhasellus nulla nulla, eleifend ac massa in, maximu
+                            @Model.Description
                         </p>
                     </div>
                 </div>
                 <div class="card text-white bg-primary mt-3">
                     <div class="card-body">
                         <h3>More details</h3>
-                        <h5>Date of creation: <strong>12.02.2003</strong></h5>
-                        <h5>Country:    <strong>Bulgaria</strong></h5>
-                        <h5>Creator: <strong>John Titor</strong></h5>
+                        <h5>Date of creation: <strong>@Model.CreationDate</strong></h5>
+                        <h5>Country:    <strong>@Model.Country.Name</strong></h5>
+                        <h5>Creator: <strong>@Model.Creator.Name</strong></h5>
                     </div>
                 </div>
             </div>

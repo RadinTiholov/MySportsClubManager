@@ -22,6 +22,8 @@
 
         public const string AllowedExtensionsErrorMessage = "This file extension is not allowed.";
 
+        public const string DateFormat = "MM/dd/yyyy";
+
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png" };
     }
 }

@@ -1,12 +1,9 @@
 ﻿namespace MySportsClubManager.Web.ViewModels.Sport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using MySportsClubManager.Data.Models;
+    using MySportsClubManager.Services.Mapping;
 
-    public class SportInDropdownViewModel
+    public class SportInDropdownViewModel : IMapFrom<Sport>
     {
         public int Id { get; set; }
 

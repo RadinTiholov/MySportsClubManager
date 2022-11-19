@@ -1,8 +1,8 @@
 ﻿namespace MySportsClubManager.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.InteropServices;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -42,11 +42,8 @@
         {
             return await this.sportsRepository
                 .All()
-                .Select(x => new SportInDropdownViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                }).ToListAsync();
+                .To<SportInDropdownViewModel>()
+                .ToListAsync();
         }
 
         public async Task Create(CreateSportInputModel model)
@@ -104,6 +101,21 @@
         public int GetCount()
         {
             return this.sportsRepository.All().Count();
+        }
+
+        public async Task<SportDetailsViewModel> GetOne(int id)
+        {
+            var sport = await this.sportsRepository.All()
+                .To<SportDetailsViewModel>()
+                .Where(s => s.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (sport == null)
+            {
+                throw new ArgumentException();
+            }
+
+            return sport;
         }
     }
 }

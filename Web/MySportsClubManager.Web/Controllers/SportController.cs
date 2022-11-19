@@ -1,5 +1,6 @@
 ﻿namespace MySportsClubManager.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -38,9 +39,18 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(int id)
         {
-            return this.View();
+            try
+            {
+                var model = await this.sportService.GetOne(id);
+                return this.View(model);
+            }
+            catch (ArgumentException)
+            {
+                //ToDo 404 page redirection
+                throw;
+            }
         }
     }
 }

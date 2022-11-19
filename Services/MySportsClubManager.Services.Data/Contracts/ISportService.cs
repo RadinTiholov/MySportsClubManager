@@ -13,5 +13,7 @@
         Task Create(CreateSportInputModel model);
 
         Task Delete(int sportId);
+
+        Task<SportDetailsViewModel> GetOne(int id);
     }
 }
