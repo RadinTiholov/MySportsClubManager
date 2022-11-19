@@ -11,5 +11,7 @@
         Task Create(CreateClubInputModel model, int trainerId);
 
         Task Delete(int clubId);
+
+        Task<ClubDetailsViewModel> GetOne(int id);
     }
 }

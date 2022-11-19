@@ -14,6 +14,7 @@
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Club;
+
     using Club = MySportsClubManager.Data.Models.Club;
 
     public class ClubService : IClubService
@@ -85,6 +86,21 @@
         public int GetCount()
         {
             return this.clubsRepository.All().Count();
+        }
+
+        public async Task<ClubDetailsViewModel> GetOne(int id)
+        {
+            var club = await this.clubsRepository.All()
+                .To<ClubDetailsViewModel>()
+                .Where(s => s.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (club == null)
+            {
+                throw new ArgumentException();
+            }
+
+            return club;
         }
     }
 }
