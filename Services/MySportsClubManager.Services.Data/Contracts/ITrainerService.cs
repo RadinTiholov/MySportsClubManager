@@ -7,5 +7,7 @@
         Task Create(string userId);
 
         Task<int> GetTrainerId(string userId);
+
+        Task<bool> OwnsClub(string userId, int clubId);
     }
 }

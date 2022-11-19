@@ -48,8 +48,7 @@
             }
             catch (ArgumentException)
             {
-                //ToDo 404 page redirection
-                throw;
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
             }
         }
     }

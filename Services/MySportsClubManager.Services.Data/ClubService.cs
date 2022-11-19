@@ -73,7 +73,7 @@
 
         public async Task Delete(int clubId)
         {
-            var club = await this.clubsRepository.AllAsNoTracking()
+            var club = await this.clubsRepository.All()
             .Where(c => c.Id == clubId)
                 .FirstOrDefaultAsync();
             if (club != null)

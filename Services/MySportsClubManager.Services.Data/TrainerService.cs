@@ -11,10 +11,12 @@
     public class TrainerService : ITrainerService
     {
         private readonly IDeletableEntityRepository<Trainer> trainerRepository;
+        private readonly IRepository<Club> clubRepository;
 
-        public TrainerService(IDeletableEntityRepository<Trainer> trainerRepository)
+        public TrainerService(IDeletableEntityRepository<Trainer> trainerRepository, IRepository<Club> clubRepository)
         {
             this.trainerRepository = trainerRepository;
+            this.clubRepository = clubRepository;
         }
 
         public async Task Create(string userId)
@@ -36,6 +38,15 @@
                 .FirstOrDefaultAsync();
 
             return trainerId;
+        }
+
+        public async Task<bool> OwnsClub(string userId, int clubId)
+        {
+            var club = await this.clubRepository.All()
+                .Where(x => x.Id == clubId)
+                .FirstOrDefaultAsync();
+
+            return club.TrainerId == await this.GetTrainerId(userId);
         }
     }
 }

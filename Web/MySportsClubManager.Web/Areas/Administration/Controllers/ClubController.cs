@@ -58,11 +58,15 @@
             }
         }
 
-        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Delete(int clubId)
         {
-            await this.clubService.Delete(clubId);
-            return this.RedirectToAction("All", "Club", new { area = string.Empty });
+            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), clubId))
+            {
+                await this.clubService.Delete(clubId);
+                return this.RedirectToAction("All", "Club", new { area = string.Empty });
+            }
+
+            return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });
         }
     }
 }
