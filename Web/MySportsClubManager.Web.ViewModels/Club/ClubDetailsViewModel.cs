@@ -43,6 +43,7 @@
                     LastName = c.Trainer.ApplicationUser.LastName,
                     Email = c.Trainer.ApplicationUser.Email,
                     ProfilePic = c.Trainer.ApplicationUser.Image.URL,
+                    Id = c.Trainer.ApplicationUser.Id,
                 }))
                 .ForMember(x => x.ImageUrls, opt =>
                 opt.MapFrom(c => c.Images.Select(i => i.URL).ToArray()));

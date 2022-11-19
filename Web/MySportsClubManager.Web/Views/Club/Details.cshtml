@@ -1,4 +1,6 @@
-﻿@using MySportsClubManager.Web.ViewModels.Club
+﻿@using MySportsClubManager.Common
+@using MySportsClubManager.Web.Infrastructure.Extensions
+@using MySportsClubManager.Web.ViewModels.Club
 @model ClubDetailsViewModel
 @{
     <div class="container my-5">
@@ -7,6 +9,14 @@
                 <div class="card text-white bg-primary">
                     <div class="card-body">
                         <h1 class="card-title">@Model.Name</h1>
+                        <p>@User.Identity.Name</p>
+                        <p>@Model.Trainer.Id</p>
+                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.Id() == Model.Trainer.Id)
+                        {
+                            <div class="m-2">
+                                <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Sport" asp-action="Delete" asp-route-sportId="@Model.Id">Delete</a>
+                            </div>
+                        }
                         <div>
                             <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
                                 <div class="carousel-inner">
