@@ -18,5 +18,10 @@
             return this.View(
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
+
+        public IActionResult ErrorStatus(int statusCode)
+        {
+            return this.View(statusCode);
+        }
     }
 }

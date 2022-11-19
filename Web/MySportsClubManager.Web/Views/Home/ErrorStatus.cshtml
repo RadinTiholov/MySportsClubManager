@@ -1,0 +1,23 @@
+﻿@model int
+@{
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <img class="img-fluid" src="~/images/404.jpg" />
+                </div>
+                <div class="col">
+
+                    <div class="text-center">
+                        <h1 class="display-1 fw-bold">@Model</h1>
+                        <p class="fs-3"> <span class="text-danger">Opps!</span> Page not found.</p>
+                        <p class="lead">
+                            The page you’re looking for doesn’t exist.
+                        </p>
+                        <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Go Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
