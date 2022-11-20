@@ -6,14 +6,16 @@
     using MySportsClubManager.Services.Data.Contracts.Base;
     using MySportsClubManager.Web.ViewModels.Sport;
 
-    public interface ISportService: IPaginationBase
+    public interface ISportService : IPaginationBase
     {
         Task<List<SportInDropdownViewModel>> AllForInputAsync();
 
-        Task Create(CreateSportInputModel model);
+        Task CreateAsync(CreateSportInputModel model);
 
-        Task Delete(int sportId);
+        Task DeleteAsync(int sportId);
 
-        Task<SportDetailsViewModel> GetOne(int id);
+        Task<T> GetOneAsync<T>(int id);
+
+        Task EditAsync(EditSportInputModel model);
     }
 }

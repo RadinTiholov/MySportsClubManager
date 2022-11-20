@@ -43,7 +43,7 @@
         {
             try
             {
-                var model = await this.sportService.GetOne(id);
+                var model = await this.sportService.GetOneAsync<SportDetailsViewModel>(id);
                 return this.View(model);
             }
             catch (ArgumentException)

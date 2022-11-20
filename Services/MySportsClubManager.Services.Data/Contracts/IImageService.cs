@@ -7,6 +7,8 @@
 
     public interface IImageService
     {
-        Task<Image> Add(IFormFile imageFile, string name);
+        Task<Image> AddByFile(IFormFile imageFile, string name);
+
+        Task<Image> AddByUrl (string Url);
     }
 }

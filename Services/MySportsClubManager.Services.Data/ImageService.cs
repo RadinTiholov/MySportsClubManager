@@ -19,7 +19,7 @@
             this.cloudinaryService = cloudinaryService;
         }
 
-        public async Task<Image> Add(IFormFile imageFile, string name)
+        public async Task<Image> AddByFile(IFormFile imageFile, string name)
         {
             // Save image to Cloudinary
             var imageUrl = await this.cloudinaryService
@@ -35,7 +35,26 @@
             var image = new Image() { URL = imageUrl };
             await this.imagesRepository.AddAsync(image);
             await this.imagesRepository.SaveChangesAsync();
-            return await this.imagesRepository.All().Where(i => i.URL == imageUrl).FirstOrDefaultAsync();
+            return await this.GetByUrl(imageUrl);
+        }
+
+        public async Task<Image> AddByUrl(string Url)
+        {
+
+            Image image = await this.GetByUrl(Url);
+            if (image != null)
+            {
+                return image;
+            }
+
+            image.URL = Url;
+            await this.imagesRepository.AddAsync(image);
+            return await this.GetByUrl(image.URL);
+        }
+
+        private async Task<Image> GetByUrl(string url)
+        {
+            return await this.imagesRepository.All().Where(x => x.URL == url).FirstOrDefaultAsync();
         }
     }
 }

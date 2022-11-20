@@ -46,7 +46,7 @@
                 .ToListAsync();
         }
 
-        public async Task Create(CreateSportInputModel model)
+        public async Task CreateAsync(CreateSportInputModel model)
         {
             var creator = await this.creatorsRepository.All().FirstOrDefaultAsync(x => x.Name == model.Creator);
             var country = await this.countryRepository.All().FirstOrDefaultAsync(x => x.Name == model.Country);
@@ -70,7 +70,7 @@
                 await this.countryRepository.SaveChangesAsync();
             }
 
-            var image = await this.imageService.Add(model.ImageFile, model.ImageFile.FileName);
+            var image = await this.imageService.AddByFile(model.ImageFile, model.ImageFile.FileName);
 
             var sport = new Sport()
             {
@@ -86,7 +86,7 @@
             await this.sportsRepository.SaveChangesAsync();
         }
 
-        public async Task Delete(int sportId)
+        public async Task DeleteAsync(int sportId)
         {
             var sport = await this.sportsRepository.AllAsNoTracking()
                 .Where(s => s.Id == sportId)
@@ -98,16 +98,70 @@
             }
         }
 
+        public async Task EditAsync(EditSportInputModel model)
+        {
+            var sport = await this.sportsRepository.All()
+                .Where(x => x.Id == model.Id)
+                .FirstOrDefaultAsync();
+
+            if (sport == null)
+            {
+                throw new ArgumentException();
+            }
+
+            Image image = null;
+            if (model.ImageFile != null)
+            {
+                image = await this.imageService.AddByFile(model.ImageFile, model.ImageFile.FileName);
+            }
+            else
+            {
+                image = await this.imageService.AddByUrl(model.ImageUrl);
+            }
+
+            var creator = await this.creatorsRepository.All().FirstOrDefaultAsync(x => x.Name == model.Creator);
+            var country = await this.countryRepository.All().FirstOrDefaultAsync(x => x.Name == model.Country);
+            if (creator == null)
+            {
+                creator = new Creator()
+                {
+                    Name = model.Creator,
+                };
+                await this.creatorsRepository.AddAsync(creator);
+                await this.creatorsRepository.SaveChangesAsync();
+            }
+
+            if (country == null)
+            {
+                country = new Country()
+                {
+                    Name = model.Country,
+                };
+                await this.countryRepository.AddAsync(country);
+                await this.countryRepository.SaveChangesAsync();
+            }
+
+            sport.Name = model.Name;
+            sport.Description = model.Description;
+            sport.CreationDate = model.CreationDate;
+            sport.Image = image;
+            sport.Creator = creator;
+            sport.Country = country;
+
+            this.sportsRepository.Update(sport);
+            await this.sportsRepository.SaveChangesAsync();
+        }
+
         public int GetCount()
         {
             return this.sportsRepository.All().Count();
         }
 
-        public async Task<SportDetailsViewModel> GetOne(int id)
+        public async Task<T> GetOneAsync<T>(int id)
         {
             var sport = await this.sportsRepository.All()
-                .To<SportDetailsViewModel>()
                 .Where(s => s.Id == id)
+                .To<T>()
                 .FirstOrDefaultAsync();
 
             if (sport == null)

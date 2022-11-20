@@ -52,7 +52,7 @@
                     throw new InvalidOperationException(GlobalConstants.AllowedExtensionsErrorMessage);
                 }
 
-                var imageUrl = await this.imageService.Add(image, image.FileName);
+                var imageUrl = await this.imageService.AddByFile(image, image.FileName);
                 images.Add(imageUrl);
             }
 

@@ -39,7 +39,7 @@
 
             try
             {
-                await this.sportService.Create(model);
+                await this.sportService.CreateAsync(model);
 
                 return this.RedirectToAction("All", "Sport", new { area = string.Empty });
             }
@@ -54,8 +54,46 @@
         [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Delete(int sportId)
         {
-            await this.sportService.Delete(sportId);
+            await this.sportService.DeleteAsync(sportId);
             return this.RedirectToAction("All", "Sport", new { area = string.Empty });
+        }
+
+        [Authorize(Roles = AdministratorRoleName)]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var model = await this.sportService.GetOneAsync<EditSportInputModel>(id);
+                return this.View(model);
+            }
+            catch (ArgumentException)
+            {
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
+            }
+        }
+
+        [Authorize(Roles = AdministratorRoleName)]
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditSportInputModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            try
+            {
+                await this.sportService.EditAsync(model);
+
+                return this.RedirectToAction("Details", "Sport", new { id = model.Id, area = string.Empty });
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, CreationErrorMessage);
+
+                return this.View(model);
+            }
         }
     }
 }
