@@ -10,8 +10,17 @@
                         <h1 class="card-title">@Model.Name</h1>
                         @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
-                            <div class="m-2">
-                                <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Sport" asp-action="Delete" asp-route-sportId="@Model.Id">Delete</a>
+                            <div class="row">
+                                <div class="col-xl-1">
+                                    <div class="m-2">
+                                        <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Sport" asp-action="Delete" asp-route-sportId="@Model.Id">Delete</a>
+                                    </div>
+                                </div>
+                                <div class="col-xl-1">
+                                    <div class="m-2">
+                                        <a type="submit" class="btn btn-warning" asp-area="Administration" asp-controller="Sport" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                                    </div>
+                                </div>
                             </div>
                         }
                         <img class="img-fluid rounded" src="@Model.ImageUrl" alt="sport's image" style="width: 100%" />
