@@ -1,10 +1,12 @@
 ﻿namespace MySportsClubManager.Web.Areas.Administration.Controllers
 {
     using System;
+    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Razor.Language.Intermediate;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Club;
@@ -64,6 +66,48 @@
             {
                 await this.clubService.Delete(clubId);
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
+            }
+
+            return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), id))
+            {
+                var model = await this.clubService.GetOne<EditClubInputModel>(id);
+                model.Sports = await this.sportsService.AllForInputAsync();
+
+                return this.View(model);
+            }
+
+            return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditClubInputModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), model.Id))
+            {
+                try
+                {
+                    await this.clubService.EditAsync(model);
+
+                    return this.RedirectToAction("Details", "Club", new { id = model.Id, area = string.Empty });
+                }
+                catch (Exception)
+                {
+                    this.ModelState.AddModelError(string.Empty, CreationErrorMessage);
+                    model.Sports = await this.sportsService.AllForInputAsync();
+
+                    return this.View(model);
+                }
             }
 
             return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });

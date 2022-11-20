@@ -11,8 +11,17 @@
                         <h1 class="card-title">@Model.Name</h1>
                         @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.Id() == Model.Trainer.Id)
                         {
-                            <div class="m-2">
-                                <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Club" asp-action="Delete" asp-route-clubId="@Model.Id">Delete</a>
+                            <div class="row">
+                                <div class="col-xl-1">
+                                    <div class="m-2">
+                                        <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Club" asp-action="Delete" asp-route-clubId="@Model.Id">Delete</a>
+                                    </div>
+                                </div>
+                                <div class="col-xl-1">
+                                    <div class="m-2">
+                                        <a type="submit" class="btn btn-warning" asp-area="Administration" asp-controller="Club" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                                    </div>
+                                </div>
                             </div>
                         }
                         <div>

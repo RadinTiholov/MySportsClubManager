@@ -38,16 +38,19 @@
             return await this.GetByUrl(imageUrl);
         }
 
-        public async Task<Image> AddByUrl(string Url)
+        public async Task<Image> AddByUrl(string url)
         {
-
-            Image image = await this.GetByUrl(Url);
+            Image image = await this.GetByUrl(url);
             if (image != null)
             {
                 return image;
             }
 
-            image.URL = Url;
+            image = new Image()
+            {
+                URL = url,
+            };
+
             await this.imagesRepository.AddAsync(image);
             return await this.GetByUrl(image.URL);
         }

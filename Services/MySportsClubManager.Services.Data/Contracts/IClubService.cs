@@ -12,6 +12,8 @@
 
         Task Delete(int clubId);
 
-        Task<ClubDetailsViewModel> GetOne(int id);
+        Task<T> GetOne<T>(int id);
+
+        Task EditAsync(EditClubInputModel model);
     }
 }

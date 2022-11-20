@@ -44,7 +44,7 @@
         {
             try
             {
-                var model = await this.clubService.GetOne(id);
+                var model = await this.clubService.GetOne<ClubDetailsViewModel>(id);
                 return this.View(model);
             }
             catch (ArgumentException)

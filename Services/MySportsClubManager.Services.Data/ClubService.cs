@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -83,16 +82,55 @@
             }
         }
 
+        public async Task EditAsync(EditClubInputModel model)
+        {
+            var club = await this.clubsRepository.All()
+                .Include(x => x.Images)
+                .Where(x => x.Id == model.Id)
+                .FirstOrDefaultAsync();
+
+            if (club == null)
+            {
+                throw new ArgumentException();
+            }
+
+            List<Image> images = new List<Image>();
+            if (model.ImageFiles != null)
+            {
+                foreach (var image in model.ImageFiles)
+                {
+                    images.Add(await this.imageService.AddByFile(image, image.FileName));
+                }
+            }
+            else
+            {
+                foreach (var image in club.Images)
+                {
+                    images.Add(await this.imageService.AddByUrl(image.URL));
+                }
+            }
+
+            club.Name = model.Name;
+            club.Description = model.Description;
+            club.SportId = model.SportId;
+            club.Address = model.Address;
+            club.Fee = model.Fee;
+            club.Images = images;
+
+            this.clubsRepository.Update(club);
+            await this.clubsRepository.SaveChangesAsync();
+        }
+
         public int GetCount()
         {
             return this.clubsRepository.All().Count();
         }
 
-        public async Task<ClubDetailsViewModel> GetOne(int id)
+        public async Task<T> GetOne<T>(int id)
         {
             var club = await this.clubsRepository.All()
-                .To<ClubDetailsViewModel>()
                 .Where(s => s.Id == id)
+                .To<T>()
                 .FirstOrDefaultAsync();
 
             if (club == null)
