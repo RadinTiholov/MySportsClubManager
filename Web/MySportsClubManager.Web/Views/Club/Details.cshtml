@@ -14,7 +14,9 @@
                             <div class="row">
                                 <div class="col-xl-1">
                                     <div class="m-2">
-                                        <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Club" asp-action="Delete" asp-route-clubId="@Model.Id">Delete</a>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-xl-1">
@@ -110,6 +112,25 @@
                         <h5>Last name:    <strong>@Model.Trainer.LastName</strong></h5>
                         <h5>Email: <strong>@Model.Trainer.Email</strong></h5>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for deletion -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete @Model.Name?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Club" asp-action="Delete" asp-route-clubId="@Model.Id">Delete</a>
                 </div>
             </div>
         </div>
