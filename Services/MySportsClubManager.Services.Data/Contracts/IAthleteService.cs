@@ -4,6 +4,6 @@
 
     public interface IAthleteService
     {
-        Task Create(string userId);
+        Task CreateAsync(string userId);
     }
 }

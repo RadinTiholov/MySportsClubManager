@@ -4,9 +4,9 @@
 
     public interface ITrainerService
     {
-        Task Create(string userId);
+        Task CreateAsync(string userId);
 
-        Task<int> GetTrainerId(string userId);
+        Task<int> GetTrainerIdAsync(string userId);
 
         Task<bool> OwnsClub(string userId, int clubId);
     }

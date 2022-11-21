@@ -39,7 +39,7 @@
             return result.Url.AbsoluteUri;
         }
 
-        public async Task DeleteImage(Cloudinary cloudinary, string name)
+        public async Task DeleteImageAsync(Cloudinary cloudinary, string name)
         {
             var delParams = new DelResParams()
             {

@@ -35,12 +35,12 @@
             var image = new Image() { URL = imageUrl };
             await this.imagesRepository.AddAsync(image);
             await this.imagesRepository.SaveChangesAsync();
-            return await this.GetByUrl(imageUrl);
+            return await this.GetByUrlAsync(imageUrl);
         }
 
-        public async Task<Image> AddByUrl(string url)
+        public async Task<Image> AddByUrlAsync(string url)
         {
-            Image image = await this.GetByUrl(url);
+            Image image = await this.GetByUrlAsync(url);
             if (image != null)
             {
                 return image;
@@ -52,10 +52,10 @@
             };
 
             await this.imagesRepository.AddAsync(image);
-            return await this.GetByUrl(image.URL);
+            return await this.GetByUrlAsync(image.URL);
         }
 
-        private async Task<Image> GetByUrl(string url)
+        private async Task<Image> GetByUrlAsync(string url)
         {
             return await this.imagesRepository.All().Where(x => x.URL == url).FirstOrDefaultAsync();
         }

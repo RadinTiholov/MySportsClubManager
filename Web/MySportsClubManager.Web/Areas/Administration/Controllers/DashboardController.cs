@@ -38,8 +38,8 @@
         {
             try
             {
-                await this.applicationUserService.AssignUserToRole(id, GlobalConstants.AdministratorRoleName);
-                await this.trainerService.Create(id);
+                await this.applicationUserService.AssignUserToRoleAsync(id, GlobalConstants.AdministratorRoleName);
+                await this.trainerService.CreateAsync(id);
                 this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessRoleMessage;
                 return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
             }
@@ -56,8 +56,8 @@
         {
             try
             {
-                await this.applicationUserService.AssignUserToRole(id, GlobalConstants.TrainerRoleName);
-                await this.trainerService.Create(id);
+                await this.applicationUserService.AssignUserToRoleAsync(id, GlobalConstants.TrainerRoleName);
+                await this.trainerService.CreateAsync(id);
                 this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessRoleMessage;
                 return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
             }

@@ -116,7 +116,7 @@
             }
             else
             {
-                image = await this.imageService.AddByUrl(model.ImageUrl);
+                image = await this.imageService.AddByUrlAsync(model.ImageUrl);
             }
 
             var creator = await this.creatorsRepository.All().FirstOrDefaultAsync(x => x.Name == model.Creator);

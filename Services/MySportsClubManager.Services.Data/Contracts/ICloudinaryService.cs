@@ -9,6 +9,6 @@
     {
         Task<string> UploadAsync(IFormFile file, string name);
 
-        Task DeleteImage(Cloudinary cloudinary, string name);
+        Task DeleteImageAsync(Cloudinary cloudinary, string name);
     }
 }

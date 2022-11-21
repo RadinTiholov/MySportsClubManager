@@ -46,8 +46,8 @@
 
             try
             {
-                int trainerId = await this.trainerService.GetTrainerId(this.User.Id());
-                await this.clubService.Create(model, trainerId);
+                int trainerId = await this.trainerService.GetTrainerIdAsync(this.User.Id());
+                await this.clubService.CreateAsync(model, trainerId);
 
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
             }
@@ -64,7 +64,7 @@
         {
             if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), clubId))
             {
-                await this.clubService.Delete(clubId);
+                await this.clubService.DeleteAsync(clubId);
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
             }
 
@@ -76,7 +76,7 @@
         {
             if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), id))
             {
-                var model = await this.clubService.GetOne<EditClubInputModel>(id);
+                var model = await this.clubService.GetOneAsync<EditClubInputModel>(id);
                 model.Sports = await this.sportsService.AllForInputAsync();
 
                 return this.View(model);

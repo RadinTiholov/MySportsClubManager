@@ -8,11 +8,11 @@
 
     public interface IClubService : IPaginationBase
     {
-        Task Create(CreateClubInputModel model, int trainerId);
+        Task CreateAsync(CreateClubInputModel model, int trainerId);
 
-        Task Delete(int clubId);
+        Task DeleteAsync(int clubId);
 
-        Task<T> GetOne<T>(int id);
+        Task<T> GetOneAsync<T>(int id);
 
         Task EditAsync(EditClubInputModel model);
     }

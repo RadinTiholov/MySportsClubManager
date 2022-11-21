@@ -61,7 +61,7 @@
 
             if (result.Succeeded)
             {
-                await this.athleteService.Create(user.Id);
+                await this.athleteService.CreateAsync(user.Id);
                 return this.Redirect(nameof(this.Login));
             }
 
@@ -102,7 +102,7 @@
 
                 if (result.Succeeded)
                 {
-                    this.TempData["ProfilePicture"] = await this.applicationUserService.GetCurrentUserProfilePic(user.Id);
+                    this.TempData["ProfilePicture"] = await this.applicationUserService.GetCurrentUserProfilePicAsync(user.Id);
                     if (model.ReturnUrl != null)
                     {
                         return this.Redirect(model.ReturnUrl);

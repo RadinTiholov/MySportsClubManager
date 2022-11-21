@@ -15,7 +15,7 @@
             this.athleteRepository = athleteRepository;
         }
 
-        public async Task Create(string userId)
+        public async Task CreateAsync(string userId)
         {
             var athlete = new Athlete()
             {

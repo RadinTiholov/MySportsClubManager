@@ -35,7 +35,7 @@
                 .ToListAsync();
         }
 
-        public async Task AssignUserToRole(string id, string roleName)
+        public async Task AssignUserToRoleAsync(string id, string roleName)
         {
             var user = await this.applicationUserRepository.All()
                 .Where(x => x.Id == id)
@@ -54,7 +54,7 @@
             var result = await this.userManager.AddToRoleAsync(user, roleName);
         }
 
-        public async Task<string> GetCurrentUserProfilePic(string id)
+        public async Task<string> GetCurrentUserProfilePicAsync(string id)
         {
             string imageUrl = await this.applicationUserRepository.All()
                 .Where(u => u.Id == id)

@@ -38,7 +38,7 @@
                 .ToListAsync();
         }
 
-        public async Task Create(CreateClubInputModel model, int trainerId)
+        public async Task CreateAsync(CreateClubInputModel model, int trainerId)
         {
             var images = new List<Image>();
             foreach (var image in model.ImageFiles)
@@ -70,7 +70,7 @@
             await this.clubsRepository.SaveChangesAsync();
         }
 
-        public async Task Delete(int clubId)
+        public async Task DeleteAsync(int clubId)
         {
             var club = await this.clubsRepository.All()
             .Where(c => c.Id == clubId)
@@ -106,7 +106,7 @@
             {
                 foreach (var image in club.Images)
                 {
-                    images.Add(await this.imageService.AddByUrl(image.URL));
+                    images.Add(await this.imageService.AddByUrlAsync(image.URL));
                 }
             }
 
@@ -126,7 +126,7 @@
             return this.clubsRepository.All().Count();
         }
 
-        public async Task<T> GetOne<T>(int id)
+        public async Task<T> GetOneAsync<T>(int id)
         {
             var club = await this.clubsRepository.All()
                 .Where(s => s.Id == id)

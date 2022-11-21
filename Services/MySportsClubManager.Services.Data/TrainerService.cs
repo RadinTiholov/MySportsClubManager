@@ -19,7 +19,7 @@
             this.clubRepository = clubRepository;
         }
 
-        public async Task Create(string userId)
+        public async Task CreateAsync(string userId)
         {
             var trainer = new Trainer()
             {
@@ -30,7 +30,7 @@
             await this.trainerRepository.SaveChangesAsync();
         }
 
-        public async Task<int> GetTrainerId(string userId)
+        public async Task<int> GetTrainerIdAsync(string userId)
         {
             var trainerId = await this.trainerRepository.All()
                 .Where(x => x.ApplicationUserId == userId)
@@ -46,7 +46,7 @@
                 .Where(x => x.Id == clubId)
                 .FirstOrDefaultAsync();
 
-            return club.TrainerId == await this.GetTrainerId(userId);
+            return club.TrainerId == await this.GetTrainerIdAsync(userId);
         }
     }
 }
