@@ -22,6 +22,10 @@
         public string Name { get; set; }
 
         [Required]
+        [MaxLength(DescriptionMaxLength)]
+        public string Description { get; set; }
+
+        [Required]
         [MaxLength(AddressMaxLength)]
         public string Address { get; set; }
 
@@ -33,6 +37,13 @@
         public int ImageId { get; set; }
 
         public Image Image { get; set; }
+
+        [ForeignKey(nameof(Sport))]
+        [Required]
+        public int SportId { get; set; }
+
+        [Required]
+        public Sport Sport { get; set; }
 
         public virtual ICollection<Club> Clubs { get; set; }
 

@@ -56,7 +56,11 @@
         public static class Contest
         {
             public const int NameMaxLength = 100;
+            public const int NameMinLength = 10;
+            public const int DescriptionMaxLength = 2000;
+            public const int DescriptionMinLength = 50;
             public const int AddressMaxLength = 200;
+            public const int AddressMinLength = 20;
         }
 
         public static class Training

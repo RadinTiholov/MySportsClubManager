@@ -86,6 +86,7 @@
             services.AddTransient<IAthleteService, AthleteService>();
             services.AddTransient<ITrainerService, TrainerService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IContestService, ContestService>();
 
             // Cloudinary service
             Account account = new Account(
