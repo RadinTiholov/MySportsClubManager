@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Razor.Language.Intermediate;
+    using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Club;
@@ -49,6 +50,7 @@
                 int trainerId = await this.trainerService.GetTrainerIdAsync(this.User.Id());
                 await this.clubService.CreateAsync(model, trainerId);
 
+                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyAddedMessage;
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
             }
             catch (Exception)
@@ -65,6 +67,7 @@
             if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), clubId))
             {
                 await this.clubService.DeleteAsync(clubId);
+                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyDeletedMessage;
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
             }
 
@@ -100,6 +103,7 @@
                 {
                     await this.clubService.EditAsync(model);
 
+                    this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyEditedMessage;
                     return this.RedirectToAction("Details", "Club", new { id = model.Id, area = string.Empty });
                 }
                 catch (Exception)

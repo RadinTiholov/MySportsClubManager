@@ -5,6 +5,7 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.Sport;
 
@@ -41,6 +42,7 @@
             {
                 await this.sportService.CreateAsync(model);
 
+                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyAddedMessage;
                 return this.RedirectToAction("All", "Sport", new { area = string.Empty });
             }
             catch (Exception)
@@ -55,6 +57,7 @@
         public async Task<IActionResult> Delete(int sportId)
         {
             await this.sportService.DeleteAsync(sportId);
+            this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyDeletedMessage;
             return this.RedirectToAction("All", "Sport", new { area = string.Empty });
         }
 
@@ -86,6 +89,7 @@
             {
                 await this.sportService.EditAsync(model);
 
+                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyEditedMessage;
                 return this.RedirectToAction("Details", "Sport", new { id = model.Id, area = string.Empty });
             }
             catch (Exception)
