@@ -54,5 +54,18 @@
                 return this.View(model);
             }
         }
+
+        [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (this.User.IsInRole(AdministratorRoleName))
+            {
+                await this.contestService.DeleteAsync(id);
+                return this.RedirectToAction("All", "Contest", new { area = string.Empty });
+            }
+
+            return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });
+        }
     }
 }

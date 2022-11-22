@@ -10,5 +10,7 @@
         Task CreateAsync(CreateContestViewModel model);
 
         Task<T> GetOneAsync<T>(int id);
+
+        Task DeleteAsync(int contestId);
     }
 }

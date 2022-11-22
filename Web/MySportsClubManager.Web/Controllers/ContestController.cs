@@ -6,6 +6,8 @@
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.Contest;
 
+    using static MySportsClubManager.Common.GlobalConstants;
+
     public class ContestController : BaseController
     {
         private readonly IContestService contestService;

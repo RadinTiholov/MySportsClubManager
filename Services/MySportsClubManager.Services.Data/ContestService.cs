@@ -72,5 +72,17 @@
 
             return contest;
         }
+
+        public async Task DeleteAsync(int contestId)
+        {
+            var contest = await this.contestRepository.All()
+            .Where(c => c.Id == contestId)
+                .FirstOrDefaultAsync();
+            if (contest != null)
+            {
+                this.contestRepository.Delete(contest);
+                await this.contestRepository.SaveChangesAsync();
+            }
+        }
     }
 }
