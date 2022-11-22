@@ -6,7 +6,7 @@
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.Contest;
 
-    public class ContestController : Controller
+    public class ContestController : BaseController
     {
         private readonly IContestService contestService;
         private readonly ISportService sportService;
@@ -35,6 +35,20 @@
             };
 
             return this.View(model);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            // To Do: Update participants
+            try
+            {
+                var model = await this.contestService.GetOneAsync<ContestDetailsViewModel>(id);
+                return this.View(model);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
+            }
         }
     }
 }

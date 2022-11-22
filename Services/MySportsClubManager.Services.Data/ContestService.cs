@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
@@ -51,9 +52,25 @@
             await this.contestRepository.SaveChangesAsync();
         }
 
+
         public int GetCount()
         {
             return this.contestRepository.All().Count();
+        }
+
+        public async Task<T> GetOneAsync<T>(int id)
+        {
+            var contest = await this.contestRepository.All()
+                .Where(s => s.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+            if (contest == null)
+            {
+                throw new ArgumentException();
+            }
+
+            return contest;
         }
     }
 }

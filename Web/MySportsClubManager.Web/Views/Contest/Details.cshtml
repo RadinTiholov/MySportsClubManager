@@ -1,0 +1,95 @@
+﻿@using MySportsClubManager.Common
+@using MySportsClubManager.Web.ViewModels.Contest
+@model ContestDetailsViewModel
+@{
+    <div class="container my-5">
+        <div class="row gy-3">
+            <div class="col-lg-9">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h1 class="card-title">@Model.Name</h1>
+                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <div class="row">
+                                <div class="col-xl-1">
+                                    <div class="m-2">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-xl-1">
+                                    <div class="m-2">
+                                        <a type="submit" class="btn btn-warning" asp-area="Administration" asp-controller="Contest" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <h3>Details</h3>
+                        <p>
+                            @Model.Description
+                        </p>
+                        <h3>Participants: </h3>
+                        <div class="row row-cols-1 gy-1">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img class="img-fluid rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVA_HrQLjkHiJ2Ag5RGuwbFeDKRLfldnDasw&usqp=CAU" alt="image" />
+                                    </div>
+                                    <div class="col mt-2">
+                                        <h5>Some name here</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img class="img-fluid rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVA_HrQLjkHiJ2Ag5RGuwbFeDKRLfldnDasw&usqp=CAU" alt="image" />
+                                    </div>
+                                    <div class="col mt-2">
+                                        <h5>Some name here</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <img class="img-fluid rounded" src="@Model.ImageUrl" alt="sport's image" style="width: 100%" />
+                    </div>
+                </div>
+                <div class="card text-white bg-primary mt-3">
+                    <div class="card-body">
+                        <h3>More details</h3>
+                        <h5>Sport: <strong>@Model.Sport</strong></h5>
+                        <h5>Date: <strong>@Model.Date</strong></h5>
+                        <h5>Address: <strong>@Model.Address</strong></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for deletion -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete @Model.Name?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Sport" asp-action="Delete" asp-route-sportId="@Model.Id">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

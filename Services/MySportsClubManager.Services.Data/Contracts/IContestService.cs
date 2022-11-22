@@ -8,5 +8,7 @@
     public interface IContestService : IPaginationBase
     {
         Task CreateAsync(CreateContestViewModel model);
+
+        Task<T> GetOneAsync<T>(int id);
     }
 }
