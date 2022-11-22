@@ -17,5 +17,7 @@
         Task<T> GetOneAsync<T>(int id);
 
         Task EditAsync(EditSportInputModel model);
+
+        Task<List<SportInDropdownViewModel>> GetRecent();
     }
 }

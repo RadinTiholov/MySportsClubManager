@@ -171,5 +171,14 @@
 
             return sport;
         }
+
+        public async Task<List<SportInDropdownViewModel>> GetRecent()
+        {
+            return await this.sportsRepository.AllAsNoTracking()
+                .OrderBy(x => x.CreatedOn)
+                .Take(10)
+                .To<SportInDropdownViewModel>()
+                .ToListAsync();
+        }
     }
 }

@@ -1,0 +1,42 @@
+﻿@using MySportsClubManager.Web.ViewModels.Contest
+@model ContestListViewModel
+@{
+    this.ViewData["Title"] = $"All Contests, Page {Model.PageNumber}";
+    this.ViewData["CategoryType"] = "Club";
+}
+@{
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <div class="row row-cols-1">
+                            <div class="col">
+                                <div class="card text-dark bg-light mb-3">
+                                    <div class="card-body">
+                                        <img src="https://thumbs.dreamstime.com/b/example-red-tag-example-red-square-price-tag-117502755.jpg" alt="contest image" style="height: 70px; width: 70px"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                    <h5>Recently added sports:</h5>
+                        <ul>
+                            <li><a class="text-light" href="#" style="text-decoration: none">Football</a></li>
+                            <li><a class="text-light" href="#" style="text-decoration: none">Tennis</a></li>
+                            <li><a class="text-light" href="#" style="text-decoration: none">Handball</a></li>
+                            <li><a class="text-light" href="#" style="text-decoration: none">Karate</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="_PaginationPartial" />
+}
