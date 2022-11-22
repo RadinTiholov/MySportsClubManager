@@ -1,7 +1,7 @@
-﻿@using MySportsClubManager.Web.ViewModels.Club
-@model EditClubInputModel
+﻿@using MySportsClubManager.Web.ViewModels.Contest
+@model EditContestViewModel
 @{
-    <p class="text-center h1 fw-bold m-3">Edit Club</p>
+    <p class="text-center h1 fw-bold m-3">Edit Contest</p>
     <form method="post" asp-action="Edit" class="mx-1 mx-md-4" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -35,18 +35,18 @@
         <div class="d-flex flex-row align-items-center mb-4">
             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
             <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.Fee">Monthly Fee</label>
-                <input type="number" class="form-control" asp-for="@Model.Fee" />
-                <span asp-validation-for="@Model.Fee" class="text-danger"></span>
+                <label asp-for="@Model.Date">Date</label>
+                <input type="date" class="form-control" asp-for="@Model.Date" />
+                <span asp-validation-for="@Model.Date" class="text-danger"></span>
             </div>
         </div>
 
         <div class="d-flex flex-row align-items-center mb-4">
             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
             <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.ImageFiles">Images (If you don't upload new ones, it won't update)</label>
-                <input type="file" class="form-control" asp-for="@Model.ImageFiles" multiple />
-                <span asp-validation-for="@Model.ImageFiles" class="text-danger"></span>
+                <label asp-for="@Model.ImageFile">Image (If you don't upload a new one it won't update)</label>
+                <input type="file" class="form-control" asp-for="@Model.ImageFile" />
+                <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
             </div>
         </div>
 
@@ -65,7 +65,7 @@
         </div>
         <input type="hidden" asp-for="@Model.Sports">
         <input type="hidden" asp-for="@Model.Id">
-        <input type="hidden" asp-for="@Model.ImageUrls">
+        <input type="hidden" asp-for="@Model.ImageUrl">
         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
             <button type="submit" class="btn btn-primary btn-lg">Edit</button>
         </div>
@@ -76,4 +76,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-

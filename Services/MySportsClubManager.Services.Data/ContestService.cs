@@ -52,7 +52,6 @@
             await this.contestRepository.SaveChangesAsync();
         }
 
-
         public int GetCount()
         {
             return this.contestRepository.All().Count();
@@ -83,6 +82,38 @@
                 this.contestRepository.Delete(contest);
                 await this.contestRepository.SaveChangesAsync();
             }
+        }
+
+        public async Task EditAsync(EditContestViewModel model)
+        {
+            var contest = await this.contestRepository.All()
+                .Where(x => x.Id == model.Id)
+                .FirstOrDefaultAsync();
+
+            if (contest == null)
+            {
+                throw new ArgumentException();
+            }
+
+            Image image = null;
+            if (model.ImageFile != null)
+            {
+                image = await this.imageService.AddByFile(model.ImageFile, model.ImageFile.FileName);
+            }
+            else
+            {
+                image = await this.imageService.AddByUrlAsync(model.ImageUrl);
+            }
+
+            contest.Name = model.Name;
+            contest.Description = model.Description;
+            contest.Address = model.Address;
+            contest.Date = model.Date;
+            contest.Image = image;
+            contest.SportId = model.SportId;
+
+            this.contestRepository.Update(contest);
+            await this.contestRepository.SaveChangesAsync();
         }
     }
 }

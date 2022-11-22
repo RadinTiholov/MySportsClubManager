@@ -90,6 +90,7 @@
         {
             if (!this.ModelState.IsValid)
             {
+                model.Sports = await this.sportsService.AllForInputAsync();
                 return this.View(model);
             }
 
