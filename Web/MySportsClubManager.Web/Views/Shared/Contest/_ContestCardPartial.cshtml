@@ -1,0 +1,21 @@
+﻿@using MySportsClubManager.Web.ViewModels.Contest
+@model ContestInListViewModel
+@{
+    <div class="col">
+        <a asp-controller="Contest" asp-action="Details" asp-route-id="@Model.Id" style="text-decoration:none">
+            <div class="card text-dark bg-light mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <img class="img-fluid" src="@Model.Image.URL" alt="contest image" />
+                        </div>
+                        <div class="col-9">
+                            <h2>@Model.Name</h2>
+                            <h3>@Model.Description</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+}

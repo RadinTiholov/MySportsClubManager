@@ -2,7 +2,7 @@
 @model ContestListViewModel
 @{
     this.ViewData["Title"] = $"All Contests, Page {Model.PageNumber}";
-    this.ViewData["CategoryType"] = "Club";
+    this.ViewData["CategoryType"] = "Contest";
 }
 @{
     <h1 class="text-center">@this.ViewData["Title"]</h1>
@@ -12,13 +12,10 @@
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-body">
                         <div class="row row-cols-1">
-                            <div class="col">
-                                <div class="card text-dark bg-light mb-3">
-                                    <div class="card-body">
-                                        <img src="https://thumbs.dreamstime.com/b/example-red-tag-example-red-square-price-tag-117502755.jpg" alt="contest image" style="height: 70px; width: 70px"/>
-                                    </div>
-                                </div>
-                            </div>
+                            @foreach (var contest in Model.Contest)
+                            {
+                                @await Html.PartialAsync("../Shared/Contest/_ContestCardPartial.cshtml", contest)
+                            }
                         </div>
                     </div>
                 </div>
