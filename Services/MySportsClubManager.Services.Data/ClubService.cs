@@ -158,7 +158,7 @@
                     throw new ArgumentException();
                 }
 
-                await this.athleteService.RegisterSportClub(userId, clubId);
+                await this.athleteService.RegisterSportClubAsync(userId, clubId);
             }
             else
             {

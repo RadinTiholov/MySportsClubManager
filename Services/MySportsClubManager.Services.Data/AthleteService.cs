@@ -31,16 +31,23 @@
             await this.athleteRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> IsEnrolled(string userId, int clubId)
+        public async Task<bool> IsEnrolledInClubAsync(string userId, int clubId)
         {
-            var athlete = await this.GetOne(userId);
+            var athlete = await this.GetOneAsync(userId);
 
             return athlete.EnrolledClubId == clubId;
         }
 
-        public async Task RegisterSportClub(string userId, int clubId)
+        public async Task<bool> IsEnrolledInAnyClubAsync(string userId)
         {
-            var athlete = await this.GetOne(userId);
+            var athlete = await this.GetOneAsync(userId);
+
+            return athlete.EnrolledClubId != null;
+        }
+
+        public async Task RegisterSportClubAsync(string userId, int clubId)
+        {
+            var athlete = await this.GetOneAsync(userId);
 
             if (athlete != null)
             {
@@ -62,7 +69,7 @@
             }
         }
 
-        private async Task<Athlete> GetOne(string userId)
+        private async Task<Athlete> GetOneAsync(string userId)
         {
             return await this.athleteRepository.All()
                 .Where(x => x.ApplicationUserId == userId)

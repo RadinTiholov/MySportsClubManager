@@ -6,8 +6,10 @@
     {
         Task CreateAsync(string userId);
 
-        Task RegisterSportClub(string userId, int clubId);
+        Task RegisterSportClubAsync(string userId, int clubId);
 
-        Task<bool> IsEnrolled(string userId, int clubId);
+        Task<bool> IsEnrolledInClubAsync(string userId, int clubId);
+
+        Task<bool> IsEnrolledInAnyClubAsync(string userId);
     }
 }

@@ -101,13 +101,20 @@
                 <div class="card text-white bg-primary mt-3">
                     <div class="card-body">
                         <h3>Join us</h3>
-                        @if (!await athleteService.IsEnrolled(this.User.Id(), Model.Id))
+                        @if (await athleteService.IsEnrolledInAnyClubAsync(this.User.Id()))
                         {
-                            <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Enroll" asp-route-clubId="@Model.Id">Enroll</a>
+                            @if (await athleteService.IsEnrolledInClubAsync(this.User.Id(), Model.Id))
+                            {
+                                <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Disenroll" asp-route-clubId="@Model.Id">Disenroll</a>
+                            }
+                            else
+                            {
+                                <p>Already joined in another club.</p>
+                            }
                         }
                         else
                         {
-                            <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Disenroll" asp-route-clubId="@Model.Id">Disenroll</a>
+                            <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Enroll" asp-route-clubId="@Model.Id">Enroll</a>
                         }
                     </div>
                 </div>
