@@ -7,9 +7,9 @@
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.Infrastructure.Common;
     using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Club;
-
 
     public class ClubController : BaseController
     {
@@ -61,7 +61,7 @@
             try
             {
                 await this.clubService.Enroll(clubId, this.User.Id());
-                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyAddedMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyAddedMessage;
 
                 return this.RedirectToAction("Details", "Club", new { id = clubId });
             }
@@ -71,7 +71,7 @@
             }
             catch (ArgumentException)
             {
-                this.TempData[GlobalConstants.WarningMessage] = GlobalConstants.AlreadyEnrolledMessage;
+                this.TempData[GlobalConstants.WarningMessage] = ExceptionMessages.AlreadyEnrolledMessage;
                 return this.RedirectToAction("Details", "Club", new { id = clubId });
             }
         }

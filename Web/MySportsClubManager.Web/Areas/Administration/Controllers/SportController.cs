@@ -7,9 +7,11 @@
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.Infrastructure.Common;
     using MySportsClubManager.Web.ViewModels.Sport;
 
     using static MySportsClubManager.Common.GlobalConstants;
+    using static MySportsClubManager.Web.Infrastructure.Common.ExceptionMessages;
 
     public class SportController : AdministrationController
     {
@@ -42,7 +44,7 @@
             {
                 await this.sportService.CreateAsync(model);
 
-                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyAddedMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyAddedMessage;
                 return this.RedirectToAction("All", "Sport", new { area = string.Empty });
             }
             catch (Exception)
@@ -57,7 +59,7 @@
         public async Task<IActionResult> Delete(int sportId)
         {
             await this.sportService.DeleteAsync(sportId);
-            this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyDeletedMessage;
+            this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
             return this.RedirectToAction("All", "Sport", new { area = string.Empty });
         }
 
@@ -89,7 +91,7 @@
             {
                 await this.sportService.EditAsync(model);
 
-                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyEditedMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyEditedMessage;
                 return this.RedirectToAction("Details", "Sport", new { id = model.Id, area = string.Empty });
             }
             catch (Exception)

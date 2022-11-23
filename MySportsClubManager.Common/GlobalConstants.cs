@@ -12,16 +12,6 @@
 
         public const string CreationErrorMessage = "Something went wrong! Please try again.";
 
-        public const string SuccessRoleMessage = "Successfully added to role!";
-
-        public const string SuccessfullyDeletedMessage = "Successfully deleted!";
-
-        public const string SuccessfullyEditedMessage = "Successfully edited!";
-
-        public const string SuccessfullyAddedMessage = "Successfully added!";
-
-        public const string AlreadyEnrolledMessage = "Already enrolled!";
-
         public const string ErrorMessage = "ErrorMessage";
 
         public const string WarningMessage = "WarningMessage";

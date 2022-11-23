@@ -4,14 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.IdentityModel.Tokens;
     using MySportsClubManager.Common;
-    using MySportsClubManager.Data;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
-    using MySportsClubManager.Data.Repositories;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.ApplicationUser;

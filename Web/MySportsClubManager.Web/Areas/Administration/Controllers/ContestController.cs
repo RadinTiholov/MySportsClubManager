@@ -7,11 +7,11 @@
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
-    using MySportsClubManager.Web.Infrastructure.Extensions;
-    using MySportsClubManager.Web.ViewModels.Club;
+    using MySportsClubManager.Web.Infrastructure.Common;
     using MySportsClubManager.Web.ViewModels.Contest;
 
     using static MySportsClubManager.Common.GlobalConstants;
+    using static MySportsClubManager.Web.Infrastructure.Common.ExceptionMessages;
 
     public class ContestController : AdministrationController
     {
@@ -47,7 +47,7 @@
             try
             {
                 await this.contestService.CreateAsync(model);
-                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyAddedMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyAddedMessage;
                 return this.RedirectToAction("All", "Contest", new { area = string.Empty });
             }
             catch (Exception)
@@ -67,7 +67,7 @@
             {
                 await this.contestService.DeleteAsync(id);
 
-                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyDeletedMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
                 return this.RedirectToAction("All", "Contest", new { area = string.Empty });
             }
 
@@ -103,7 +103,7 @@
                 {
                     await this.contestService.EditAsync(model);
 
-                    this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyEditedMessage;
+                    this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyEditedMessage;
                     return this.RedirectToAction("Details", "Contest", new { id = model.Id, area = string.Empty });
                 }
                 catch (Exception)

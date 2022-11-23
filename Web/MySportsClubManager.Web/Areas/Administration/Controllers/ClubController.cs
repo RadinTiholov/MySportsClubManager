@@ -1,18 +1,17 @@
 ﻿namespace MySportsClubManager.Web.Areas.Administration.Controllers
 {
     using System;
-    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Razor.Language.Intermediate;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.Infrastructure.Common;
     using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Club;
 
     using static MySportsClubManager.Common.GlobalConstants;
+    using static MySportsClubManager.Web.Infrastructure.Common.ExceptionMessages;
 
     public class ClubController : AdministrationController
     {
@@ -50,7 +49,7 @@
                 int trainerId = await this.trainerService.GetTrainerIdAsync(this.User.Id());
                 await this.clubService.CreateAsync(model, trainerId);
 
-                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyAddedMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = SuccessfullyAddedMessage;
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
             }
             catch (Exception)
@@ -67,7 +66,7 @@
             if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), clubId))
             {
                 await this.clubService.DeleteAsync(clubId);
-                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyDeletedMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
             }
 
@@ -103,7 +102,7 @@
                 {
                     await this.clubService.EditAsync(model);
 
-                    this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyEditedMessage;
+                    this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyEditedMessage;
                     return this.RedirectToAction("Details", "Club", new { id = model.Id, area = string.Empty });
                 }
                 catch (Exception)

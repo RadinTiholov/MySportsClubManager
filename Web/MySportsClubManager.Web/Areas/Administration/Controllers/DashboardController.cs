@@ -7,8 +7,10 @@
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.Infrastructure.Common;
 
     using static MySportsClubManager.Common.GlobalConstants;
+    using static MySportsClubManager.Web.Infrastructure.Common.ExceptionMessages;
 
     public class DashboardController : AdministrationController
     {
@@ -40,7 +42,7 @@
             {
                 await this.applicationUserService.AssignUserToRoleAsync(id, GlobalConstants.AdministratorRoleName);
                 await this.trainerService.CreateAsync(id);
-                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessRoleMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessRoleMessage;
                 return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
             }
             catch (InvalidOperationException ioe)
@@ -58,7 +60,7 @@
             {
                 await this.applicationUserService.AssignUserToRoleAsync(id, GlobalConstants.TrainerRoleName);
                 await this.trainerService.CreateAsync(id);
-                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessRoleMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessRoleMessage;
                 return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
             }
             catch (InvalidOperationException ioe)
