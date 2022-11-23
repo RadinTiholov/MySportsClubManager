@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -20,11 +21,13 @@
     {
         private readonly IDeletableEntityRepository<Club> clubsRepository;
         private readonly IImageService imageService;
+        private readonly IAthleteService athleteService;
 
-        public ClubService(IDeletableEntityRepository<Club> clubsRepository, IImageService imageService)
+        public ClubService(IDeletableEntityRepository<Club> clubsRepository, IImageService imageService, IAthleteService athleteService)
         {
             this.clubsRepository = clubsRepository;
             this.imageService = imageService;
+            this.athleteService = athleteService;
         }
 
         public async Task<List<T>> AllAsync<T>(int page, int itemsPerPage = 8)
@@ -139,6 +142,28 @@
             }
 
             return club;
+        }
+
+        public async Task Enroll(int clubId, string userId)
+        {
+            var club = await this.clubsRepository.All()
+            .Include(x => x.Images)
+            .Where(x => x.Id == clubId)
+            .FirstOrDefaultAsync();
+
+            if (club != null)
+            {
+                if (club.Athletes.Any(a => a.ApplicationUserId == userId))
+                {
+                    throw new ArgumentException();
+                }
+
+                await this.athleteService.RegisterSportClub(userId, clubId);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
     }
 }

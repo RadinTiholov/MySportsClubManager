@@ -5,5 +5,9 @@
     public interface IAthleteService
     {
         Task CreateAsync(string userId);
+
+        Task RegisterSportClub(string userId, int clubId);
+
+        Task<bool> IsEnrolled(string userId, int clubId);
     }
 }

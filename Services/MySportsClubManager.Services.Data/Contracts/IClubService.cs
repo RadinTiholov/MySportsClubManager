@@ -15,5 +15,7 @@
         Task<T> GetOneAsync<T>(int id);
 
         Task EditAsync(EditClubInputModel model);
+
+        Task Enroll(int clubId, string userId);
     }
 }

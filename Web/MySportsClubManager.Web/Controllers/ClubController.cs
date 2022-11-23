@@ -5,7 +5,9 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Club;
 
 
@@ -50,6 +52,27 @@
             catch (ArgumentException)
             {
                 return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Enroll(int clubId)
+        {
+            try
+            {
+                await this.clubService.Enroll(clubId, this.User.Id());
+                this.TempData[GlobalConstants.SuccessMessage] = GlobalConstants.SuccessfullyAddedMessage;
+
+                return this.RedirectToAction("Details", "Club", new { id = clubId });
+            }
+            catch (ArgumentNullException)
+            {
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
+            }
+            catch (ArgumentException)
+            {
+                this.TempData[GlobalConstants.WarningMessage] = GlobalConstants.AlreadyEnrolledMessage;
+                return this.RedirectToAction("Details", "Club", new { id = clubId });
             }
         }
     }

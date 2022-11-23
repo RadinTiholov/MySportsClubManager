@@ -20,6 +20,8 @@
 
         public const string SuccessfullyAddedMessage = "Successfully added!";
 
+        public const string AlreadyEnrolledMessage = "Already enrolled!";
+
         public const string ErrorMessage = "ErrorMessage";
 
         public const string WarningMessage = "WarningMessage";
