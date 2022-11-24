@@ -61,7 +61,7 @@
             try
             {
                 await this.clubService.Enroll(clubId, this.User.Id());
-                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyAddedMessage;
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyEnrolledMessage;
 
                 return this.RedirectToAction("Details", "Club", new { id = clubId });
             }
@@ -72,6 +72,27 @@
             catch (ArgumentException)
             {
                 this.TempData[GlobalConstants.WarningMessage] = ExceptionMessages.AlreadyEnrolledMessage;
+                return this.RedirectToAction("Details", "Club", new { id = clubId });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Disenroll(int clubId)
+        {
+            try
+            {
+                await this.clubService.Disenroll(clubId, this.User.Id());
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDisenrolledMessage;
+
+                return this.RedirectToAction("Details", "Club", new { id = clubId });
+            }
+            catch (ArgumentNullException)
+            {
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
+            }
+            catch (ArgumentException)
+            {
+                this.TempData[GlobalConstants.WarningMessage] = ExceptionMessages.NotEnrolledMessage;
                 return this.RedirectToAction("Details", "Club", new { id = clubId });
             }
         }

@@ -8,6 +8,8 @@
 
         Task RegisterSportClubAsync(string userId, int clubId);
 
+        Task UnregisterSportClubAsync(string userId, int clubId);
+
         Task<bool> IsEnrolledInClubAsync(string userId, int clubId);
 
         Task<bool> IsEnrolledInAnyClubAsync(string userId);

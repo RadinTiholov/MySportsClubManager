@@ -69,6 +69,30 @@
             }
         }
 
+        public async Task UnregisterSportClubAsync(string userId, int clubId)
+        {
+            var athlete = await this.GetOneAsync(userId);
+
+            if (athlete != null)
+            {
+                if (athlete.EnrolledClubId == null || athlete.EnrolledClubId != clubId)
+                {
+                    throw new ArgumentException();
+                }
+                else
+                {
+                    athlete.EnrolledClubId = null;
+
+                    this.athleteRepository.Update(athlete);
+                    await this.athleteRepository.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
         private async Task<Athlete> GetOneAsync(string userId)
         {
             return await this.athleteRepository.All()

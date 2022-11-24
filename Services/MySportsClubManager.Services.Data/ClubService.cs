@@ -165,5 +165,22 @@
                 throw new ArgumentNullException();
             }
         }
+
+        public async Task Disenroll(int clubId, string userId)
+        {
+            var club = await this.clubsRepository.All()
+            .Include(x => x.Images)
+            .Where(x => x.Id == clubId)
+            .FirstOrDefaultAsync();
+
+            if (club != null)
+            {
+                await this.athleteService.UnregisterSportClubAsync(userId, clubId);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
     }
 }

@@ -17,5 +17,7 @@
         Task EditAsync(EditClubInputModel model);
 
         Task Enroll(int clubId, string userId);
+
+        Task Disenroll(int clubId, string userId);
     }
 }

@@ -10,6 +10,12 @@
 
         public const string SuccessfullyAddedMessage = "Successfully added!";
 
+        public const string SuccessfullyEnrolledMessage = "Successfully enrolled!";
+
+        public const string SuccessfullyDisenrolledMessage = "Successfully disenrolled!";
+
+        public const string NotEnrolledMessage = "Not enrolled!";
+
         public const string AlreadyEnrolledMessage = "Already enrolled!";
     }
 }
