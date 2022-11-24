@@ -8,6 +8,7 @@
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.Sport;
 
+    [Authorize]
     public class SportController : BaseController
     {
         private readonly ISportService sportService;
@@ -17,7 +18,6 @@
             this.sportService = sportService;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> All(int id = 1)
         {

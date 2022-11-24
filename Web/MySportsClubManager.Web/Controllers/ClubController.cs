@@ -11,6 +11,7 @@
     using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Club;
 
+    [Authorize]
     public class ClubController : BaseController
     {
         private readonly IClubService clubService;
@@ -20,7 +21,6 @@
             this.clubService = clubService;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> All(int id = 1)
         {

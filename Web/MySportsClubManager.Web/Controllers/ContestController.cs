@@ -2,12 +2,12 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels.Contest;
 
-    using static MySportsClubManager.Common.GlobalConstants;
-
+    [Authorize]
     public class ContestController : BaseController
     {
         private readonly IContestService contestService;
