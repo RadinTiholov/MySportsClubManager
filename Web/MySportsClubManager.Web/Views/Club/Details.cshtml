@@ -1,8 +1,4 @@
-﻿@using MySportsClubManager.Common
-@using MySportsClubManager.Services.Data.Contracts
-@using MySportsClubManager.Web.Infrastructure.Extensions
-@using MySportsClubManager.Web.ViewModels.Club
-@inject IAthleteService athleteService
+﻿@inject IAthleteService athleteService
 @model ClubDetailsViewModel
 @{
     <div class="container my-5">
@@ -100,11 +96,11 @@
                 </div>
                 <div class="card text-white bg-primary mt-3">
                     <div class="card-body">
-                        <h3>Join us</h3>
                         @if (await athleteService.IsEnrolledInAnyClubAsync(this.User.Id()))
                         {
                             @if (await athleteService.IsEnrolledInClubAsync(this.User.Id(), Model.Id))
                             {
+                                <h3>Leave us</h3>
                                 <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Disenroll" asp-route-clubId="@Model.Id">Disenroll</a>
                             }
                             else
@@ -114,6 +110,7 @@
                         }
                         else
                         {
+                            <h3>Join us</h3>
                             <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Enroll" asp-route-clubId="@Model.Id">Enroll</a>
                         }
                     </div>
