@@ -5,6 +5,7 @@
 @using MySportsClubManager.Services.Data.Contracts
 @inject UserManager<ApplicationUser> UserManager
 @inject IApplicationUserService applicationUserService
+@inject IAthleteService athleteService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,6 +69,10 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Account Manager</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Club" asp-action="MyClub">My club</a>
+                                @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.IsInRole(GlobalConstants.TrainerRoleName))
+                                {
+                                    <a class="dropdown-item" asp-area="Administration" asp-controller="Club" asp-action="CreatedClubs">Created clubs</a>
+                                }
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="ApplicationUser" asp-action="Logout">Log out</a></li>

@@ -182,5 +182,17 @@
                 throw new ArgumentNullException();
             }
         }
+
+        public async Task<List<T>> AllCreatedAsync<T>(int page, int trainerId, int itemsPerPage = 8)
+        {
+            return await this.clubsRepository
+                .AllAsNoTracking()
+                .Where(x => x.TrainerId == trainerId)
+                .OrderByDescending(x => x.CreatedOn)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
+                .ToListAsync();
+        }
     }
 }

@@ -19,5 +19,7 @@
         Task Enroll(int clubId, string userId);
 
         Task Disenroll(int clubId, string userId);
+
+        Task<List<T>> AllCreatedAsync<T>(int page, int trainerId, int itemsPerPage = 8);
     }
 }

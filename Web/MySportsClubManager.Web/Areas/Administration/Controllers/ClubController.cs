@@ -116,5 +116,26 @@
 
             return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> CreatedClubs(int id = 1)
+        {
+            if (id < 1)
+            {
+                id = 1;
+            }
+
+            int trainerId = await this.trainerService.GetTrainerIdAsync(this.User.Id());
+            const int ItemsPerPage = 8;
+            var model = new ClubListViewModel()
+            {
+                ItemsPerPage = ItemsPerPage,
+                Clubs = await this.clubService.AllCreatedAsync<ClubInListViewModel>(id, trainerId, ItemsPerPage),
+                PageNumber = id,
+                SportsCount = this.clubService.GetCount(),
+            };
+
+            return this.View(model);
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿@model ContestListViewModel
 @{
     this.ViewData["Title"] = $"All Contests, Page {Model.PageNumber}";
-    this.ViewData["CategoryType"] = "Contest";
+    this.ViewData["ControllerName"] = "Contest";
+    this.ViewData["ActionName"] = "All";
+    this.ViewData["AreaName"] = "";
 }
 @{
     <h1 class="text-center">@this.ViewData["Title"]</h1>
