@@ -15,10 +15,12 @@
     public class ClubController : BaseController
     {
         private readonly IClubService clubService;
+        private readonly IAthleteService athleteService;
 
-        public ClubController(IClubService clubService)
+        public ClubController(IClubService clubService, IAthleteService athleteService)
         {
             this.clubService = clubService;
+            this.athleteService = athleteService;
         }
 
         [HttpGet]
@@ -94,6 +96,22 @@
             {
                 this.TempData[GlobalConstants.WarningMessage] = ExceptionMessages.NotEnrolledMessage;
                 return this.RedirectToAction("Details", "Club", new { id = clubId });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MyClub()
+        {
+            try
+            {
+                var clubId = await this.athleteService.GetMyClub(this.User.Id());
+
+                return this.RedirectToAction("Details", "Club", new { id = clubId });
+            }
+            catch (ArgumentNullException)
+            {
+                this.TempData[GlobalConstants.WarningMessage] = ExceptionMessages.PleaseEnrollInClubFirstMessage;
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
             }
         }
     }

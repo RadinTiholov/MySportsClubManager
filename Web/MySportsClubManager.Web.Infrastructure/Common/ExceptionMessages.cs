@@ -17,5 +17,7 @@
         public const string NotEnrolledMessage = "Not enrolled!";
 
         public const string AlreadyEnrolledMessage = "Already enrolled!";
+
+        public const string PleaseEnrollInClubFirstMessage = "Please enroll in club first!";
     }
 }

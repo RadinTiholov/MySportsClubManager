@@ -93,6 +93,19 @@
             }
         }
 
+        public async Task<int> GetMyClub(string userId)
+        {
+            var athlete = await this.GetOneAsync(userId);
+            if (athlete.EnrolledClubId == null)
+            {
+                throw new ArgumentNullException();
+            }
+            else
+            {
+                return (int)athlete.EnrolledClubId;
+            }
+        }
+
         private async Task<Athlete> GetOneAsync(string userId)
         {
             return await this.athleteRepository.All()
