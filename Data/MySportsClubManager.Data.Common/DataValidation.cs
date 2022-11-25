@@ -67,5 +67,13 @@
         {
             public const int TopicMaxLength = 100;
         }
+
+        public static class Trainer
+        {
+            public const int EmailMinLength = 30;
+            public const int EmailMaxLength = 1000;
+            public const int TopicMinLength = 3;
+            public const int TopicMaxLength = 20;
+        }
     }
 }

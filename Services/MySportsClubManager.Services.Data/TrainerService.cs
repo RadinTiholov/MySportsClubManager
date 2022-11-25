@@ -4,9 +4,12 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.VisualBasic;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Web.ViewModels.Trainer;
 
     public class TrainerService : ITrainerService
     {
@@ -38,6 +41,17 @@
                 .FirstOrDefaultAsync();
 
             return trainerId;
+        }
+
+        public async Task<ContactTrainerInputModel> GetTrainerInformationAsync(int trainerId)
+        {
+            var trainerInfo = await this.trainerRepository.All()
+                .Where(x => x.Id == trainerId)
+                .Include(x => x.ApplicationUser)
+                .To<ContactTrainerInputModel>()
+                .FirstOrDefaultAsync();
+
+            return trainerInfo;
         }
 
         public async Task<bool> OwnsClub(string userId, int clubId)

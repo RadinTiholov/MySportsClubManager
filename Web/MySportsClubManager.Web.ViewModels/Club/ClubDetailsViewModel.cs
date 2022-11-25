@@ -15,6 +15,8 @@
     {
         public int Id { get; set; }
 
+        public string OwnerId { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -43,10 +45,12 @@
                     LastName = c.Trainer.ApplicationUser.LastName,
                     Email = c.Trainer.ApplicationUser.Email,
                     ProfilePic = c.Trainer.ApplicationUser.Image.URL,
-                    Id = c.Trainer.ApplicationUser.Id,
+                    Id = c.Trainer.Id,
                 }))
                 .ForMember(x => x.ImageUrls, opt =>
-                opt.MapFrom(c => c.Images.Select(i => i.URL).ToArray()));
+                opt.MapFrom(c => c.Images.Select(i => i.URL).ToArray()))
+                .ForMember(x => x.OwnerId, opt =>
+                opt.MapFrom(c => c.Trainer.ApplicationUserId));
         }
     }
 }

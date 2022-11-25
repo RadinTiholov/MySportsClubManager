@@ -7,7 +7,7 @@
                 <div class="card text-white bg-primary">
                     <div class="card-body">
                         <h1 class="card-title">@Model.Name</h1>
-                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.Id() == Model.Trainer.Id)
+                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.Id() == Model.OwnerId)
                         {
                             <div class="row">
                                 <div class="col-xl-1">
@@ -130,6 +130,7 @@
                         <h5 class="mt-1">First name: <strong>@Model.Trainer.FirstName</strong></h5>
                         <h5>Last name:    <strong>@Model.Trainer.LastName</strong></h5>
                         <h5>Email: <strong>@Model.Trainer.Email</strong></h5>
+                        <a type="submit" class="btn btn-warning" asp-area="" asp-controller="Trainer" asp-action="Contact" asp-route-id="@Model.Trainer.Id">Contact trainer</a>
                     </div>
                 </div>
             </div>
