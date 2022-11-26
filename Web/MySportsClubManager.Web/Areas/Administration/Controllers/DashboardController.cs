@@ -9,7 +9,7 @@
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Common;
-
+    using MySportsClubManager.Web.Infrastructure.Extensions;
     using static MySportsClubManager.Common.GlobalConstants;
 
     public class DashboardController : AdministrationController
@@ -76,6 +76,11 @@
         {
             try
             {
+                if (id == this.User.Id())
+                {
+                    throw new InvalidOperationException(ExceptionMessages.DemoteYourselfErrorMessage);
+                }
+
                 await this.applicationUserService.RemoveUserFromRoleAsync(id);
 
                 this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessRemoveFromRoleMessage;
