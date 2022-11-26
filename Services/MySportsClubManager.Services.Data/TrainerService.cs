@@ -8,17 +8,26 @@
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Services.Messaging;
     using MySportsClubManager.Web.ViewModels.Trainer;
 
     public class TrainerService : ITrainerService
     {
         private readonly IDeletableEntityRepository<Trainer> trainerRepository;
         private readonly IRepository<Club> clubRepository;
+        private readonly IEmailSender emailSender;
 
-        public TrainerService(IDeletableEntityRepository<Trainer> trainerRepository, IRepository<Club> clubRepository)
+        public TrainerService(IDeletableEntityRepository<Trainer> trainerRepository, IRepository<Club> clubRepository, IEmailSender emailSender)
         {
             this.trainerRepository = trainerRepository;
             this.clubRepository = clubRepository;
+            this.emailSender = emailSender;
+        }
+
+        public async Task ContactWithTrainerAsync(ContactTrainerInputModel model)
+        {
+            string email = model.EmailText + "\n" + "from: " + model.SenderEmail;
+            await this.emailSender.SendEmailAsync("radin.tiholov@mail.bg", "Radin", model.TrainerEmail, model.Topic, email);
         }
 
         public async Task CreateAsync(string userId)

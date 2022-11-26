@@ -13,5 +13,7 @@
         Task<bool> OwnsClub(string userId, int clubId);
 
         Task<ContactTrainerInputModel> GetTrainerInformationAsync(int trainerId);
+
+        Task ContactWithTrainerAsync(ContactTrainerInputModel model);
     }
 }

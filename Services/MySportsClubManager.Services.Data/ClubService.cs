@@ -35,9 +35,9 @@
             return await this.clubsRepository
                 .AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
+                .To<T>()
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
-                .To<T>()
                 .ToListAsync();
         }
 

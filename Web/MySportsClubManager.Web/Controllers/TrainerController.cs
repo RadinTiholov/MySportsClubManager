@@ -1,9 +1,14 @@
 ﻿namespace MySportsClubManager.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
+    using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.Infrastructure.Common;
+    using MySportsClubManager.Web.ViewModels.Trainer;
 
     public class TrainerController : BaseController
     {
@@ -14,10 +19,34 @@
             this.trainerService = trainerService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Contact(int id)
         {
             var model = await this.trainerService.GetTrainerInformationAsync(id);
             return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact(ContactTrainerInputModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            try
+            {
+                await this.trainerService.ContactWithTrainerAsync(model);
+
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullySendEmailMessage;
+                return this.RedirectToAction("All", "Club", new { area = string.Empty });
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, GlobalConstants.CreationErrorMessage);
+
+                return this.View(model);
+            }
         }
     }
 }

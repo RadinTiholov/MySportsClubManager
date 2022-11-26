@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\Data\MySportsClubManager.Data\MySportsClubManager.Data.csproj" />
     <ProjectReference Include="..\..\Web\MySportsClubManager.Web.ViewModels\MySportsClubManager.Web.ViewModels.csproj" />
     <ProjectReference Include="..\MySportsClubManager.Services.Mapping\MySportsClubManager.Services.Mapping.csproj" />
+    <ProjectReference Include="..\MySportsClubManager.Services.Messaging\MySportsClubManager.Services.Messaging.csproj" />
   </ItemGroup>
 
 </Project>

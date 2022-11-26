@@ -78,7 +78,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(configuration["SendGrid:ApiKey"]));
             services.AddTransient<ISportService, SportService>();
             services.AddTransient<IClubService, ClubService>();
             services.AddTransient<IApplicationUserService, ApplicationUserService>();

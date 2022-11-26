@@ -23,5 +23,7 @@
         public const string PleaseEnrollInClubFirstMessage = "Please enroll in club first!";
 
         public const string DemoteYourselfErrorMessage = "Can't demote yourself!";
+
+        public const string SuccessfullySendEmailMessage = "Successfully send email!";
     }
 }
