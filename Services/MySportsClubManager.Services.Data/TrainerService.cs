@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.VisualBasic;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
@@ -24,13 +23,20 @@
 
         public async Task CreateAsync(string userId)
         {
-            var trainer = new Trainer()
-            {
-                ApplicationUserId = userId,
-            };
+            var trainer = await this.trainerRepository.All()
+                .Where(x => x.ApplicationUserId == userId)
+                .FirstOrDefaultAsync();
 
-            await this.trainerRepository.AddAsync(trainer);
-            await this.trainerRepository.SaveChangesAsync();
+            if (trainer == null)
+            {
+                trainer = new Trainer()
+                {
+                    ApplicationUserId = userId,
+                };
+
+                await this.trainerRepository.AddAsync(trainer);
+                await this.trainerRepository.SaveChangesAsync();
+            }
         }
 
         public async Task<int> GetTrainerIdAsync(string userId)

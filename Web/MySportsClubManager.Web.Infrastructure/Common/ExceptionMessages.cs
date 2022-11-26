@@ -4,6 +4,8 @@
     {
         public const string SuccessRoleMessage = "Successfully added to role!";
 
+        public const string SuccessRemoveFromRoleMessage = "Successfully removed from role!";
+
         public const string SuccessfullyDeletedMessage = "Successfully deleted!";
 
         public const string SuccessfullyEditedMessage = "Successfully edited!";

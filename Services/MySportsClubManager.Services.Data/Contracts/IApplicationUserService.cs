@@ -11,6 +11,8 @@
 
         Task AssignUserToRoleAsync(string id, string roleName);
 
+        Task RemoveUserFromRoleAsync(string id);
+
         Task<string> GetCurrentUserProfilePicAsync(string id);
     }
 }

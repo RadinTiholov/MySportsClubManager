@@ -1,6 +1,7 @@
 ﻿namespace MySportsClubManager.Web.Areas.Administration.Controllers
 {
     using System;
+    using System.Security.Policy;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,6 @@
     using MySportsClubManager.Web.Infrastructure.Common;
 
     using static MySportsClubManager.Common.GlobalConstants;
-    using static MySportsClubManager.Web.Infrastructure.Common.ExceptionMessages;
 
     public class DashboardController : AdministrationController
     {
@@ -61,6 +61,24 @@
                 await this.applicationUserService.AssignUserToRoleAsync(id, GlobalConstants.TrainerRoleName);
                 await this.trainerService.CreateAsync(id);
                 this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessRoleMessage;
+                return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
+            }
+            catch (InvalidOperationException ioe)
+            {
+                this.TempData[GlobalConstants.ErrorMessage] = ioe.Message;
+                return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
+        public async Task<IActionResult> RemoveRole(string id)
+        {
+            try
+            {
+                await this.applicationUserService.RemoveUserFromRoleAsync(id);
+
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessRemoveFromRoleMessage;
                 return this.RedirectToAction(nameof(this.AllUsers), "Dashboard");
             }
             catch (InvalidOperationException ioe)

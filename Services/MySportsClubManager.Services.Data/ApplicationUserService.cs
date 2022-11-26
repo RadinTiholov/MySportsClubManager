@@ -62,5 +62,31 @@
 
             return imageUrl;
         }
+
+        public async Task RemoveUserFromRoleAsync(string id)
+        {
+            var user = await this.applicationUserRepository.All()
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new InvalidOperationException(ServiceErrorMessages.UserNotFoundMessage);
+            }
+
+            if (await this.userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName))
+            {
+                var result = await this.userManager.RemoveFromRoleAsync(user, GlobalConstants.AdministratorRoleName);
+                return;
+            }
+
+            if (await this.userManager.IsInRoleAsync(user, GlobalConstants.TrainerRoleName))
+            {
+                var result = await this.userManager.RemoveFromRoleAsync(user, GlobalConstants.TrainerRoleName);
+                return;
+            }
+
+            throw new InvalidOperationException(ServiceErrorMessages.UserIsNotInRoleMessage);
+        }
     }
 }
