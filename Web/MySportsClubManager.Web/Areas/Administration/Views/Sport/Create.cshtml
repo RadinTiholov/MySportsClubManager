@@ -1,67 +1,82 @@
 ﻿@using MySportsClubManager.Web.ViewModels.Sport
 @model CreateSportInputModel
 @{
-    <p class="text-center h1 fw-bold m-3">Create Sport</p>
-    <form method="post" asp-action="Create" class="mx-1 mx-md-4" enctype="multipart/form-data">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="container h-100 my-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="card text-black" style="border-radius: 25px; border-width: medium">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col">
+                                <p class="text-center h1 fw-bold m-3">Create Sport</p>
+                                <form method="post" asp-action="Create" class="mx-1 mx-md-4" enctype="multipart/form-data">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="d-flex flex-row align-items-center mb-4">
-            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-            <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.Name">Name</label>
-                <input type="text" class="form-control" asp-for="@Model.Name" />
-                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label asp-for="@Model.Name">Name</label>
+                                            <input type="text" class="form-control" asp-for="@Model.Name" />
+                                            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label asp-for="@Model.Description">Description</label>
+                                            <textarea rows="5" class="form-control" asp-for="@Model.Description"></textarea>
+                                            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label asp-for="@Model.CreationDate">CreationDate</label>
+                                            <input type="date" class="form-control" asp-for="@Model.CreationDate" />
+                                            <span asp-validation-for="@Model.CreationDate" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label asp-for="@Model.Country">Country</label>
+                                            <input type="text" class="form-control" asp-for="@Model.Country" />
+                                            <span asp-validation-for="@Model.Country" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label asp-for="@Model.Creator">Creator</label>
+                                            <input type="text" class="form-control" asp-for="@Model.Creator" />
+                                            <span asp-validation-for="@Model.Creator" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label asp-for="@Model.ImageFile">Image</label>
+                                            <input type="file" class="form-control" asp-for="@Model.ImageFile" />
+                                            <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                        <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="d-flex flex-row align-items-center mb-4">
-            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-            <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.Description">Description</label>
-                <textarea rows="5" class="form-control" asp-for="@Model.Description"></textarea>
-                <span asp-validation-for="@Model.Description" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row align-items-center mb-4">
-            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-            <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.CreationDate">CreationDate</label>
-                <input type="date" class="form-control" asp-for="@Model.CreationDate" />
-                <span asp-validation-for="@Model.CreationDate" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row align-items-center mb-4">
-            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-            <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.Country">Country</label>
-                <input type="text" class="form-control" asp-for="@Model.Country" />
-                <span asp-validation-for="@Model.Country" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row align-items-center mb-4">
-            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-            <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.Creator">Creator</label>
-                <input type="text" class="form-control" asp-for="@Model.Creator" />
-                <span asp-validation-for="@Model.Creator" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row align-items-center mb-4">
-            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-            <div class="form-outline flex-fill mb-0">
-                <label asp-for="@Model.ImageFile">Image</label>
-                <input type="file" class="form-control" asp-for="@Model.ImageFile" />
-                <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-            <button type="submit" class="btn btn-primary btn-lg">Create</button>
-        </div>
-
-    </form>
+    </div>
 }
