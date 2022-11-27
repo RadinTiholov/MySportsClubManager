@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
@@ -16,18 +17,20 @@
         private readonly IDeletableEntityRepository<Trainer> trainerRepository;
         private readonly IRepository<Club> clubRepository;
         private readonly IEmailSender emailSender;
+        private readonly IConfiguration configuration;
 
-        public TrainerService(IDeletableEntityRepository<Trainer> trainerRepository, IRepository<Club> clubRepository, IEmailSender emailSender)
+        public TrainerService(IDeletableEntityRepository<Trainer> trainerRepository, IRepository<Club> clubRepository, IEmailSender emailSender, IConfiguration configuration)
         {
             this.trainerRepository = trainerRepository;
             this.clubRepository = clubRepository;
             this.emailSender = emailSender;
+            this.configuration = configuration;
         }
 
         public async Task ContactWithTrainerAsync(ContactTrainerInputModel model)
         {
             string email = model.EmailText + "\n" + "from: " + model.SenderEmail;
-            await this.emailSender.SendEmailAsync("radin.tiholov@mail.bg", "Radin", model.TrainerEmail, model.Topic, email);
+            await this.emailSender.SendEmailAsync(this.configuration["SendGrid:Email"], this.configuration["SendGrid:Sender"], model.TrainerEmail, model.Topic, email);
         }
 
         public async Task CreateAsync(string userId)
