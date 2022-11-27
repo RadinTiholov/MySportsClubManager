@@ -52,9 +52,9 @@
                 this.TempData[GlobalConstants.SuccessMessage] = SuccessfullyAddedMessage;
                 return this.RedirectToAction("All", "Club", new { area = string.Empty });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                this.ModelState.AddModelError(string.Empty, CreationErrorMessage);
+                this.ModelState.AddModelError(string.Empty, ex.Message);
 
                 model.Sports = await this.sportsService.AllForInputAsync();
                 return this.View(model);

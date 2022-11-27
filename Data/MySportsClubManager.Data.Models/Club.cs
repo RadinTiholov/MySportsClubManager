@@ -21,7 +21,6 @@
             this.Reviews = new HashSet<Review>();
             this.Trainings = new HashSet<Training>();
             this.Contests = new HashSet<Contest>();
-            this.Images = new HashSet<Image>();
         }
 
         [Required]
@@ -54,7 +53,10 @@
         public decimal Fee { get; set; }
 
         [Required]
-        public virtual ICollection<Image> Images { get; set; }
+        [ForeignKey(nameof(Image))]
+        public int ImageId { get; set; }
+
+        public Image Image { get; set; }
 
         public ICollection<Athlete> Athletes { get; set; }
 

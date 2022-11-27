@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Http;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Web.Infrastructure.Attributes;
     using MySportsClubManager.Web.ViewModels.Sport;
 
     using static MySportsClubManager.Data.Common.DataValidation.Club;
@@ -37,16 +38,18 @@
         [Range(typeof(decimal), MinFee, MaxFee, ConvertValueInInvariantCulture = true)]
         public decimal Fee { get; set; }
 
+        [AllowedFileExtensions]
         [DataType(DataType.Upload)]
-        public IList<IFormFile> ImageFiles { get; set; }
+        public IFormFile ImageFile { get; set; }
 
-        public string[] ImageUrls { get; set; }
+        [Required]
+        public string ImageUrl { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Club, EditClubInputModel>()
-                .ForMember(x => x.ImageUrls, opt =>
-                opt.MapFrom(c => c.Images.Select(i => i.URL).ToArray()));
+                .ForMember(x => x.ImageUrl, opt =>
+                opt.MapFrom(s => s.Image.URL));
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Http;
+    using MySportsClubManager.Web.Infrastructure.Attributes;
     using MySportsClubManager.Web.ViewModels.Sport;
 
     using static MySportsClubManager.Data.Common.DataValidation.Club;
@@ -32,7 +33,8 @@
         public decimal Fee { get; set; }
 
         [Required]
+        [AllowedFileExtensions]
         [DataType(DataType.Upload)]
-        public IList<IFormFile> ImageFiles { get; set; }
+        public IFormFile ImageFile { get; set; }
     }
 }

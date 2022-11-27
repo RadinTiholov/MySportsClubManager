@@ -13,6 +13,7 @@
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Web.ViewModels.Base;
     using MySportsClubManager.Web.ViewModels.Club;
 
     using Club = MySportsClubManager.Data.Models.Club;
@@ -35,28 +36,15 @@
             return await this.clubsRepository
                 .AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
-                .To<T>()
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
+                .To<T>()
                 .ToListAsync();
         }
 
         public async Task CreateAsync(CreateClubInputModel model, int trainerId)
         {
-            var images = new List<Image>();
-            foreach (var image in model.ImageFiles)
-            {
-                var extension = Path.GetExtension(image.FileName);
-                var extensions = GlobalConstants.AllowedImageExtensions;
-
-                if (!extensions.Contains(extension.ToLower()))
-                {
-                    throw new InvalidOperationException(GlobalConstants.AllowedExtensionsErrorMessage);
-                }
-
-                var imageUrl = await this.imageService.AddByFile(image, image.FileName);
-                images.Add(imageUrl);
-            }
+            var image = await this.imageService.AddByFile(model.ImageFile, model.ImageFile.FileName);
 
             var club = new Club()
             {
@@ -66,7 +54,7 @@
                 TrainerId = trainerId,
                 Address = model.Address,
                 Fee = model.Fee,
-                Images = images.ToArray(),
+                Image = image,
             };
 
             await this.clubsRepository.AddAsync(club);
@@ -88,7 +76,7 @@
         public async Task EditAsync(EditClubInputModel model)
         {
             var club = await this.clubsRepository.All()
-                .Include(x => x.Images)
+                .Include(x => x.Image)
                 .Where(x => x.Id == model.Id)
                 .FirstOrDefaultAsync();
 
@@ -97,20 +85,14 @@
                 throw new ArgumentException();
             }
 
-            List<Image> images = new List<Image>();
-            if (model.ImageFiles != null)
+            Image image = null;
+            if (model.ImageFile != null)
             {
-                foreach (var image in model.ImageFiles)
-                {
-                    images.Add(await this.imageService.AddByFile(image, image.FileName));
-                }
+                image = await this.imageService.AddByFile(model.ImageFile, model.ImageFile.FileName);
             }
             else
             {
-                foreach (var image in club.Images)
-                {
-                    images.Add(await this.imageService.AddByUrlAsync(image.URL));
-                }
+                image = await this.imageService.AddByUrlAsync(model.ImageUrl);
             }
 
             club.Name = model.Name;
@@ -118,7 +100,7 @@
             club.SportId = model.SportId;
             club.Address = model.Address;
             club.Fee = model.Fee;
-            club.Images = images;
+            club.Image = image;
 
             this.clubsRepository.Update(club);
             await this.clubsRepository.SaveChangesAsync();
@@ -147,7 +129,7 @@
         public async Task Enroll(int clubId, string userId)
         {
             var club = await this.clubsRepository.All()
-            .Include(x => x.Images)
+            .Include(x => x.Image)
             .Where(x => x.Id == clubId)
             .FirstOrDefaultAsync();
 
@@ -169,7 +151,7 @@
         public async Task Disenroll(int clubId, string userId)
         {
             var club = await this.clubsRepository.All()
-            .Include(x => x.Images)
+            .Include(x => x.Image)
             .Where(x => x.Id == clubId)
             .FirstOrDefaultAsync();
 

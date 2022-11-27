@@ -21,7 +21,7 @@
         {
             configuration.CreateMap<Club, ClubInListViewModel>()
                 .ForMember(x => x.Image, opt =>
-                opt.MapFrom(i => new ImageViewModel() { URL = i.Images.ToArray()[0].URL }));
+                opt.MapFrom(i => new ImageViewModel() { URL = i.Image.URL }));
         }
     }
 }

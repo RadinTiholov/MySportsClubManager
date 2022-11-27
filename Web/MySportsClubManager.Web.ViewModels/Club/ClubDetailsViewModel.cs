@@ -31,7 +31,7 @@
 
         public TrainerInDetailsViewModel Trainer { get; set; }
 
-        public string[] ImageUrls { get; set; }
+        public string ImageUrl { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
@@ -47,8 +47,8 @@
                     ProfilePic = c.Trainer.ApplicationUser.Image.URL,
                     Id = c.Trainer.Id,
                 }))
-                .ForMember(x => x.ImageUrls, opt =>
-                opt.MapFrom(c => c.Images.Select(i => i.URL).ToArray()))
+                .ForMember(x => x.ImageUrl, opt =>
+                opt.MapFrom(s => s.Image.URL.ToString()))
                 .ForMember(x => x.OwnerId, opt =>
                 opt.MapFrom(c => c.Trainer.ApplicationUserId));
         }
