@@ -66,6 +66,7 @@
         public static class Training
         {
             public const int TopicMaxLength = 100;
+            public const int TopicMinLength = 10;
         }
 
         public static class Trainer

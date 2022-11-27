@@ -194,5 +194,15 @@
                 .To<T>()
                 .ToListAsync();
         }
+
+        public async Task<List<T>> GetMineAsync<T>(int trainerId)
+        {
+            return await this.clubsRepository
+               .AllAsNoTracking()
+               .Where(x => x.TrainerId == trainerId)
+               .OrderByDescending(x => x.CreatedOn)
+               .To<T>()
+               .ToListAsync();
+        }
     }
 }
