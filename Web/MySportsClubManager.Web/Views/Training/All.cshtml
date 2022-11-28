@@ -23,7 +23,14 @@
 						<li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> @training.Year</li>
 						<li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i>Duration: @training.Duration</li>
 					</ul>
-					<a class="btn btn-warning" asp-area="" asp-controller="Training" asp-action="Enroll" asp-route-id="@training.Id">Enroll</a>
+					<a class="btn btn-success" asp-area="" asp-controller="Training" asp-action="Enroll" asp-route-id="@training.Id">Enroll</a>
+					@if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.Id() == Model.Club.OwnerId)
+					{
+						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+							Delete
+						</button>
+						<a type="submit" class="btn btn-warning" asp-area="Administration" asp-controller="Training" asp-action="Edit" asp-route-id="@training.Id">Edit</a>
+					}
 				</div>
 			</div>
 		}
