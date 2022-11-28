@@ -106,6 +106,12 @@
             }
         }
 
+        public async Task<int> GetAthleteIdAsync(string userId)
+        {
+            var athlete = await this.GetOneAsync(userId);
+            return athlete.Id;
+        }
+
         private async Task<Athlete> GetOneAsync(string userId)
         {
             return await this.athleteRepository.All()

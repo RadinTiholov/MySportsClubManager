@@ -22,6 +22,8 @@
 
         public const string DateFormat = "MM/dd/yyyy";
 
+        public const string TimeFormat = "hh':'mm";
+
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png" };
     }
 }

@@ -1,11 +1,14 @@
 ﻿namespace MySportsClubManager.Services.Data
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Training;
 
     public class TrainingService : ITrainingService
@@ -29,6 +32,16 @@
 
             await this.trainingRepository.AddAsync(training);
             await this.trainingRepository.SaveChangesAsync();
+        }
+
+        public async Task<List<TrainingInListViewModel>> GetAllForClubAsync(int clubId)
+        {
+            return await this.trainingRepository
+                .All()
+                .Where(x => x.ClubId == clubId)
+                .OrderByDescending(x => x.Date)
+                .To<TrainingInListViewModel>()
+                .ToListAsync();
         }
     }
 }

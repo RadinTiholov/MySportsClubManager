@@ -1,0 +1,31 @@
+﻿@model TrainingListViewModel
+@{
+    <div class="container my-5">
+		<div class="row row-striped">
+			<div class="col-2 text-right">
+				<h1 class="display-4"><span class="badge text-dark">Club</span></h1>
+			</div>
+			<div class="col-10">
+				<h3 class="text-uppercase text-dark"><strong>@Model.Club.Name</strong></h3>
+				<h4 class="text-uppercase text-dark">@Model.Club.Description</h4>
+			</div>
+		</div>
+		@foreach (var training in Model.Trainings)
+		{
+			<div class="row row-striped">
+				<div class="col-2 text-right">
+					<h1 class="display-4"><span class="badge text-dark">@training.Day</span></h1>
+					<h2>@training.Month</h2>
+				</div>
+				<div class="col-10">
+					<h3 class="text-uppercase text-dark"><strong>@training.Topic</strong></h3>
+					<ul class="list-inline">
+						<li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> @training.Year</li>
+						<li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i>Duration: @training.Duration</li>
+					</ul>
+					<a class="btn btn-warning" asp-area="" asp-controller="Training" asp-action="Enroll" asp-route-id="@training.Id">Enroll</a>
+				</div>
+			</div>
+		}
+	</div>
+}

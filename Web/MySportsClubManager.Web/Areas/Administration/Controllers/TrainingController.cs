@@ -50,7 +50,7 @@
                 await this.trainingService.CreateAsync(model);
 
                 this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyAddedMessage;
-                return this.RedirectToAction("All", "Training", new { area = string.Empty });
+                return this.RedirectToAction("All", "Training", new { area = string.Empty, clubId = model.ClubId });
             }
             catch (Exception)
             {

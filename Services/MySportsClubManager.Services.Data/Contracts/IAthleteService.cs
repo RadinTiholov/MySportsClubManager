@@ -15,5 +15,7 @@
         Task<bool> IsEnrolledInAnyClubAsync(string userId);
 
         Task<int> GetMyClub(string userId);
+
+        Task<int> GetAthleteIdAsync(string userId);
     }
 }

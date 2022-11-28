@@ -105,6 +105,12 @@
                         <a type="submit" class="btn btn-warning" asp-area="" asp-controller="Trainer" asp-action="Contact" asp-route-id="@Model.Trainer.Id">Contact trainer</a>
                     </div>
                 </div>
+                <div class="card text-white bg-primary mt-3">
+                    <div class="card-body">
+                        <h3>Trainings</h3>
+                        <a type="submit" class="btn btn-warning" asp-area="" asp-controller="Training" asp-action="All" asp-route-clubId="@Model.Id">See trainings</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
