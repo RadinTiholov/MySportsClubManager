@@ -12,5 +12,9 @@
         Task<List<TrainingInListViewModel>> GetAllForClubAsync(int clubId);
 
         Task DeleteAsync(int trainingId);
+
+        Task<T> GetOneAsync<T>(int id);
+
+        Task EditAsync(EditTrainingInputModel model);
     }
 }
