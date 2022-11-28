@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
@@ -32,6 +33,19 @@
 
             await this.trainingRepository.AddAsync(training);
             await this.trainingRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int trainingId)
+        {
+            var training = await this.trainingRepository.All()
+            .Where(c => c.Id == trainingId)
+                .FirstOrDefaultAsync();
+
+            if (training != null)
+            {
+                this.trainingRepository.Delete(training);
+                await this.trainingRepository.SaveChangesAsync();
+            }
         }
 
         public async Task<List<TrainingInListViewModel>> GetAllForClubAsync(int clubId)

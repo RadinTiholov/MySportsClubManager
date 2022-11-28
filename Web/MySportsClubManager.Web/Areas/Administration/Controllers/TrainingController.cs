@@ -59,5 +59,17 @@
                 return this.View(model);
             }
         }
+
+        public async Task<IActionResult> Delete(int trainingId, int clubId)
+        {
+            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), clubId))
+            {
+                await this.trainingService.DeleteAsync(trainingId);
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
+                return this.RedirectToAction("All", "Training", new { area = string.Empty, clubId = clubId });
+            }
+
+            return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });
+        }
     }
 }

@@ -10,5 +10,7 @@
         Task CreateAsync(CreateTrainingInputModel model);
 
         Task<List<TrainingInListViewModel>> GetAllForClubAsync(int clubId);
+
+        Task DeleteAsync(int trainingId);
     }
 }
