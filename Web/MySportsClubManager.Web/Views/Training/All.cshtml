@@ -1,4 +1,5 @@
 ﻿@model TrainingListViewModel
+@inject IAthleteService athleteService
 @{
     <div class="container my-5">
 		<div class="row row-striped">
@@ -22,8 +23,32 @@
 					<ul class="list-inline">
 						<li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> @training.Year</li>
 						<li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i>Duration: @training.Duration</li>
+						<li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i>Participants: @training.ParticipantsCount</li>
 					</ul>
-					<a class="btn btn-success" asp-area="" asp-controller="Training" asp-action="Enroll" asp-route-id="@training.Id">Enroll</a>
+					@if (await athleteService.IsEnrolledInClubAsync(this.User.Id(), Model.Club.Id))
+					{
+						@if (DateTime.Now < new DateTime(int.Parse(training.Year), training.MonthWithDigits, int.Parse(training.Day)))
+						{
+
+							@if (!await athleteService.IsEnrolledInTrainingAsync(this.User.Id(), training.Id))
+							{
+								<a class="btn btn-success" asp-area="" asp-controller="Training" asp-action="Enroll" asp-route-trainingId="@training.Id">Enroll</a>
+							}
+							else
+							{
+								<button type="button" class="btn btn-success disabled">Already enrolled</button>
+							}
+						}
+						else 
+						{
+							<button type="button" class="btn btn-success disabled">The training is over. Participants: @training.ParticipantsCount</button>
+						}
+					}
+					else
+					{
+						<button type="button" class="btn btn-success disabled">Enroll in club first</button>
+					}
+
 					@if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.Id() == Model.Club.OwnerId)
 					{
 						<a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Training" asp-action="Delete" asp-route-clubId="@Model.Club.Id" asp-route-trainingId="@training.Id">Delete</a>

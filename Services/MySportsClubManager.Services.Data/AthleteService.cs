@@ -38,6 +38,13 @@
             return athlete.EnrolledClubId == clubId;
         }
 
+        public async Task<bool> IsEnrolledInTrainingAsync(string userId, int trainingId)
+        {
+            var athlete = await this.GetOneAsync(userId);
+
+            return athlete.Trainings.Any(x => x.Id == trainingId);
+        }
+
         public async Task<bool> IsEnrolledInAnyClubAsync(string userId)
         {
             var athlete = await this.GetOneAsync(userId);
@@ -115,6 +122,7 @@
         private async Task<Athlete> GetOneAsync(string userId)
         {
             return await this.athleteRepository.All()
+                .Include(x => x.Trainings)
                 .Where(x => x.ApplicationUserId == userId)
                 .FirstOrDefaultAsync();
         }

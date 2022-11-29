@@ -15,10 +15,12 @@
     public class TrainingService : ITrainingService
     {
         private readonly IDeletableEntityRepository<Training> trainingRepository;
+        private readonly IRepository<Athlete> athleteRepository;
 
-        public TrainingService(IDeletableEntityRepository<Training> trainingRepository)
+        public TrainingService(IDeletableEntityRepository<Training> trainingRepository, IRepository<Athlete> athleteRepository)
         {
             this.trainingRepository = trainingRepository;
+            this.athleteRepository = athleteRepository;
         }
 
         public async Task CreateAsync(CreateTrainingInputModel model)
@@ -91,6 +93,48 @@
                 .OrderByDescending(x => x.Date)
                 .To<TrainingInListViewModel>()
                 .ToListAsync();
+        }
+
+        public async Task Enroll(int trainingId, string applicationUserId)
+        {
+            Training training = await this.trainingRepository.All()
+            .Include(x => x.EnrolledAthletes)
+            .Where(x => x.Id == trainingId)
+            .FirstOrDefaultAsync();
+
+            if (training != null)
+            {
+                if (training.EnrolledAthletes.Any(a => a.ApplicationUserId == applicationUserId))
+                {
+                    throw new ArgumentException();
+                }
+
+                var athlete = await this.athleteRepository.All()
+                    .Where(a => a.ApplicationUserId == applicationUserId)
+                    .FirstOrDefaultAsync();
+
+                training.EnrolledAthletes.Add(athlete);
+                this.trainingRepository.Update(training);
+                await this.trainingRepository.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        public async Task<int> GetClubId(int trainingId)
+        {
+            var trainig = await this.trainingRepository.All()
+            .Where(x => x.Id == trainingId)
+            .FirstOrDefaultAsync();
+
+            if (trainig == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return trainig.ClubId;
         }
     }
 }

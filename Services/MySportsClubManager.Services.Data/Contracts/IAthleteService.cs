@@ -12,6 +12,8 @@
 
         Task<bool> IsEnrolledInClubAsync(string userId, int clubId);
 
+        Task<bool> IsEnrolledInTrainingAsync(string userId, int trainingId);
+
         Task<bool> IsEnrolledInAnyClubAsync(string userId);
 
         Task<int> GetMyClub(string userId);
