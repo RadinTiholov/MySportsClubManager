@@ -4,10 +4,12 @@
     <div class="container my-5">
 		<div class="row row-striped">
 			<div class="col-2 text-right">
-				<h1 class="display-4"><span class="badge text-dark">Club</span></h1>
+				<a asp-controller="Club" asp-action="Details" asp-route-id="@Model.Club.Id" type="button" class="remove-decoration text-dark">
+					<h1 class="display-4"><span class="badge text-dark">Club</span></h1>
+				</a>
 			</div>
 			<div class="col-10">
-				<h3 class="text-uppercase text-dark"><strong>@Model.Club.Name</strong></h3>
+				<a asp-controller="Club" asp-action="Details" asp-route-id="@Model.Club.Id" type="button" class="remove-decoration text-uppercase text-dark"><strong>@Model.Club.Name</strong></a>
 				<h4 class="text-uppercase text-dark">@Model.Club.Description</h4>
 			</div>
 		</div>

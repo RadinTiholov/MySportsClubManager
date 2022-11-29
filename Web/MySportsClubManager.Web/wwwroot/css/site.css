@@ -58,3 +58,8 @@ button.accept-policy {
     width: 30px;
     height: 30px;
 }
+
+/*All*/
+.remove-decoration {
+    text-decoration: none;
+}

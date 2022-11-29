@@ -68,5 +68,18 @@
                 return this.RedirectToAction(nameof(this.All), new { clubId = clubId });
             }
         }
+
+        public async Task<IActionResult> Enrolled()
+        {
+            try
+            {
+                var model = await this.trainingService.GetAllClubsForUserAsync(this.User.Id());
+                return this.View(model);
+            }
+            catch (Exception)
+            {
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
+            }
+        }
     }
 }

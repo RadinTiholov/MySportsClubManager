@@ -70,6 +70,7 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Account Manager</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Club" asp-action="MyClub">My club</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Training" asp-action="Enrolled">Enrolled trainings</a>
                                 @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.IsInRole(GlobalConstants.TrainerRoleName))
                                 {
                                     <a class="dropdown-item" asp-area="Administration" asp-controller="Club" asp-action="CreatedClubs">Created clubs</a>

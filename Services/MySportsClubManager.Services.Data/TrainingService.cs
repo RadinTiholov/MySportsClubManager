@@ -95,6 +95,16 @@
                 .ToListAsync();
         }
 
+        public async Task<List<TrainingInListViewModel>> GetAllClubsForUserAsync(string userId)
+        {
+            return await this.trainingRepository
+                .All()
+                .Where(x => x.EnrolledAthletes.Any(e => e.ApplicationUserId == userId))
+                .OrderByDescending(x => x.Date)
+                .To<TrainingInListViewModel>()
+                .ToListAsync();
+        }
+
         public async Task Enroll(int trainingId, string applicationUserId)
         {
             Training training = await this.trainingRepository.All()
