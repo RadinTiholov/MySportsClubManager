@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
@@ -11,6 +12,7 @@
     using MySportsClubManager.Web.ViewModels.Club;
     using MySportsClubManager.Web.ViewModels.Training;
 
+    [Authorize]
     public class TrainingController : BaseController
     {
         private readonly ITrainingService trainingService;

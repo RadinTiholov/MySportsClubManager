@@ -56,6 +56,59 @@
                         </div>
                     </div>
                 </div>
+                <div class="card text-light bg-primary mt-3">
+                    <h5 class="text-light mx-4 my-2">Reviews</h5>
+                    <div class="container">
+                        <form method="post" asp-action="Create">
+                            <div class=" mt-2">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleTextarea" class="form-label">Create a review</label>
+                                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3 mt-2">
+                                <button type="submit" class="btn btn-warning">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="container my-2">
+                        <div class="row row-cols-1 gy-2">
+                            <div class="col">
+                                <div class="card bg-warning" style="border: 0px">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <img class="profile-picture rounded-circle" src="https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg" alt="profile picture" />
+                                            </div>
+                                            <div class="col">
+                                                <h3>Name here</h3>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <span class="fa fa-star star-in-review"></span>
+                                                <span class="fa fa-star star-in-review"></span>
+                                                <span class="fa fa-star star-in-review"></span>
+                                                <span class="fa-regular fa-star star-in-review"></span>
+                                                <span class="fa-regular fa-star star-in-review"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <p>Review text here........jasdhjasdhasdh </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-3">
                 <div class="card text-white bg-primary">

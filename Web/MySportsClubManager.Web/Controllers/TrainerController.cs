@@ -3,13 +3,14 @@
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Common;
     using MySportsClubManager.Web.ViewModels.Trainer;
 
+    [Authorize]
     public class TrainerController : BaseController
     {
         private readonly ITrainerService trainerService;

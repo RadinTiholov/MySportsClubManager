@@ -63,3 +63,16 @@ button.accept-policy {
 .remove-decoration {
     text-decoration: none;
 }
+
+.checked {
+    color: orange;
+}
+
+.profile-picture {
+    height: 50px;
+    width: 50px;
+}
+
+.star-in-review {
+    color: black;
+}
