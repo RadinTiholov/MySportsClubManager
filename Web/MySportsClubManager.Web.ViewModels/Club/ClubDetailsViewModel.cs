@@ -34,6 +34,9 @@
         [NotMapped]
         public List<ReviewViewModel> Reviews { get; set; }
 
+        [NotMapped]
+        public double AvarageRating { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Club, ClubDetailsViewModel>()

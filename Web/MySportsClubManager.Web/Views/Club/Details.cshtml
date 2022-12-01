@@ -98,6 +98,19 @@
          </div>
          <div class="card text-white bg-primary mt-3">
             <div class="card-body">
+               <h3>Rating score: @Model.AvarageRating.ToString("#.##")</h3>
+                        @for (int i = 0; i < (int)Math.Ceiling(Model.AvarageRating); i++)
+               {
+                   <span class="fa fa-star star-in-review fa-2xl" style="color: orange"></span>
+               }
+               @for (int i = (int)Math.Ceiling(Model.AvarageRating); i < 5; i++)
+               {
+                   <span class="fa-regular fa-star star-in-review fa-2xl checked"></span>
+               }
+            </div>
+         </div>
+         <div class="card text-white bg-primary mt-3">
+            <div class="card-body">
                @if (await athleteService.IsEnrolledInAnyClubAsync(this.User.Id()))
                {
                @if (await athleteService.IsEnrolledInClubAsync(this.User.Id(), Model.Id))
