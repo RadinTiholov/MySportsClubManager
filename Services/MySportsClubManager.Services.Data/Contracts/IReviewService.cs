@@ -12,6 +12,6 @@
 
         double GetAverageForClub(int clubId);
 
-        Task<List<ReviewViewModel>> AllAsync();
+        Task<List<ReviewViewModel>> AllForClubAsync(int clubId);
     }
 }

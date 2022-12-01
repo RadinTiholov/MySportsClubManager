@@ -26,9 +26,9 @@
             this.applicationUserRepository = applicationUserRepository;
         }
 
-        public async Task<List<ReviewViewModel>> AllAsync()
+        public async Task<List<ReviewViewModel>> AllForClubAsync(int clubId)
         {
-            return await this.reviewRepository.All().To<ReviewViewModel>().ToListAsync();
+            return await this.reviewRepository.All().Where(x => x.ClubId == clubId).To<ReviewViewModel>().ToListAsync();
         }
 
         public async Task<ReviewViewModel> CreateAsync(string userId, int atheleteId, CreateReviewInputModel model)

@@ -51,7 +51,7 @@
             try
             {
                 var model = await this.clubService.GetOneAsync<ClubDetailsViewModel>(id);
-                model.Reviews = await this.reviewService.AllAsync();
+                model.Reviews = await this.reviewService.AllForClubAsync(id);
                 model.AvarageRating = this.reviewService.GetAverageForClub(id);
                 return this.View(model);
             }
