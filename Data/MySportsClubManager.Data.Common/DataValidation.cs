@@ -51,6 +51,7 @@
         public static class Review
         {
             public const int ReviewTextMaxLength = 200;
+            public const int ReviewTextMinLength = 10;
         }
 
         public static class Contest

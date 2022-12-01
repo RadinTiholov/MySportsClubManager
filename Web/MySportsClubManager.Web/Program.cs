@@ -86,6 +86,7 @@
             services.AddTransient<IAthleteService, AthleteService>();
             services.AddTransient<ITrainerService, TrainerService>();
             services.AddTransient<ITrainingService, TrainingService>();
+            services.AddTransient<IReviewService, ReviewService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IContestService, ContestService>();
 
