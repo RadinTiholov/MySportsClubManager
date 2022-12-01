@@ -79,62 +79,10 @@
             </div>
             <div class="container my-2">
                <div id="review-container" class="row row-cols-1 gy-2">
-                  <div class="col">
-                     <div class="card bg-warning" style="border: 0px">
-                        <div class="card-body">
-                           <div class="row">
-                              <div class="col-md-1">
-                                 <img class="profile-picture rounded-circle" src="https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg" alt="profile picture" />
-                              </div>
-                              <div class="col">
-                                 <h3>Name here</h3>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col">
-                                 <span class="fa fa-star star-in-review"></span>
-                                 <span class="fa fa-star star-in-review"></span>
-                                 <span class="fa fa-star star-in-review"></span>
-                                 <span class="fa-regular fa-star star-in-review"></span>
-                                 <span class="fa-regular fa-star star-in-review"></span>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col">
-                                 <p>Review text here........jasdhjasdhasdh </p>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col">
-                     <div class="card bg-warning" style="border: 0px">
-                        <div class="card-body">
-                           <div class="row">
-                              <div class="col-md-1">
-                                 <img class="profile-picture rounded-circle" src="https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg" alt="profile picture" />
-                              </div>
-                              <div class="col">
-                                 <h3>Name here</h3>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col">
-                                 <span class="fa fa-star star-in-review"></span>
-                                 <span class="fa fa-star star-in-review"></span>
-                                 <span class="fa fa-star star-in-review"></span>
-                                 <span class="fa-regular fa-star star-in-review"></span>
-                                 <span class="fa-regular fa-star star-in-review"></span>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col">
-                                 <p>Review text here........jasdhjasdhasdh </p>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+                    @foreach (var review in Model.Reviews)
+                    {
+                       @await Html.PartialAsync("../Shared/Review/_ReviewPartial.cshtml", review)
+                    }
                </div>
             </div>
          </div>

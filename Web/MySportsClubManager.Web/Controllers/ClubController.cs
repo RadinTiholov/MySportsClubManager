@@ -16,11 +16,13 @@
     {
         private readonly IClubService clubService;
         private readonly IAthleteService athleteService;
+        private readonly IReviewService reviewService;
 
-        public ClubController(IClubService clubService, IAthleteService athleteService)
+        public ClubController(IClubService clubService, IAthleteService athleteService, IReviewService reviewService)
         {
             this.clubService = clubService;
             this.athleteService = athleteService;
+            this.reviewService = reviewService;
         }
 
         [HttpGet]
@@ -49,6 +51,7 @@
             try
             {
                 var model = await this.clubService.GetOneAsync<ClubDetailsViewModel>(id);
+                model.Reviews = await this.reviewService.AllAsync();
                 return this.View(model);
             }
             catch (ArgumentException)

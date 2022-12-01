@@ -1,18 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MySportsClubManager.Data.Common.Repositories;
-using MySportsClubManager.Data.Models;
-using MySportsClubManager.Services.Data.Contracts;
-using MySportsClubManager.Web.ViewModels.Club;
-using MySportsClubManager.Web.ViewModels.Review;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MySportsClubManager.Services.Data
+﻿namespace MySportsClubManager.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+    using MySportsClubManager.Data.Common.Repositories;
+    using MySportsClubManager.Data.Models;
+    using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Web.ViewModels.Club;
+    using MySportsClubManager.Web.ViewModels.Review;
+
     public class ReviewService : IReviewService
     {
-        private readonly IDeletableEntityRepository<Review> reviewRepository;
+        private readonly IRepository<Review> reviewRepository;
         private readonly IRepository<Club> clubRepository;
         private readonly IRepository<ApplicationUser> applicationUserRepository;
 
@@ -21,6 +24,11 @@ namespace MySportsClubManager.Services.Data
             this.reviewRepository = reviewRepository;
             this.clubRepository = clubRepository;
             this.applicationUserRepository = applicationUserRepository;
+        }
+
+        public async Task<List<ReviewViewModel>> AllAsync()
+        {
+            return await this.reviewRepository.All().To<ReviewViewModel>().ToListAsync();
         }
 
         public async Task<ReviewViewModel> CreateAsync(string userId, int atheleteId, CreateReviewInputModel model)
@@ -72,5 +80,6 @@ namespace MySportsClubManager.Services.Data
 
             return avarateRatings;
         }
+
     }
 }

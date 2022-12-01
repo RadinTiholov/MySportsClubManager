@@ -1,14 +1,12 @@
 ﻿namespace MySportsClubManager.Web.ViewModels.Club
 {
-    using System.Linq;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using AutoMapper;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Mapping;
-    using MySportsClubManager.Web.ViewModels.Base;
-    using MySportsClubManager.Web.ViewModels.Country;
-    using MySportsClubManager.Web.ViewModels.Creator;
-    using MySportsClubManager.Web.ViewModels.Sport;
+    using MySportsClubManager.Web.ViewModels.Review;
     using MySportsClubManager.Web.ViewModels.Trainer;
 
     public class ClubDetailsViewModel : IMapFrom<Club>, IHaveCustomMappings
@@ -32,6 +30,9 @@
         public TrainerInDetailsViewModel Trainer { get; set; }
 
         public string ImageUrl { get; set; }
+
+        [NotMapped]
+        public List<ReviewViewModel> Reviews { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

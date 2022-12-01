@@ -1,5 +1,6 @@
 ﻿namespace MySportsClubManager.Services.Data.Contracts
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using MySportsClubManager.Data.Models;
@@ -10,5 +11,7 @@
         Task<ReviewViewModel> CreateAsync(string userId, int atheleteId, CreateReviewInputModel model);
 
         double GetAverageForClub(int clubId);
+
+        Task<List<ReviewViewModel>> AllAsync();
     }
 }

@@ -1,0 +1,34 @@
+﻿@model ReviewViewModel
+@{
+    <div class="col">
+        <div class="card bg-warning" style="border: 0px">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img class="profile-picture rounded-circle" src="@Model.UserProfilePic" alt="profile picture" />
+                    </div>
+                    <div class="col">
+                        <h3>@Model.UserName</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        @for (int i = 0; i < Model.Rating; i++)
+                        {
+                            <span class="fa fa-star star-in-review"></span>
+                        }
+                        @for (int i = Model.Rating; i < 5; i++)
+                        {
+                            <span class="fa-regular fa-star star-in-review"></span>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>@Model.ReviewText</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
