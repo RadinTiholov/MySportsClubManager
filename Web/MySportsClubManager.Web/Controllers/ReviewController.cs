@@ -3,13 +3,14 @@
     using System;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Review;
 
-    [Authorize]
+    using static MySportsClubManager.Common.GlobalConstants;
+
+    [ApiController]
     [Route("api/[controller]")]
     public class ReviewController : BaseController
     {
@@ -22,18 +23,20 @@
             this.athleteService = athleteService;
         }
 
-        public async Task<ActionResult<CreateReviewResponseModel>> Create(CreateReviewInputModel model)
+        [HttpPost]
+        [IgnoreAntiforgeryToken]
+        public async Task<ActionResult<CreateReviewResponseModel>> Create([FromBody] CreateReviewInputModel model)
         {
             try
             {
                 var athleteId = await this.athleteService.GetAthleteIdAsync(this.User.Id());
                 var createdReview = await this.reviewService.CreateAsync(this.User.Id(), athleteId, model);
                 var avarageRating = this.reviewService.GetAverageForClub(model.ClubId);
-                return new CreateReviewResponseModel()
+                return this.Json(new CreateReviewResponseModel()
                 {
                     AvarageRating = avarageRating,
                     Review = createdReview,
-                };
+                });
             }
             catch (Exception)
             {

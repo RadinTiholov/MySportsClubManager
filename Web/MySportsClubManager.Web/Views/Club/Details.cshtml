@@ -2,188 +2,189 @@
 @model ClubDetailsViewModel
 @{
     <div class="container my-5">
-        <div class="row gy-3">
-            <div class="col-lg-9">
-                <div class="card text-white bg-primary">
-                    <div class="card-body">
-                        <h1 class="card-title">@Model.Name</h1>
-                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.Id() == Model.OwnerId)
+                                                                                <div class="row gy-3">
+                                                                                    <div class="col-lg-9">
+                                                                                        <div class="card text-white bg-primary">
+                                                                                            <div class="card-body">
+                                                                                                <h1 class="card-title">@Model.Name</h1>
+                                                                                                @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.Id() == Model.OwnerId)
                         {
-                            <div class="row">
-                                <div class="col-xl-1">
-                                    <div class="m-2">
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-xl-1">
-                                    <div class="m-2">
-                                        <a type="submit" class="btn btn-warning" asp-area="Administration" asp-controller="Club" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                                    </div>
-                                </div>
-                            </div>
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-xl-1">
+                                                                                                            <div class="m-2">
+                                                                                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                                                                                    Delete
+                                                                                                                </button>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-xl-1">
+                                                                                                            <div class="m-2">
+                                                                                                                <a type="submit" class="btn btn-warning" asp-area="Administration" asp-controller="Club" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
                         }
-                        <img class="img-fluid rounded" src="@Model.ImageUrl" alt="sport's image" style="width: 100%" />
-                    </div>
-                </div>
-                <div class="card text-light bg-primary mt-3">
-                    <h5 class="text-light mx-4 my-2">Recently added clubs</h5>
-                    <div class="row row-cols-sm-2 row-cols-md-4 gy-2 m-2">
-                        <div class="col-3">
-                            <div class="card bg-warning" style="border: 0px">
-                                <div class="card-header">Tennis</div>
-                                <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="card bg-warning" style="border: 0px">
-                                <div class="card-header">Tennis</div>
-                                <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="card bg-warning" style="border: 0px">
-                                <div class="card-header">Tennis</div>
-                                <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="card bg-warning" style="border: 0px">
-                                <div class="card-header">Tennis</div>
-                                <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card text-light bg-primary mt-3">
-                    <h5 class="text-light mx-4 my-2">Reviews</h5>
-                    <div class="container">
-                        <form>
-                            <div class=" mt-2">
-                                <span class="input-stars fa fa-star" id="1"></span>
-                                <span class="input-stars fa fa-star" id="2"></span>
-                                <span class="input-stars fa fa-star" id="3"></span>
-                                <span class="input-stars fa fa-star" id="4"></span>
-                                <span class="input-stars fa fa-star" id="5"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="review-text" class="form-label">Create a review</label>
-                                <textarea id="review-text" class="form-control" rows="3"></textarea>
-                            </div>
-                            <div class="mb-3 mt-2">
-                                <button onclick="onButtonClick(event, '@this.User.Id()', '@Model.Id')" type="button" class="btn btn-warning">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="container my-2">
-                        <div class="row row-cols-1 gy-2">
-                            <div class="col">
-                                <div class="card bg-warning" style="border: 0px">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <img class="profile-picture rounded-circle" src="https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg" alt="profile picture" />
-                                            </div>
-                                            <div class="col">
-                                                <h3>Name here</h3>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="fa fa-star star-in-review"></span>
-                                                <span class="fa fa-star star-in-review"></span>
-                                                <span class="fa fa-star star-in-review"></span>
-                                                <span class="fa-regular fa-star star-in-review"></span>
-                                                <span class="fa-regular fa-star star-in-review"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <p>Review text here........jasdhjasdhasdh </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="card text-white bg-primary">
-                    <div class="card-body">
-                        <h3>Details</h3>
-                        <p>
-                            @Model.Description
-                        </p>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mt-3">
-                    <div class="card-body">
-                        @if (await athleteService.IsEnrolledInAnyClubAsync(this.User.Id()))
+                                                                                                <img class="img-fluid rounded" src="@Model.ImageUrl" alt="sport's image" style="width: 100%" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="card text-light bg-primary mt-3">
+                                                                                            <h5 class="text-light mx-4 my-2">Recently added clubs</h5>
+                                                                                            <div class="row row-cols-sm-2 row-cols-md-4 gy-2 m-2">
+                                                                                                <div class="col-3">
+                                                                                                    <div class="card bg-warning" style="border: 0px">
+                                                                                                        <div class="card-header">Tennis</div>
+                                                                                                        <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-3">
+                                                                                                    <div class="card bg-warning" style="border: 0px">
+                                                                                                        <div class="card-header">Tennis</div>
+                                                                                                        <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-3">
+                                                                                                    <div class="card bg-warning" style="border: 0px">
+                                                                                                        <div class="card-header">Tennis</div>
+                                                                                                        <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-3">
+                                                                                                    <div class="card bg-warning" style="border: 0px">
+                                                                                                        <div class="card-header">Tennis</div>
+                                                                                                        <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="card text-light bg-primary mt-3">
+                                                                                            <h5 class="text-light mx-4 my-2">Reviews</h5>
+                                                                                            <div class="container">
+                                                                                                <form>
+                                                                                                    <div class=" mt-2">
+                                                                                                        <span class="input-stars fa fa-star checked" id="1"></span>
+                                                                                                        <span class="input-stars fa fa-star" id="2"></span>
+                                                                                                        <span class="input-stars fa fa-star" id="3"></span>
+                                                                                                        <span class="input-stars fa fa-star" id="4"></span>
+                                                                                                        <span class="input-stars fa fa-star" id="5"></span>
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="review-text" class="form-label">Create a review</label>
+                                                                                                        <textarea id="review-text" class="form-control" rows="3"></textarea>
+                                                                                                        <span id="review-error" class="text-danger"></span>
+                                                                                                    </div>
+                                                                                                    <div class="mb-3 mt-2">
+                                                                                                        <button onclick="onButtonClick(event, '@Model.Id')" type="button" class="btn btn-warning">Submit</button>
+                                                                                                    </div>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                            <div class="container my-2">
+                                                                                                <div class="row row-cols-1 gy-2">
+                                                                                                    <div class="col">
+                                                                                                        <div class="card bg-warning" style="border: 0px">
+                                                                                                            <div class="card-body">
+                                                                                                                <div class="row">
+                                                                                                                    <div class="col-md-1">
+                                                                                                                        <img class="profile-picture rounded-circle" src="https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg" alt="profile picture" />
+                                                                                                                    </div>
+                                                                                                                    <div class="col">
+                                                                                                                        <h3>Name here</h3>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row">
+                                                                                                                    <div class="col">
+                                                                                                                        <span class="fa fa-star star-in-review"></span>
+                                                                                                                        <span class="fa fa-star star-in-review"></span>
+                                                                                                                        <span class="fa fa-star star-in-review"></span>
+                                                                                                                        <span class="fa-regular fa-star star-in-review"></span>
+                                                                                                                        <span class="fa-regular fa-star star-in-review"></span>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row">
+                                                                                                                    <div class="col">
+                                                                                                                        <p>Review text here........jasdhjasdhasdh </p>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-lg-3">
+                                                                                        <div class="card text-white bg-primary">
+                                                                                            <div class="card-body">
+                                                                                                <h3>Details</h3>
+                                                                                                <p>
+                                                                                                    @Model.Description
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="card text-white bg-primary mt-3">
+                                                                                            <div class="card-body">
+                                                                                                @if (await athleteService.IsEnrolledInAnyClubAsync(this.User.Id()))
                         {
-                            @if (await athleteService.IsEnrolledInClubAsync(this.User.Id(), Model.Id))
+                                                                                                    @if (await athleteService.IsEnrolledInClubAsync(this.User.Id(), Model.Id))
                             {
-                                <h3>Leave us</h3>
-                                <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Disenroll" asp-route-clubId="@Model.Id">Disenroll</a>
+                                                                                                        <h3>Leave us</h3>
+                                                                                                        <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Disenroll" asp-route-clubId="@Model.Id">Disenroll</a>
                             }
                             else
                             {
-                                <p>Already enrolled in another club.</p>
+                                                                                                        <p>Already enrolled in another club.</p>
                             }
                         }
                         else
                         {
-                            <h3>Join us</h3>
-                            <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Enroll" asp-route-clubId="@Model.Id">Enroll</a>
+                                                                                                    <h3>Join us</h3>
+                                                                                                    <a class="btn btn-warning" type="submit" asp-area="" asp-controller="Club" asp-action="Enroll" asp-route-clubId="@Model.Id">Enroll</a>
                         }
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mt-3">
-                    <div class="card-body">
-                        <h3>More details</h3>
-                        <h5>Address: <strong>@Model.Address</strong></h5>
-                        <h5>Fee:    <strong>@Model.Fee</strong></h5>
-                        <h5>Sport: <strong>@Model.Sport</strong></h5>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mt-3">
-                    <div class="card-body">
-                        <h3>Trainer</h3>
-                        <img class="rounded-circle" src="@Model.Trainer.ProfilePic" alt="trainer" style="width: 50px; height: 50px" />
-                        <h5 class="mt-1">First name: <strong>@Model.Trainer.FirstName</strong></h5>
-                        <h5>Last name:    <strong>@Model.Trainer.LastName</strong></h5>
-                        <h5>Email: <strong>@Model.Trainer.Email</strong></h5>
-                        <a type="submit" class="btn btn-warning" asp-area="" asp-controller="Trainer" asp-action="Contact" asp-route-id="@Model.Trainer.Id">Contact trainer</a>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mt-3">
-                    <div class="card-body">
-                        <h3>Trainings</h3>
-                        <a type="submit" class="btn btn-warning" asp-area="" asp-controller="Training" asp-action="All" asp-route-clubId="@Model.Id">See trainings</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="card text-white bg-primary mt-3">
+                                                                                            <div class="card-body">
+                                                                                                <h3>More details</h3>
+                                                                                                <h5>Address: <strong>@Model.Address</strong></h5>
+                                                                                                <h5>Fee:    <strong>@Model.Fee</strong></h5>
+                                                                                                <h5>Sport: <strong>@Model.Sport</strong></h5>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="card text-white bg-primary mt-3">
+                                                                                            <div class="card-body">
+                                                                                                <h3>Trainer</h3>
+                                                                                                <img class="rounded-circle" src="@Model.Trainer.ProfilePic" alt="trainer" style="width: 50px; height: 50px" />
+                                                                                                <h5 class="mt-1">First name: <strong>@Model.Trainer.FirstName</strong></h5>
+                                                                                                <h5>Last name:    <strong>@Model.Trainer.LastName</strong></h5>
+                                                                                                <h5>Email: <strong>@Model.Trainer.Email</strong></h5>
+                                                                                                <a type="submit" class="btn btn-warning" asp-area="" asp-controller="Trainer" asp-action="Contact" asp-route-id="@Model.Trainer.Id">Contact trainer</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="card text-white bg-primary mt-3">
+                                                                                            <div class="card-body">
+                                                                                                <h3>Trainings</h3>
+                                                                                                <a type="submit" class="btn btn-warning" asp-area="" asp-controller="Training" asp-action="All" asp-route-clubId="@Model.Id">See trainings</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
     </div>
     <!-- Modal for deletion -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete @Model.Name?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Club" asp-action="Delete" asp-route-clubId="@Model.Id">Delete</a>
-                </div>
-            </div>
-        </div>
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            Are you sure you want to delete @Model.Name?
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                            <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Club" asp-action="Delete" asp-route-clubId="@Model.Id">Delete</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
     </div>
 }
 
@@ -206,14 +207,38 @@
                 }
             }
         }
-        function onButtonClick(e, userId, clubId){
-            let reviewText = document.getElementById("review-text").value;
+        function onButtonClick(e, clubId) {
             e.preventDefault();
-            console.log(checkedStar);
-            console.log(reviewText);
-            console.log(userId);
-            console.log(clubId);
-            //Todo form
+            let reviewText = document.getElementById("review-text").value;
+            let reviewErrorElement = document.getElementById("review-error");
+            if (reviewText.length < 20 || reviewText.length > 200){
+                //Show error message
+                reviewErrorElement.textContent = "Text must be between 20 and 200 characters!"
+            }
+            else{
+                fetch("/api/Review", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        rating: checkedStar,
+                        reviewText: reviewText,
+                        clubId: clubId
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error();
+                })
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch(err => {reviewErrorElement.textContent = "Something went wrong or you've already posted a review!"})
+            }
         }
 
     </script>
