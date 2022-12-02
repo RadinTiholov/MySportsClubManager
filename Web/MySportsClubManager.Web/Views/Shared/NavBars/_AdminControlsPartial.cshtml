@@ -1,0 +1,21 @@
+﻿@using MySportsClubManager.Common
+@{
+    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Sport" asp-action="Create">Create Sport</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Club" asp-action="Create">Create Club</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Contest" asp-action="Create">Create Contest</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Training" asp-action="Create">Create Training</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="AllUsers">Manage Users</a>
+        </li>
+    }
+}

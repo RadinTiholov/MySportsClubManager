@@ -1,0 +1,60 @@
+﻿@{
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarColor01" style="">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
+                            Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Sport" asp-action="All">
+                            Sports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Club" asp-action="All">
+                            Clubs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Contest" asp-action="All">
+                            Contests
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item mt-1">
+                        <form class="d-flex">
+                            <input class="form-control me-sm-2" type="text" placeholder="Search">
+                            <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </li>
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="@this.TempData.Peek("ProfilePicture")" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Account Manager</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Club" asp-action="MyClub">My club</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Training" asp-action="Enrolled">Enrolled trainings</a>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="ApplicationUser" asp-action="Logout">Log out</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+}

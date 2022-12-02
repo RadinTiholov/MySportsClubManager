@@ -26,6 +26,12 @@
         }
 
         [HttpGet]
+        public IActionResult Home()
+        {
+            return this.View();
+        }
+
+        [HttpGet]
         [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> AllUsers()
         {
