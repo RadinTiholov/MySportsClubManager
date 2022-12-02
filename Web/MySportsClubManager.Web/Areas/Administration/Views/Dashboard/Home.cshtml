@@ -1,3 +1,81 @@
-﻿@{
-    <h1>Wellcome admin!</h1>
+﻿@using MySportsClubManager.Common
+@{
+    <div class="container text-center">
+        <h1 class="display-3">Wellcome back!</h1>
+        <div class="row justify-content-center">
+
+            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                        <div class="card-header">Sports</div>
+                        <img src="https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg?w=2000" class="card-img-top" alt="sport img" style="height: 15rem;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mb-2">
+                                    <a class="btn btn-warning" asp-area="Administration" asp-controller="Sport" asp-action="Create">Create Sport</a>
+                                    <a class="btn btn-warning" asp-area="" asp-controller="Sport" asp-action="All">All Sports</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                        <div class="card-header">Contests</div>
+                        <img src="https://exploredprk.com/wp-content/uploads/2016/11/multi_photo_2016-11-05_dn12087_image5.jpg" class="card-img-top" alt="sport img" style="height: 15rem;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mb-2">
+                                    <a class="btn btn-warning" asp-area="Administration" asp-controller="Contest" asp-action="Create">Create Contest</a>
+                                    <a class="btn btn-warning" asp-area="" asp-controller="Contest" asp-action="All">All</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                        <div class="card-header">Users</div>
+                        <img src="https://cdn.pixabay.com/photo/2016/04/15/18/05/computer-1331579__340.png" class="card-img-top" alt="sport img" style="height: 15rem;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mb-2">
+                                    <a class="btn btn-warning" asp-area="Administration" asp-controller="Dashboard" asp-action="AllUsers">Manage Users</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-md-3">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Clubs</div>
+                    <img src="https://www.thestudentpocketguide.com/wp-content/uploads/Sport-759x500.jpg" class="card-img-top" alt="sport img" style="height: 15rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mb-2">
+                                <a class="btn btn-warning" asp-area="Administration" asp-controller="Club" asp-action="Create">Create Club</a>
+                                <a class="btn btn-warning" asp-area="" asp-controller="Club" asp-action="All">All Clubs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Trainings</div>
+                    <img src="https://www.muscleandfitness.com/wp-content/uploads/2018/04/woman-abs-workout-dumbbell-1109.jpg?quality=86&strip=all" class="card-img-top" alt="sport img" style="height: 15rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mb-2">
+                                <a class="btn btn-warning" asp-area="Administration" asp-controller="Training" asp-action="Create">Create Training</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }

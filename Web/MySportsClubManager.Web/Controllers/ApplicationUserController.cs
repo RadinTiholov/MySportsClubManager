@@ -108,6 +108,11 @@
                         return this.Redirect(model.ReturnUrl);
                     }
 
+                    if (await this.userManager.IsInRoleAsync(user, AdministratorRoleName) || await this.userManager.IsInRoleAsync(user, TrainerRoleName))
+                    {
+                        return this.RedirectToAction("Home", "Dashboard", new { area = "Administration" });
+                    }
+
                     return this.RedirectToAction("Index", "Home");
                 }
             }
