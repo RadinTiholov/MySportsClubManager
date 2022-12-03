@@ -20,6 +20,10 @@
 
         public const string AlreadyEnrolledMessage = "Already enrolled!";
 
+        public const string NotEnrolledInClubMessage = "Not enrolled in club!";
+
+        public const string ContestAlreadyFinished = "The competition is over!";
+
         public const string PleaseEnrollInClubFirstMessage = "Please enroll in club first!";
 
         public const string DemoteYourselfErrorMessage = "Can't demote yourself!";

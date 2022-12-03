@@ -1,9 +1,13 @@
 ﻿namespace MySportsClubManager.Web.ViewModels.Contest
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using AutoMapper;
     using MySportsClubManager.Common;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Web.ViewModels.Athlete;
 
     public class ContestDetailsViewModel : IMapFrom<Contest>, IHaveCustomMappings
     {
@@ -23,6 +27,12 @@
 
         public string Sport { get; set; }
 
+        public List<AthleteInListViewModel> Athletes { get; set; }
+
+        public List<AthleteInListViewModel> Champions { get; set; }
+
+        public int ClubsEnrolledCount { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Contest, ContestDetailsViewModel>()
@@ -31,7 +41,13 @@
                 .ForMember(x => x.ImageUrl, opt =>
                 opt.MapFrom(c => c.Image.URL))
                 .ForMember(x => x.Date, opt =>
-                opt.MapFrom(s => s.Date.ToString(GlobalConstants.DateFormat)));
+                opt.MapFrom(c => c.Date.ToString(GlobalConstants.DateFormat)))
+                .ForMember(x => x.ClubsEnrolledCount, opt =>
+                opt.MapFrom(c => c.Clubs.Count()))
+                .ForMember(x => x.Athletes, opt =>
+                opt.MapFrom(c => c.Participants.Select(x => new AthleteInListViewModel() { Name = x.ApplicationUser.UserName, ProfilePic = x.ApplicationUser.Image.URL })))
+                .ForMember(x => x.Champions, opt =>
+                opt.MapFrom(c => c.Participants.Where(p => c.Wins.Any(w => w.AthleteId == p.Id)).Select(x => new AthleteInListViewModel() { Name = x.ApplicationUser.UserName, ProfilePic = x.ApplicationUser.Image.URL })));
         }
     }
 }

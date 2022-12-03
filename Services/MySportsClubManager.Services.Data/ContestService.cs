@@ -10,17 +10,23 @@
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Web.Infrastructure.Common;
+    using MySportsClubManager.Web.ViewModels.Athlete;
     using MySportsClubManager.Web.ViewModels.Contest;
 
     public class ContestService : IContestService
     {
         private readonly IDeletableEntityRepository<Contest> contestRepository;
+        private readonly IRepository<Athlete> athleteRepository;
+        private readonly IRepository<Club> clubRepository;
         private readonly IImageService imageService;
 
-        public ContestService(IDeletableEntityRepository<Contest> contestRepository, IImageService imageService)
+        public ContestService(IDeletableEntityRepository<Contest> contestRepository, IImageService imageService, IRepository<Athlete> athleteRepository, IRepository<Club> clubRepository)
         {
             this.contestRepository = contestRepository;
             this.imageService = imageService;
+            this.athleteRepository = athleteRepository;
+            this.clubRepository = clubRepository;
         }
 
         public async Task<List<T>> AllAsync<T>(int page, int itemsPerPage = 8)
@@ -114,6 +120,52 @@
 
             this.contestRepository.Update(contest);
             await this.contestRepository.SaveChangesAsync();
+        }
+
+        public async Task Register(int contestId, string userId)
+        {
+            var contest = await this.contestRepository.All()
+            .Where(x => x.Id == contestId)
+            .Include(x => x.Participants)
+            .FirstOrDefaultAsync();
+
+            if (contest != null)
+            {
+                if (contest.Date < DateTime.Now)
+                {
+                    throw new ArgumentException(ExceptionMessages.ContestAlreadyFinished);
+                }
+
+                if (contest.Participants.Any(a => a.ApplicationUserId == userId))
+                {
+                    throw new ArgumentException(ExceptionMessages.AlreadyEnrolledMessage);
+                }
+
+                var athlete = await this.athleteRepository.All()
+                     .Where(a => a.ApplicationUserId == userId)
+                     .FirstOrDefaultAsync();
+
+                contest.Participants.Add(athlete);
+                if (athlete.EnrolledClubId != null && !contest.Clubs.Any(x => x.Id == athlete.EnrolledClubId))
+                {
+                    var club = await this.clubRepository.All()
+                        .Where(x => x.Id == athlete.EnrolledClubId)
+                        .FirstOrDefaultAsync();
+
+                    contest.Clubs.Add(club);
+                }
+                else
+                {
+                    throw new ArgumentException(ExceptionMessages.NotEnrolledMessage);
+                }
+
+                this.contestRepository.Update(contest);
+                await this.contestRepository.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿namespace MySportsClubManager.Services.Data.Contracts
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using MySportsClubManager.Web.ViewModels.Athlete;
 
     public interface IAthleteService
     {
@@ -19,5 +22,7 @@
         Task<int> GetMyClub(string userId);
 
         Task<int> GetAthleteIdAsync(string userId);
+
+        Task<List<AthleteInListViewModel>> GetAllForContestAsync(int clubId);
     }
 }

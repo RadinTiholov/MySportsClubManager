@@ -25,32 +25,85 @@
                         }
 
                         <h3>Details</h3>
+                        <p>Enrolled clubs: <strong>@Model.ClubsEnrolledCount</strong></p>
                         <p>
                             @Model.Description
                         </p>
+                    </div>
+                </div>
+                <div class="card text-white bg-primary mt-3">
+                    <div class="card-body">
+                        <h3>Winners: </h3>
+                        @if (Model.Champions.Count() > 0)
+                        {
+                            <div class="row row-cols-1 gy-1">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <h1 style="color: gold">1.</h1>
+                                        </div>
+                                        <div class="col-1">
+                                            <img class="img-fluid rounded-circle" src="@Model.Champions[0].ProfilePic" alt="image" />
+                                        </div>
+                                        <div class="col mt-2">
+                                            <h5>@Model.Champions[0].Name</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-cols-1 gy-1">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <h1 style="color: silver">2.</h1>
+                                        </div>
+                                        <div class="col-1">
+                                            <img class="img-fluid rounded-circle" src="@Model.Champions[1].ProfilePic" alt="image" />
+                                        </div>
+                                        <div class="col mt-2">
+                                            <h5>@Model.Champions[1].Name</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-cols-1 gy-1">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <h1 style="color: #CD7F32">3.</h1>
+                                        </div>
+                                        <div class="col-1">
+                                            <img class="img-fluid rounded-circle" src="@Model.Champions[2].ProfilePic" alt="image" />
+                                        </div>
+                                        <div class="col mt-2">
+                                            <h5>@Model.Champions[2].Name</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <p>The winners have not yet been announced!</p>
+                        }
+                    </div>
+                </div>
+                <div class="card text-white bg-primary mt-3">
+                    <div class="card-body">
                         <h3>Participants: </h3>
-                        <div class="row row-cols-1 gy-1">
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-1">
-                                        <img class="img-fluid rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVA_HrQLjkHiJ2Ag5RGuwbFeDKRLfldnDasw&usqp=CAU" alt="image" />
-                                    </div>
-                                    <div class="col mt-2">
-                                        <h5>Some name here</h5>
-                                    </div>
-                                </div>
+                        @if (Model.Athletes.Count() > 0)
+                        {
+                            <div class="row row-cols-1 gy-1">
+                                @foreach (var participant in Model.Athletes)
+                                {
+                                    @await Html.PartialAsync("../Shared/Athlete/_AthleteInContestPartial.cshtml", participant)
+                                }
                             </div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-1">
-                                        <img class="img-fluid rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVA_HrQLjkHiJ2Ag5RGuwbFeDKRLfldnDasw&usqp=CAU" alt="image" />
-                                    </div>
-                                    <div class="col mt-2">
-                                        <h5>Some name here</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <p>No one has signed up yet!</p>
+                        }
                     </div>
                 </div>
             </div>
@@ -66,6 +119,12 @@
                         <h5>Sport: <strong>@Model.Sport</strong></h5>
                         <h5>Date: <strong>@Model.Date</strong></h5>
                         <h5>Address: <strong>@Model.Address</strong></h5>
+                    </div>
+                </div>
+                <div class="card text-white bg-primary mt-3">
+                    <div class="card-body">
+                        <h3>Compete</h3>
+                        <a class="btn btn-warning" asp-area="" asp-controller="Contest" asp-action="Register" asp-route-contestId="@Model.Id">Register <i class="fa-solid fa-person-running"></i></a>
                     </div>
                 </div>
             </div>

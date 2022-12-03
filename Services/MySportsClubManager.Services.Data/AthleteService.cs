@@ -1,15 +1,16 @@
 ﻿namespace MySportsClubManager.Services.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Xml.Schema;
 
     using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data.Common.Repositories;
-    using MySportsClubManager.Data.Migrations;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Services.Mapping;
+    using MySportsClubManager.Web.ViewModels.Athlete;
 
     public class AthleteService : IAthleteService
     {
@@ -29,6 +30,15 @@
 
             await this.athleteRepository.AddAsync(athlete);
             await this.athleteRepository.SaveChangesAsync();
+        }
+
+        public async Task<List<AthleteInListViewModel>> GetAllForContestAsync(int clubId)
+        {
+            return await this.athleteRepository.AllAsNoTracking()
+                .Include(a => a.Contests)
+                .Where(a => a.Contests.Any(x => x.Id == clubId))
+                .To<AthleteInListViewModel>()
+                .ToListAsync();
         }
 
         public async Task<bool> IsEnrolledInClubAsync(string userId, int clubId)
