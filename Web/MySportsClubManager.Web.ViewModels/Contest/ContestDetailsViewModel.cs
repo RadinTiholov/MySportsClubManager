@@ -29,7 +29,7 @@
 
         public List<AthleteInListViewModel> Athletes { get; set; }
 
-        public List<AthleteInListViewModel> Champions { get; set; }
+        public List<WinnerInListViewModel> Champions { get; set; }
 
         public int ClubsEnrolledCount { get; set; }
 
@@ -47,7 +47,7 @@
                 .ForMember(x => x.Athletes, opt =>
                 opt.MapFrom(c => c.Participants.Select(x => new AthleteInListViewModel() { Name = x.ApplicationUser.UserName, ProfilePic = x.ApplicationUser.Image.URL })))
                 .ForMember(x => x.Champions, opt =>
-                opt.MapFrom(c => c.Participants.Where(p => c.Wins.Any(w => w.AthleteId == p.Id)).Select(x => new AthleteInListViewModel() { Name = x.ApplicationUser.UserName, ProfilePic = x.ApplicationUser.Image.URL })));
+                opt.MapFrom(c => c.Participants.Where(p => c.Wins.Any(w => w.AthleteId == p.Id)).Select(x => new WinnerInListViewModel() { Name = x.ApplicationUser.UserName, ProfilePic = x.ApplicationUser.Image.URL, Place = x.Wins.Where(w => w.AthleteId == x.Id).FirstOrDefault().Place })));
         }
     }
 }

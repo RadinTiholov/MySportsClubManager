@@ -1,6 +1,7 @@
 ﻿namespace MySportsClubManager.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -51,6 +52,7 @@
             {
                 var model = await this.contestService.GetOneAsync<ContestDetailsViewModel>(id);
                 model.Athletes = await this.athleteService.GetAllForContestAsync(id);
+                model.Champions = model.Champions.OrderBy(x => x.Place).ToList();
                 return this.View(model);
             }
             catch (System.Exception)
