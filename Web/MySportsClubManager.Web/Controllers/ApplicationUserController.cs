@@ -1,5 +1,6 @@
 ﻿namespace MySportsClubManager.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -127,6 +128,19 @@
             await this.signInManager.SignOutAsync();
 
             return this.RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Profile(string id)
+        {
+            try
+            {
+                // var model = await this.applicationUserService.GetProfileInformationAsync();
+                return this.View();
+            }
+            catch (ArgumentException)
+            {
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
+            }
         }
     }
 }

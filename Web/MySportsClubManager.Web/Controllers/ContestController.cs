@@ -55,7 +55,7 @@
                 model.Champions = model.Champions.OrderBy(x => x.Place).ToList();
                 return this.View(model);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404 });
             }
