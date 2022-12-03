@@ -29,5 +29,7 @@
         public const string DemoteYourselfErrorMessage = "Can't demote yourself!";
 
         public const string SuccessfullySendEmailMessage = "Successfully send email!";
+
+        public const string WinnersErrorMessage = "Winners cannot be the same!";
     }
 }

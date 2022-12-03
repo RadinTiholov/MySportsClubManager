@@ -2,10 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Microsoft.Extensions.Logging.Abstractions;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
@@ -127,6 +130,7 @@
             var contest = await this.contestRepository.All()
             .Where(x => x.Id == contestId)
             .Include(x => x.Participants)
+            .Include(x => x.Clubs)
             .FirstOrDefaultAsync();
 
             if (contest != null)
@@ -146,17 +150,18 @@
                      .FirstOrDefaultAsync();
 
                 contest.Participants.Add(athlete);
-                if (athlete.EnrolledClubId != null && !contest.Clubs.Any(x => x.Id == athlete.EnrolledClubId))
+                if (athlete.EnrolledClubId == null)
+                {
+                    throw new ArgumentException(ExceptionMessages.NotEnrolledMessage);
+                }
+
+                if (!contest.Clubs.Any(x => x.Id == athlete.EnrolledClubId))
                 {
                     var club = await this.clubRepository.All()
                         .Where(x => x.Id == athlete.EnrolledClubId)
                         .FirstOrDefaultAsync();
 
                     contest.Clubs.Add(club);
-                }
-                else
-                {
-                    throw new ArgumentException(ExceptionMessages.NotEnrolledMessage);
                 }
 
                 this.contestRepository.Update(contest);
@@ -166,6 +171,57 @@
             {
                 throw new ArgumentNullException();
             }
+        }
+
+        public async Task<List<AthleteInDropdownViewModel>> GetAllParticipantsAsync(int contestId)
+        {
+            return await this.athleteRepository.AllAsNoTracking()
+                .Where(x => x.Contests.Any(c => c.Id == contestId))
+                .To<AthleteInDropdownViewModel>()
+                .ToListAsync();
+        }
+
+        public async Task SetWinnersAsync(int contestId, int firstPlaceId, int secondPlaceId, int thirdPlaceId)
+        {
+            var contest = await this.contestRepository.All()
+                .Include(x => x.Wins)
+                .Where(x => x.Id == contestId)
+                .FirstOrDefaultAsync();
+
+            var firstAthlete = await this.GetAthlete(firstPlaceId);
+            var secondAthlete = await this.GetAthlete(secondPlaceId);
+            var thirdAthlete = await this.GetAthlete(thirdPlaceId);
+
+            if (contest == null || firstAthlete == null || secondAthlete == null || thirdAthlete == null)
+            {
+                throw new ArgumentException();
+            }
+
+            if (contest.Wins.Count() >= 3)
+            {
+                var firstWin = contest.Wins.Where(x => x.Place == 1).FirstOrDefault();
+                var secondWin = contest.Wins.Where(x => x.Place == 2).FirstOrDefault();
+                var thirdWin = contest.Wins.Where(x => x.Place == 3).FirstOrDefault();
+                firstWin.AthleteId = firstPlaceId;
+                secondWin.AthleteId = secondPlaceId;
+                thirdWin.AthleteId = thirdPlaceId;
+            }
+            else
+            {
+                contest.Wins.Add(new Win() { AthleteId = firstPlaceId, ContestId = contestId, Place = 1 });
+                contest.Wins.Add(new Win() { AthleteId = secondPlaceId, ContestId = contestId, Place = 2 });
+                contest.Wins.Add(new Win() { AthleteId = thirdPlaceId, ContestId = contestId, Place = 3 });
+            }
+
+            this.contestRepository.Update(contest);
+            await this.contestRepository.SaveChangesAsync();
+        }
+
+        private async Task<Athlete> GetAthlete(int athleteId)
+        {
+            return await this.athleteRepository.AllAsNoTracking()
+                .Where(x => x.Id == athleteId)
+                .FirstOrDefaultAsync();
         }
     }
 }

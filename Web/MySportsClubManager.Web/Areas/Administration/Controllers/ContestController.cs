@@ -5,13 +5,13 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore.Infrastructure;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Common;
     using MySportsClubManager.Web.ViewModels.Contest;
 
     using static MySportsClubManager.Common.GlobalConstants;
-    using static MySportsClubManager.Web.Infrastructure.Common.ExceptionMessages;
 
     public class ContestController : AdministrationController
     {
@@ -75,20 +75,17 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Edit(int id)
         {
-            if (this.User.IsInRole(AdministratorRoleName))
-            {
-                var model = await this.contestService.GetOneAsync<EditContestViewModel>(id);
-                model.Sports = await this.sportsService.AllForInputAsync();
+            var model = await this.contestService.GetOneAsync<EditContestViewModel>(id);
+            model.Sports = await this.sportsService.AllForInputAsync();
 
-                return this.View(model);
-            }
-
-            return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });
+            return this.View(model);
         }
 
         [HttpPost]
+        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Edit(EditContestViewModel model)
         {
             if (!this.ModelState.IsValid)
@@ -97,25 +94,62 @@
                 return this.View(model);
             }
 
-            if (this.User.IsInRole(AdministratorRoleName))
+            try
             {
-                try
-                {
-                    await this.contestService.EditAsync(model);
+                await this.contestService.EditAsync(model);
 
-                    this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyEditedMessage;
-                    return this.RedirectToAction("Details", "Contest", new { id = model.Id, area = string.Empty });
-                }
-                catch (Exception)
-                {
-                    this.ModelState.AddModelError(string.Empty, CreationErrorMessage);
-                    model.Sports = await this.sportsService.AllForInputAsync();
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyEditedMessage;
+                return this.RedirectToAction("Details", "Contest", new { id = model.Id, area = string.Empty });
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, CreationErrorMessage);
+                model.Sports = await this.sportsService.AllForInputAsync();
 
-                    return this.View(model);
-                }
+                return this.View(model);
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
+        public async Task<IActionResult> ChooseWinners(int contestId)
+        {
+            try
+            {
+                var model = new ChooseWinnerInputModel();
+                model.Athletes = await this.contestService.GetAllParticipantsAsync(contestId);
+                model.ContestId = contestId;
+                return this.View(model);
+            }
+            catch (Exception)
+            {
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404, area = string.Empty });
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = AdministratorRoleName)]
+        public async Task<IActionResult> ChooseWinners(ChooseWinnerInputModel model)
+        {
+            if (!this.ModelState.IsValid || model.FirsPlaceId == model.SecondPlaceId || model.FirsPlaceId == model.ThirdPlaceId || model.SecondPlaceId == model.ThirdPlaceId)
+            {
+                model.Athletes = await this.contestService.GetAllParticipantsAsync(model.ContestId);
+                model.ContestId = model.ContestId;
+                this.ModelState.AddModelError(string.Empty, ExceptionMessages.WinnersErrorMessage);
+                return this.View(model);
             }
 
-            return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });
+            try
+            {
+                await this.contestService.SetWinnersAsync(model.ContestId, model.FirsPlaceId, model.SecondPlaceId, model.ThirdPlaceId);
+
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyEditedMessage;
+                return this.RedirectToAction("Details", "Contest", new { id = model.ContestId, area = string.Empty });
+            }
+            catch (Exception)
+            {
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });
+            }
         }
     }
 }

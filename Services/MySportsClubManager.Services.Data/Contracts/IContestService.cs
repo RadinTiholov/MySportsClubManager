@@ -18,5 +18,9 @@
         Task EditAsync(EditContestViewModel model);
 
         Task Register(int contestId, string userId);
+
+        Task<List<AthleteInDropdownViewModel>> GetAllParticipantsAsync(int contestId);
+
+        Task SetWinnersAsync(int contestId, int firstPlaceId, int secondPlaceId, int thirdPlaceId);
     }
 }
