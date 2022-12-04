@@ -8,9 +8,25 @@
                     <img class="card-img-top" src="@Model.ImageUrl" alt="Card img cap" style="border-radius: 0px" />
                     <div class="card-body">
                         <h3 class="card-title">Your information</h3>
-                        <p>Username: @Model.UserName</p>
-                        <p>First Name: @Model.FirstName</p>
-                        <p>Last Name: @Model.LastName</p>
+                        <p>Username:<strong>@Model.UserName</strong></p>
+                        <p>First Name:<strong>@Model.FirstName</strong></p>
+                        <p>Last Name:<strong>@Model.LastName</strong></p>
+                        <p>Achievements:</p>
+                        @if (Model.Achievements.Count > 0)
+                        {
+                            @foreach (var achievement in Model.Achievements)
+                            {
+                                <a asp-controller="Contest" asp-action="Details" asp-route-id="@achievement.ContestId" style="text-decoration: none">
+                                    <p style="color: black"><i class="fa-solid fa-medal"></i> @achievement.Name, Place: @achievement.Place</p>
+                                </a>
+                            }
+                        }
+                        else
+                        {
+                            <p>
+                                You haven't won anything yet!
+                            </p>
+                        }
                     </div>
                 </div>
             </div>

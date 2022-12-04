@@ -7,6 +7,7 @@
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Club;
     using MySportsClubManager.Web.ViewModels.Review;
+    using MySportsClubManager.Web.ViewModels.Win;
 
     public class ProfileViewModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
@@ -21,6 +22,8 @@
         public ClubInListViewModel Club { get; set; }
 
         public List<ReviewInProfileViewModel> Reviews { get; set; }
+
+        public List<AchievementInListViewModel> Achievements { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

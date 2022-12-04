@@ -149,6 +149,7 @@
             {
                 model = await this.applicationUserService.GetProfileInformationAsync(this.User.Id());
                 model.Reviews = await this.reviewService.GetAllForAthleteAsync(await this.athleteService.GetAthleteIdAsync(this.User.Id()));
+                model.Achievements = await this.athleteService.GetAllAchievementsForAthleteAsync(await this.athleteService.GetAthleteIdAsync(this.User.Id()));
                 var clubId = await this.athleteService.GetMyClub(this.User.Id());
                 model.Club = await this.clubService.GetOneAsync<ClubInListViewModel>(clubId);
                 return this.View(model);

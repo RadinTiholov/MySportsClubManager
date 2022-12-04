@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using MySportsClubManager.Web.ViewModels.Athlete;
+    using MySportsClubManager.Web.ViewModels.Win;
 
     public interface IAthleteService
     {
@@ -24,5 +25,7 @@
         Task<int> GetAthleteIdAsync(string userId);
 
         Task<List<AthleteInListViewModel>> GetAllForContestAsync(int clubId);
+
+        Task<List<AchievementInListViewModel>> GetAllAchievementsForAthleteAsync(int athleteId);
     }
 }

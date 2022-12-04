@@ -6,11 +6,13 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Athlete;
+    using MySportsClubManager.Web.ViewModels.Win;
 
     public class AthleteService : IAthleteService
     {
@@ -127,6 +129,22 @@
         {
             var athlete = await this.GetOneAsync(userId);
             return athlete.Id;
+        }
+
+        public async Task<List<AchievementInListViewModel>> GetAllAchievementsForAthleteAsync(int athleteId)
+        {
+            var athlete = await this.athleteRepository.AllAsNoTracking()
+                .Include(x => x.Wins)
+                .ThenInclude(x => x.Contest)
+                .Where(x => x.Id == athleteId)
+                .FirstOrDefaultAsync();
+
+            return athlete.Wins.Select(x => new AchievementInListViewModel()
+            {
+                ContestId = x.ContestId,
+                Name = x.Contest.Name,
+                Place = x.Place,
+            }).ToList();
         }
 
         private async Task<Athlete> GetOneAsync(string userId)
