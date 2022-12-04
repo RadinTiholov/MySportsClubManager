@@ -43,10 +43,9 @@
                                 <img src="@this.TempData.Peek("ProfilePicture")" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Account Manager</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Club" asp-action="MyClub">My club</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Training" asp-action="Enrolled">Enrolled trainings</a>
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="ApplicationUser" asp-action="Profile">Profile</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Club" asp-action="MyClub">My club</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Training" asp-action="Enrolled">Enrolled trainings</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="ApplicationUser" asp-action="Logout">Log out</a></li>
                             </ul>

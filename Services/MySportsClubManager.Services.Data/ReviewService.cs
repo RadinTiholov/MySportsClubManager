@@ -10,7 +10,6 @@
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
-    using MySportsClubManager.Web.ViewModels.Club;
     using MySportsClubManager.Web.ViewModels.Review;
 
     public class ReviewService : IReviewService
@@ -72,6 +71,14 @@
             };
         }
 
+        public async Task<List<ReviewInProfileViewModel>> GetAllForAthleteAsync(int athleteId)
+        {
+            return await this.reviewRepository.All()
+                .Where(x => x.OwnerId == athleteId)
+                .To<ReviewInProfileViewModel>()
+                .ToListAsync();
+        }
+
         public double GetAverageForClub(int clubId)
         {
             var avarateRatings = this.reviewRepository.All()
@@ -80,6 +87,5 @@
 
             return avarateRatings;
         }
-
     }
 }

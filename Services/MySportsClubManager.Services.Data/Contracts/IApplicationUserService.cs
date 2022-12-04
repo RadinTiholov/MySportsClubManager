@@ -14,5 +14,7 @@
         Task RemoveUserFromRoleAsync(string id);
 
         Task<string> GetCurrentUserProfilePicAsync(string id);
+
+        Task<ProfileViewModel> GetProfileInformationAsync(string id);
     }
 }

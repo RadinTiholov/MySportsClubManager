@@ -8,8 +8,9 @@
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.ApplicationUser;
-
+    using MySportsClubManager.Web.ViewModels.Club;
     using static MySportsClubManager.Common.GlobalConstants;
 
     [Authorize]
@@ -18,16 +19,27 @@
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IImageService imageService;
+        private readonly IClubService clubService;
+        private readonly IReviewService reviewService;
         private readonly IApplicationUserService applicationUserService;
         private readonly IAthleteService athleteService;
 
-        public ApplicationUserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IImageService imageService, IApplicationUserService applicationUserService, IAthleteService athleteService)
+        public ApplicationUserController(
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            IImageService imageService,
+            IApplicationUserService applicationUserService,
+            IAthleteService athleteService,
+            IReviewService reviewService,
+            IClubService clubService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.imageService = imageService;
             this.applicationUserService = applicationUserService;
             this.athleteService = athleteService;
+            this.reviewService = reviewService;
+            this.clubService = clubService;
         }
 
         [AllowAnonymous]
@@ -130,12 +142,20 @@
             return this.RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Profile(string id)
+        public async Task<IActionResult> Profile()
         {
+            ProfileViewModel model = null;
             try
             {
-                // var model = await this.applicationUserService.GetProfileInformationAsync();
-                return this.View();
+                model = await this.applicationUserService.GetProfileInformationAsync(this.User.Id());
+                model.Reviews = await this.reviewService.GetAllForAthleteAsync(await this.athleteService.GetAthleteIdAsync(this.User.Id()));
+                var clubId = await this.athleteService.GetMyClub(this.User.Id());
+                model.Club = await this.clubService.GetOneAsync<ClubInListViewModel>(clubId);
+                return this.View(model);
+            }
+            catch (ArgumentNullException)
+            {
+                return this.View(model);
             }
             catch (ArgumentException)
             {

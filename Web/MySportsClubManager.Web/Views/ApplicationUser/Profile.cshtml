@@ -1,22 +1,16 @@
-﻿@{
+﻿@model ProfileViewModel
+@{
     <img class="bannerImg shadow-lg" src="~/images//profile-background.png" alt="Card img" />
     <div class="container mb-3">
         <div class="row">
             <div class="col-md-4 mt-3">
                 <div class="card bg-primary" style=" width: 18rem; border-radius: 0px">
-                    <img class="card-img-top" src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg" alt="Card img cap" style="border-radius: 0px" />
+                    <img class="card-img-top" src="@Model.ImageUrl" alt="Card img cap" style="border-radius: 0px" />
                     <div class="card-body">
-                        <h3 class="card-title">RadinTiholov</h3>
-                        <p class="card-text">
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
-                        </p>
-                        <p>First Name: Radin</p>
-                        <p>Last Name: Tiholov</p>
-                        <p>Role: Athlete</p>
-                        <p>Role: Trainer</p>
-                        <p>Created Clubs: 2</p>
-                        <p>Created Trainings: 2</p>
+                        <h3 class="card-title">Your information</h3>
+                        <p>Username: @Model.UserName</p>
+                        <p>First Name: @Model.FirstName</p>
+                        <p>Last Name: @Model.LastName</p>
                     </div>
                 </div>
             </div>
@@ -24,40 +18,60 @@
                 <div class='card bg-primary' style="border-radius: 0">
                     <div class='card-body'>
                         <h3>Club</h3>
-                        <div class='card bg-warning'>
-                            <div class='card-body'>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img class="img-fluid" src="https://www.thestudentpocketguide.com/wp-content/uploads/Sport.jpg" alt="club image" />
-                                    </div>
-                                    <div class="col">
-                                        <h3>Name here</h3>
-                                        <a class="btn btn-primary" asp-area="" asp-controller="Club" asp-action="Details" asp-route-id="">Details</a>
+                        @if (Model.Club != null)
+                        {
+                            <div class='card bg-warning'>
+                                <div class='card-body'>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img class="img-fluid" src="@Model.Club.Image.URL" alt="club image" />
+                                        </div>
+                                        <div class="col">
+                                            <h3>@Model.Club.Name</h3>
+                                            <a class="btn btn-primary" asp-area="" asp-controller="Club" asp-action="Details" asp-route-id="@Model.Club.Id">Details</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <h4 class="text-secondary">You haven't enrolled in a club yet!</h4>
+                        }
+                        
                         <h3>Reviews</h3>
-                        <div class='card bg-warning'>
-                            <div class='card-body'>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img class="img-fluid" src="https://www.thestudentpocketguide.com/wp-content/uploads/Sport.jpg" alt="club image" />
-                                    </div>
-                                    <div class="col">
-                                        <h3>Name here</h3>
-                                        <a class="btn btn-primary" asp-area="" asp-controller="Club" asp-action="Details" asp-route-id="">Details</a>
-                                        <p>Text of review here!!!!</p>
-
-                                        <span class="fa fa-star star-in-review"></span>
-                                        <span class="fa fa-star star-in-review"></span>
-                                        <span class="fa fa-star star-in-review"></span>
-                                        <span class="fa fa-star star-in-review"></span>
-                                        <span class="fa fa-star star-in-review"></span>
+                        @if (Model.Reviews.Count > 0)
+                        {
+                            @foreach (var item in Model.Reviews)
+                            {
+                                <div class='card bg-warning mb-2'>
+                                    <div class='card-body'>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img class="img-fluid" src="@item.ClubImage" alt="club image" />
+                                            </div>
+                                            <div class="col">
+                                                <h3>@item.ClubName</h3>
+                                                <a class="btn btn-primary" asp-area="" asp-controller="Club" asp-action="Details" asp-route-id="@item.ClubId">Details</a>
+                                                <p>@item.ReviewText</p>
+                                                @for (int i = 0; i < @item.Rating; i++)
+                                                {
+                                                    <span class="fa fa-star star-in-review"></span>
+                                                }
+                                                @for (int i = @item.Rating; i < 5; i++)
+                                                {
+                                                    <span class="fa-regular fa-star star-in-review"></span>
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            }
+                        }
+                        else
+                        {
+                            <h4 class="text-secondary">You haven't written any reviews yet!</h4>
+                        }
                     </div>
                 </div>
             </div>

@@ -63,6 +63,14 @@
             return imageUrl;
         }
 
+        public async Task<ProfileViewModel> GetProfileInformationAsync(string id)
+        {
+            return await this.applicationUserRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<ProfileViewModel>()
+                .FirstOrDefaultAsync();
+        }
+
         public async Task RemoveUserFromRoleAsync(string id)
         {
             var user = await this.applicationUserRepository.All()

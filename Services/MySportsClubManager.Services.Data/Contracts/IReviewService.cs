@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using MySportsClubManager.Data.Models;
     using MySportsClubManager.Web.ViewModels.Review;
 
     public interface IReviewService
@@ -13,5 +11,7 @@
         double GetAverageForClub(int clubId);
 
         Task<List<ReviewViewModel>> AllForClubAsync(int clubId);
+
+        Task<List<ReviewInProfileViewModel>> GetAllForAthleteAsync(int athleteId);
     }
 }
