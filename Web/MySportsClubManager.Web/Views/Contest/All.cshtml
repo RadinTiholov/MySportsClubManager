@@ -13,10 +13,17 @@
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-body">
                         <div class="row row-cols-1">
+                        @if (Model.Contest.Count() > 0)
+                        {
                             @foreach (var contest in Model.Contest)
                             {
                                 @await Html.PartialAsync("../Shared/Contest/_ContestCardPartial.cshtml", contest)
-                            }
+                            } 
+                        }
+                        else
+                        {
+                            <h3 class="text-center">No contests yet!</h3>
+                        }
                         </div>
                     </div>
                 </div>
