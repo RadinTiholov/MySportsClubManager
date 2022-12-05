@@ -16,15 +16,17 @@
     {
         private readonly IDeletableEntityRepository<Trainer> trainerRepository;
         private readonly IRepository<Club> clubRepository;
+        private readonly IRepository<Training> trainingRepository;
         private readonly IEmailSender emailSender;
         private readonly IConfiguration configuration;
 
-        public TrainerService(IDeletableEntityRepository<Trainer> trainerRepository, IRepository<Club> clubRepository, IEmailSender emailSender, IConfiguration configuration)
+        public TrainerService(IDeletableEntityRepository<Trainer> trainerRepository, IRepository<Club> clubRepository, IRepository<Training> trainingRepository, IEmailSender emailSender, IConfiguration configuration)
         {
             this.trainerRepository = trainerRepository;
             this.clubRepository = clubRepository;
             this.emailSender = emailSender;
             this.configuration = configuration;
+            this.trainingRepository = trainingRepository;
         }
 
         public async Task ContactWithTrainerAsync(ContactTrainerInputModel model)
@@ -72,13 +74,23 @@
             return trainerInfo;
         }
 
-        public async Task<bool> OwnsClub(string userId, int clubId)
+        public async Task<bool> OwnsClubAsync(string userId, int clubId)
         {
             var club = await this.clubRepository.All()
                 .Where(x => x.Id == clubId)
                 .FirstOrDefaultAsync();
 
             return club.TrainerId == await this.GetTrainerIdAsync(userId);
+        }
+
+        public async Task<bool> OwnsTrainingAsync(string userId, int trainingId)
+        {
+            var training = await this.trainingRepository.All()
+                .Include(x => x.Club)
+                .Where(x => x.Id == trainingId)
+                .FirstOrDefaultAsync();
+
+            return training.Club.TrainerId == await this.GetTrainerIdAsync(userId);
         }
     }
 }

@@ -64,7 +64,7 @@
 
         public async Task<IActionResult> Delete(int trainingId, int clubId)
         {
-            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), clubId))
+            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsTrainingAsync(this.User.Id(), clubId))
             {
                 await this.trainingService.DeleteAsync(trainingId);
                 this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
@@ -77,7 +77,7 @@
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), id))
+            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsTrainingAsync(this.User.Id(), id))
             {
                 var model = await this.trainingService.GetOneAsync<EditTrainingInputModel>(id);
                 model.Clubs = await this.clubService.GetMineAsync<ClubsInDropdownViewModel>(model.TrainerId);
@@ -97,7 +97,7 @@
                 return this.View(model);
             }
 
-            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClub(this.User.Id(), model.Id))
+            if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsTrainingAsync(this.User.Id(), model.Id))
             {
                 try
                 {

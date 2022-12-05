@@ -10,7 +10,9 @@
 
         Task<int> GetTrainerIdAsync(string userId);
 
-        Task<bool> OwnsClub(string userId, int clubId);
+        Task<bool> OwnsClubAsync(string userId, int clubId);
+
+        Task<bool> OwnsTrainingAsync(string userId, int trainingId);
 
         Task<ContactTrainerInputModel> GetTrainerInformationAsync(int trainerId);
 
