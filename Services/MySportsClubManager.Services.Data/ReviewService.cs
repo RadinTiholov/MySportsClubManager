@@ -15,7 +15,7 @@
 
     public class ReviewService : IReviewService
     {
-        private readonly IRepository<Review> reviewRepository;
+        private readonly IDeletableEntityRepository<Review> reviewRepository;
         private readonly IRepository<Club> clubRepository;
         private readonly IRepository<ApplicationUser> applicationUserRepository;
 
@@ -95,6 +95,21 @@
                 UserProfilePic = user.Image.URL,
                 UserName = user.UserName,
             };
+        }
+
+        public async Task DeleteAsync(int clubId)
+        {
+            var review = await this.reviewRepository.AllAsNoTracking()
+                .Where(s => s.Id == clubId)
+                .FirstOrDefaultAsync();
+
+            if (review == null)
+            {
+                throw new ArgumentException();
+            }
+
+            this.reviewRepository.Delete(review);
+            await this.reviewRepository.SaveChangesAsync();
         }
 
         public async Task<List<ReviewInProfileViewModel>> GetAllForAthleteAsync(int athleteId)

@@ -14,6 +14,8 @@
 
         Task<List<ReviewInProfileViewModel>> GetAllForAthleteAsync(int athleteId);
 
+        Task DeleteAsync(int clubId);
+
         Task<List<ReviewInListViewModel>> AllAsync(int page, int itemsPerPage = 8);
 
         int GetCount();
