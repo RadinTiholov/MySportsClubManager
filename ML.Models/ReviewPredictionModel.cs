@@ -16,8 +16,7 @@
         {
             MLContext mlContext = new MLContext();
 
-            //Remove hardcoded path
-            string modelPath = @"C:\Users\radit\AppData\Local\Temp\MLVSTools\AutoMlTestML\AutoMlTestML.Model\MLModel.zip";
+            string modelPath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\ML.Models\\MLModel.zip");
             ITransformer mlModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 
