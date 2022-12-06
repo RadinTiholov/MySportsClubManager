@@ -13,13 +13,13 @@
   <ItemGroup>
     <Content Remove="Views\Sport\All.cshtml" />
   </ItemGroup>
-	<ItemGroup>
-		<AdditionalFiles Include="..\..\stylecop.json" />
-	</ItemGroup>
-	
-	<ItemGroup>
-		<InternalsVisibleTo Include="MySportsClubManager.Web.Tests" />
-	</ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="MySportsClubManager.Web.Tests" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">

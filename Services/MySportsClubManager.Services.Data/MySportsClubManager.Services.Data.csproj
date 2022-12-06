@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\Data\MySportsClubManager.Data.Common\MySportsClubManager.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\MySportsClubManager.Data.Models\MySportsClubManager.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\MySportsClubManager.Data\MySportsClubManager.Data.csproj" />
+    <ProjectReference Include="..\..\ML.Models\ML.Model.csproj" />
     <ProjectReference Include="..\..\Web\MySportsClubManager.Web.ViewModels\MySportsClubManager.Web.ViewModels.csproj" />
     <ProjectReference Include="..\MySportsClubManager.Services.Mapping\MySportsClubManager.Services.Mapping.csproj" />
     <ProjectReference Include="..\MySportsClubManager.Services.Messaging\MySportsClubManager.Services.Messaging.csproj" />

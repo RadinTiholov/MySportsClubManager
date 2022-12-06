@@ -6,7 +6,7 @@
     {
         public int PageNumber { get; set; }
 
-        public int SportsCount { get; set; }
+        public int Count { get; set; }
 
         public int ItemsPerPage { get; set; }
 
@@ -18,6 +18,6 @@
 
         public bool HasNextPage => this.PageNumber < this.PagesCount;
 
-        public int PagesCount => (int)Math.Ceiling((double)this.SportsCount / this.ItemsPerPage);
+        public int PagesCount => (int)Math.Ceiling((double)this.Count / this.ItemsPerPage);
     }
 }

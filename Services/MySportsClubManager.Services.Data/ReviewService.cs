@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using ML.Model;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
@@ -23,6 +24,31 @@
             this.reviewRepository = reviewRepository;
             this.clubRepository = clubRepository;
             this.applicationUserRepository = applicationUserRepository;
+        }
+
+        public async Task<List<ReviewInListViewModel>> AllAsync(int page, int itemsPerPage = 8)
+        {
+            var reviews = await this.reviewRepository
+                .All()
+                .OrderByDescending(x => x.CreatedOn)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<ReviewInListViewModel>()
+                .ToListAsync();
+
+            foreach (var review in reviews)
+            {
+                ModelInput sampleData = new ModelInput()
+                {
+                    Review = review.ReviewText,
+                };
+
+                var predictionResult = ReviewPredictionModel.Predict(sampleData);
+
+                review.Prediction = predictionResult.Prediction.ToUpper();
+            }
+
+            return reviews;
         }
 
         public async Task<List<ReviewViewModel>> AllForClubAsync(int clubId)
@@ -86,6 +112,11 @@
                 .Average(x => x.Rating);
 
             return avarateRatings;
+        }
+
+        public int GetCount()
+        {
+            return this.reviewRepository.AllAsNoTracking().Count();
         }
     }
 }

@@ -154,7 +154,7 @@
 
         public int GetCount()
         {
-            return this.sportsRepository.All().Count();
+            return this.sportsRepository.AllAsNoTracking().Count();
         }
 
         public async Task<T> GetOneAsync<T>(int id)

@@ -39,7 +39,7 @@
                 ItemsPerPage = ItemsPerPage,
                 Clubs = await this.clubService.AllAsync<ClubInListViewModel>(id, ItemsPerPage),
                 PageNumber = id,
-                SportsCount = this.clubService.GetCount(),
+                Count = this.clubService.GetCount(),
             };
 
             return this.View(model);

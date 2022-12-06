@@ -1,0 +1,49 @@
+﻿@using MySportsClubManager.Web.ViewModels.Review
+@{
+    this.ViewData["Title"] = $"All review, Page {Model.PageNumber}";
+    this.ViewData["ControllerName"] = "Review";
+    this.ViewData["ActionName"] = "All";
+    this.ViewData["AreaName"] = "Administration";
+}
+@model ReviewListViewModel
+@{
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
+    <div class="container">
+        @if (Model.Reviews.Count() > 0)
+        {
+            <table class="table table-hover  my-5">
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col">User</th>
+                        <th scope="col">Club</th>
+                        <th scope="col">ReviewText</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">AI Opinion <i class="fa-solid fa-robot"></i></th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <tr>
+                            <td>@review.OwnerName</td>
+                            <td>@review.ClubName</td>
+                            <td>@review.ReviewText</td>
+                            <td>@review.Rating</td>
+                            <td>@review.Prediction</td>
+                            <td>
+                                <a type="submit" class="btn btn-danger" asp-area="Administration" asp-controller="Club" asp-action="Delete" asp-route-clubId="@review.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h3 class="text-center">No reviews yet!</h3>
+        }
+    </div>
+    <partial name="_PaginationPartial"/>
+}
+
