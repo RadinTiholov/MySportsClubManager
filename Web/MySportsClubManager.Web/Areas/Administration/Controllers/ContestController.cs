@@ -5,7 +5,6 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore.Infrastructure;
     using MySportsClubManager.Common;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Common;
@@ -65,10 +64,17 @@
         {
             if (this.User.IsInRole(AdministratorRoleName))
             {
-                await this.contestService.DeleteAsync(id);
+                try
+                {
+                    await this.contestService.DeleteAsync(id);
 
-                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
-                return this.RedirectToAction("All", "Contest", new { area = string.Empty });
+                    this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
+                    return this.RedirectToAction("All", "Contest", new { area = string.Empty });
+                }
+                catch (Exception)
+                {
+                    return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404, area = string.Empty });
+                }
             }
 
             return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });

@@ -2,18 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-    using MySportsClubManager.Common;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
-    using MySportsClubManager.Web.ViewModels.Base;
     using MySportsClubManager.Web.ViewModels.Club;
 
     using Club = MySportsClubManager.Data.Models.Club;
@@ -66,11 +62,14 @@
             var club = await this.clubsRepository.All()
             .Where(c => c.Id == clubId)
                 .FirstOrDefaultAsync();
-            if (club != null)
+
+            if (club == null)
             {
-                this.clubsRepository.Delete(club);
-                await this.clubsRepository.SaveChangesAsync();
+                throw new ArgumentException();
             }
+
+            this.clubsRepository.Delete(club);
+            await this.clubsRepository.SaveChangesAsync();
         }
 
         public async Task EditAsync(EditClubInputModel model)

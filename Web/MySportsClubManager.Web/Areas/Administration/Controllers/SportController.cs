@@ -58,9 +58,16 @@
         [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Delete(int sportId)
         {
-            await this.sportService.DeleteAsync(sportId);
-            this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
-            return this.RedirectToAction("All", "Sport", new { area = string.Empty });
+            try
+            {
+                await this.sportService.DeleteAsync(sportId);
+                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
+                return this.RedirectToAction("All", "Sport", new { area = string.Empty });
+            }
+            catch (Exception)
+            {
+                return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404, area = string.Empty });
+            }
         }
 
         [Authorize(Roles = AdministratorRoleName)]

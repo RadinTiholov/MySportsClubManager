@@ -122,11 +122,17 @@
 
         public double GetAverageForClub(int clubId)
         {
-            var avarateRatings = this.reviewRepository.All()
-                .Where(x => x.ClubId == clubId)
-                .Average(x => x.Rating);
+            if (this.reviewRepository.AllAsNoTracking().Where(x => x.ClubId == clubId).Count() > 0)
+            {
 
-            return avarateRatings;
+                var avarateRatings = this.reviewRepository.AllAsNoTracking()
+                    .Where(x => x.ClubId == clubId)
+                    .Average(x => x.Rating);
+
+                return avarateRatings;
+            }
+
+            return 0.0;
         }
 
         public int GetCount()

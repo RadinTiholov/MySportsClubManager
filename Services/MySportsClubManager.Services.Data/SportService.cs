@@ -91,11 +91,14 @@
             var sport = await this.sportsRepository.AllAsNoTracking()
                 .Where(s => s.Id == sportId)
                 .FirstOrDefaultAsync();
-            if (sport != null)
+
+            if (sport == null)
             {
-                this.sportsRepository.Delete(sport);
-                await this.sportsRepository.SaveChangesAsync();
+                throw new ArgumentException();
             }
+
+            this.sportsRepository.Delete(sport);
+            await this.sportsRepository.SaveChangesAsync();
         }
 
         public async Task EditAsync(EditSportInputModel model)

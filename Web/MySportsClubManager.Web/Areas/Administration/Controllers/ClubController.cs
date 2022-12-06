@@ -65,9 +65,16 @@
         {
             if (this.User.IsInRole(AdministratorRoleName) || await this.trainerService.OwnsClubAsync(this.User.Id(), clubId))
             {
-                await this.clubService.DeleteAsync(clubId);
-                this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
-                return this.RedirectToAction("All", "Club", new { area = string.Empty });
+                try
+                {
+                    await this.clubService.DeleteAsync(clubId);
+                    this.TempData[GlobalConstants.SuccessMessage] = ExceptionMessages.SuccessfullyDeletedMessage;
+                    return this.RedirectToAction("All", "Club", new { area = string.Empty });
+                }
+                catch (Exception)
+                {
+                    return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 404, area = string.Empty });
+                }
             }
 
             return this.RedirectToAction("ErrorStatus", "Home", new { statusCode = 401, area = string.Empty });

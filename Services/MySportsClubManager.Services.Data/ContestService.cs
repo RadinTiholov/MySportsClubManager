@@ -2,13 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Microsoft.Extensions.Logging.Abstractions;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
@@ -86,11 +83,14 @@
             var contest = await this.contestRepository.All()
             .Where(c => c.Id == contestId)
                 .FirstOrDefaultAsync();
-            if (contest != null)
+
+            if (contest == null)
             {
-                this.contestRepository.Delete(contest);
-                await this.contestRepository.SaveChangesAsync();
+                throw new ArgumentException();
             }
+
+            this.contestRepository.Delete(contest);
+            await this.contestRepository.SaveChangesAsync();
         }
 
         public async Task EditAsync(EditContestViewModel model)
