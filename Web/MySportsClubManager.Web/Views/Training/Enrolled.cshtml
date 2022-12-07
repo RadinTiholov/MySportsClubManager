@@ -6,22 +6,29 @@
 @{
     <div class="container my-5">
 		<h1 class="text-center">@this.ViewData["Title"]</h1>
-		@foreach (var training in Model)
+		@if (Model.Count() > 0)
 		{
-			<div class="row row-striped">
-				<div class="col-2 text-right">
-					<h1 class="display-4"><span class="badge text-dark">@training.Day</span></h1>
-					<h2>@training.Month</h2>
+			@foreach (var training in Model)
+			{
+				<div class="row row-striped">
+					<div class="col-2 text-right">
+						<h1 class="display-4"><span class="badge text-dark">@training.Day</span></h1>
+						<h2>@training.Month</h2>
+					</div>
+					<div class="col-10">
+						<h3 class="text-uppercase text-dark"><strong>@training.Topic</strong></h3>
+						<ul class="list-inline">
+							<li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> @training.Year</li>
+							<li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i>Duration: @training.Duration</li>
+							<li class="list-inline-item"><i class="fa fa-person" aria-hidden="true"></i>Participants: @training.ParticipantsCount</li>
+						</ul>
+					</div>
 				</div>
-				<div class="col-10">
-					<h3 class="text-uppercase text-dark"><strong>@training.Topic</strong></h3>
-					<ul class="list-inline">
-						<li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> @training.Year</li>
-						<li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i>Duration: @training.Duration</li>
-						<li class="list-inline-item"><i class="fa fa-person" aria-hidden="true"></i>Participants: @training.ParticipantsCount</li>
-					</ul>
-				</div>
-			</div>
+			}
+		}
+		else
+		{
+			<h3 class="text-center">You haven't enrolled in any trainings yet!</h3>
 		}
 	</div>
 }
