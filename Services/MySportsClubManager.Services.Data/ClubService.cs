@@ -185,5 +185,15 @@
                .To<T>()
                .ToListAsync();
         }
+
+        public async Task<List<ClubInListViewModel>> GetAllForSearchAsync(string searchQuery)
+        {
+            return await this.clubsRepository
+               .AllAsNoTracking()
+               .Where(x => x.Name.Contains(searchQuery))
+               .OrderByDescending(x => x.CreatedOn)
+               .To<ClubInListViewModel>()
+               .ToListAsync();
+        }
     }
 }

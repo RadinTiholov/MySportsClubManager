@@ -23,5 +23,7 @@
         Task<List<T>> AllCreatedAsync<T>(int page, int trainerId, int itemsPerPage = 8);
 
         Task<List<T>> GetMineAsync<T>(int trainerId);
+
+        Task<List<ClubInListViewModel>> GetAllForSearchAsync(string searchQuery);
     }
 }

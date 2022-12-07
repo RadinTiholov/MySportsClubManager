@@ -45,6 +45,14 @@
             return this.View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SearchClubs(string searchQuery)
+        {
+            var clubs = await this.clubService.GetAllForSearchAsync(searchQuery);
+
+            return this.View(clubs);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {

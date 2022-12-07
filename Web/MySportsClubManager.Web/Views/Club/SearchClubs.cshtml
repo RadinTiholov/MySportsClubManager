@@ -1,0 +1,53 @@
+﻿@model List<ClubInListViewModel>
+@{
+    this.ViewData["Title"] = $"Search";
+}
+@{
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
+    <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+            @if (Model.Count() > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="col">
+                        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                        <div class="card-header">Clubs</div>
+                            <img src="@item.Image.URL" class="card-img-top" alt="sport img" style="height: 20rem;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h4 class="card-title">@item.Name</h4>
+                                    </div>
+                                    <div class="col mb-2">
+                                        <a asp-controller="Club" asp-action="Details" asp-route-id = "@item.Id" type="button" class="btn btn-warning">Details</a>
+                                    </div>
+                                </div>
+                                <div class="accordion" id="accordion@{@item.Id}">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading@{@item.Id}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@item.Id}" aria-expanded="false" aria-controls="collapse@{@item.Id}">
+                                                Description
+                                        </button>
+                                        </h2>
+                                        <div id="collapse@{@item.Id}" class="accordion-collapse collapse" aria-labelledby="heading@{@item.Id}" data-bs-parent="#accordion@{@item.Id}" style="">
+                                            <div class="accordion-body">
+                                                <p>
+                                                    @item.Description
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h3 class="text-center">No clubs yet!</h3>
+            }
+            </div>
+    </div>
+}
