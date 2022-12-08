@@ -25,5 +25,7 @@
         Task<List<T>> GetMineAsync<T>(int trainerId);
 
         Task<List<ClubInListViewModel>> GetAllForSearchAsync(string searchQuery);
+
+        Task<List<ClubInListViewModel>> GetClubsWithSameSportAsync(string sportName);
     }
 }

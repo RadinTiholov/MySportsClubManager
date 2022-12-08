@@ -61,6 +61,7 @@
                 var model = await this.clubService.GetOneAsync<ClubDetailsViewModel>(id);
                 model.Reviews = await this.reviewService.AllForClubAsync(id);
                 model.AvarageRating = this.reviewService.GetAverageForClub(id);
+                model.ClubsWithSameSport = await this.clubService.GetClubsWithSameSportAsync(model.Sport);
                 return this.View(model);
             }
             catch (ArgumentException)

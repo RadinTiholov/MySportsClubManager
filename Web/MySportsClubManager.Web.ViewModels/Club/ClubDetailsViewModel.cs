@@ -31,10 +31,10 @@
 
         public string ImageUrl { get; set; }
 
-        [NotMapped]
         public List<ReviewViewModel> Reviews { get; set; }
 
-        [NotMapped]
+        public List<ClubInListViewModel> ClubsWithSameSport { get; set; }
+
         public double AvarageRating { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

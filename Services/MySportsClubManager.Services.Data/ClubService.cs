@@ -195,5 +195,16 @@
                .To<ClubInListViewModel>()
                .ToListAsync();
         }
+
+        public async Task<List<ClubInListViewModel>> GetClubsWithSameSportAsync(string sportName)
+        {
+            return await this.clubsRepository
+               .AllAsNoTracking()
+               .Include(x => x.Sport)
+               .Where(x => x.Sport.Name == sportName)
+               .Take(4)
+               .To<ClubInListViewModel>()
+               .ToListAsync();
+        }
     }
 }
