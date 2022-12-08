@@ -44,6 +44,7 @@
             try
             {
                 var model = await this.sportService.GetOneAsync<SportDetailsViewModel>(id);
+                model.RecentSports = await this.sportService.GetRecentFullAsync();
                 return this.View(model);
             }
             catch (ArgumentException)

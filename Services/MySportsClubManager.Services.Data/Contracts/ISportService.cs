@@ -18,6 +18,8 @@
 
         Task EditAsync(EditSportInputModel model);
 
-        Task<List<SportInDropdownViewModel>> GetRecent();
+        Task<List<SportInDropdownViewModel>> GetRecentAsync();
+
+        Task<List<SportInListViewModel>> GetRecentFullAsync();
     }
 }

@@ -29,30 +29,22 @@
                 <div class="card text-light bg-primary mt-3">
                     <h5 class="text-light mx-4 my-2">Recently added sports</h5>
                     <div class="row row-cols-sm-2 row-cols-md-4 gy-2 m-2">
-                        <div class="col-3">
-                            <div class="card bg-warning" style="border: 0px">
-                                <div class="card-header">Tennis</div>
-                                <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="card bg-warning" style="border: 0px">
-                                <div class="card-header">Tennis</div>
-                                <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="card bg-warning" style="border: 0px">
-                                <div class="card-header">Tennis</div>
-                                <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="card bg-warning" style="border: 0px">
-                                <div class="card-header">Tennis</div>
-                                <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                            </div>
-                        </div>
+                        @if (Model.RecentSports.Count() > 0)
+                        {
+                            @foreach (var item in Model.RecentSports)
+                            {
+                                <div class="col-3">
+                                    <div class="card bg-warning" style="border: 0px">
+                                        <div class="card-header">@item.Name</div>
+                                        <img class="card-img-bottom" src="@item.Image.URL" alt="Card image cap">
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No sports yet!</p>
+                        }
                     </div>
                 </div>
             </div>

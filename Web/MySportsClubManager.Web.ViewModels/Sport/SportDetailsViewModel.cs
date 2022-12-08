@@ -6,6 +6,7 @@
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Country;
     using MySportsClubManager.Web.ViewModels.Creator;
+    using System.Collections.Generic;
 
     public class SportDetailsViewModel : IMapFrom<Sport>, IHaveCustomMappings
     {
@@ -22,6 +23,8 @@
         public CountryViewModel Country { get; set; }
 
         public CreatorViewModel Creator { get; set; }
+
+        public List<SportInListViewModel> RecentSports { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

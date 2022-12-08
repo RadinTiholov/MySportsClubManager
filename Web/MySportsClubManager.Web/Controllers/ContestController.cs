@@ -40,7 +40,7 @@
                 Contest = await this.contestService.AllAsync<ContestInListViewModel>(id, ItemsPerPage),
                 PageNumber = id,
                 Count = this.contestService.GetCount(),
-                RecentSports = await this.sportService.GetRecent(),
+                RecentSports = await this.sportService.GetRecentAsync(),
             };
 
             return this.View(model);
