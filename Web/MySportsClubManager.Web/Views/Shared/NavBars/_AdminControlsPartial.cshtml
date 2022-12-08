@@ -2,20 +2,35 @@
 @{
     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Review" asp-action="All">Reviews</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sports</a>
+            <div class="dropdown-menu">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Sport" asp-action="All">All</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-link text-dark" asp-area="Administration" asp-controller="Sport" asp-action="Create">Create</a>
+            </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Sport" asp-action="Create">Create Sport</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Clubs</a>
+            <div class="dropdown-menu">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Club" asp-action="All">All</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-link text-dark" asp-area="Administration" asp-controller="Club" asp-action="Create">Create</a>
+            </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Club" asp-action="Create">Create Club</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Contest" asp-action="Create">Create Contest</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Contest</a>
+            <div class="dropdown-menu">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Contest" asp-action="All">All</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-link text-dark" asp-area="Administration" asp-controller="Contest" asp-action="Create">Create</a>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Administration" asp-controller="Training" asp-action="Create">Create Training</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Review" asp-action="All">Reviews</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="AllUsers">Manage Users</a>
