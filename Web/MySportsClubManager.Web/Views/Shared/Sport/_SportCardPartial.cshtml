@@ -1,0 +1,36 @@
+﻿@model SportInListViewModel
+@{
+    <div class="col grow">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Sport</div>
+            <img src="@Model.Image.URL" class="card-img-top" alt="sport img" style="height: 20rem;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-7">
+                        <h4 class="card-title">@Model.Name</h4>
+                    </div>
+                    <div class="col mb-2">
+                        <a asp-controller="Sport" asp-action="Details" asp-route-id = "@Model.Id" class="btn btn-warning">Details</a>
+                    </div>
+                </div>
+                <div class="accordion" id="accordion@{@Model.Id}">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading@{
+                            @Model.Id}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@Model.Id}" aria-expanded="false" aria-controls="collapse@{@Model.Id}">
+                                Description
+                        </button>
+                        </h2>
+                        <div id="collapse@{@Model.Id}" class="accordion-collapse collapse" aria-labelledby="heading@{@Model.Id}" data-bs-parent="#accordion@{@Model.Id}" style="">
+                            <div class="accordion-body">
+                                <p>
+                                    @Model.Description
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
