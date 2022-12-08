@@ -27,5 +27,7 @@
         Task<List<ClubInListViewModel>> GetAllForSearchAsync(string searchQuery);
 
         Task<List<ClubInListViewModel>> GetClubsWithSameSportAsync(string sportName);
+
+        Task<List<ClubInListViewModel>> GetClubsWithHightestRating();
     }
 }

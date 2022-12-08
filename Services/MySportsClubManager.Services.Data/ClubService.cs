@@ -206,5 +206,16 @@
                .To<ClubInListViewModel>()
                .ToListAsync();
         }
+
+        public async Task<List<ClubInListViewModel>> GetClubsWithHightestRating()
+        {
+            return await this.clubsRepository
+               .All()
+               .Include(x => x.Reviews)
+               .OrderByDescending(x => x.Reviews.Average(x => x.Rating))
+               .Take(4)
+               .To<ClubInListViewModel>()
+               .ToListAsync();
+        }
     }
 }

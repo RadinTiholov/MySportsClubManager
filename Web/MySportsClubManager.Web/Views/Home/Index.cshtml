@@ -59,38 +59,27 @@
 <div class="bg-primary">
     <div class="container">
 
-        <h1 class="text-center text-light py-2 display-4">Recomended sports clubs</h1>
-        @*ToDo Check if there are any created clubs*@
-        <div class="row row-cols-sm-2 row-cols-md-4 gy-2">
-            <div class="col-3">
-                <div class="card bg-warning" style="border: 0px">
-                    <div class="card-header">Club 1</div>
-                    <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                    <a asp-controller="Club" asp-action="Details" asp-route-id="" type="button" class="btn btn-warning">Details</a>
-                </div>
+        <h1 class="text-center text-light py-2 display-4">Highest rated clubs</h1>
+        @if (Model.RecommendedClubs.Count > 0)
+        {
+            <div class="row row-cols-sm-2 row-cols-md-4 gy-2">
+                @foreach (var item in Model.RecommendedClubs)
+                {
+                    <div class="col-3">
+                        <div class="card bg-warning" style="border: 0px">
+                            <div class="card-header">@item.Name</div>
+                            <img class="card-img-bottom" src="@item.Image.URL" alt="Card image cap" style="height: 200px">
+                            <a asp-controller="Club" asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-warning">Details</a>
+                        </div>
+                    </div>
+                }
             </div>
-            <div class="col-3">
-                <div class="card bg-warning" style="border: 0px">
-                    <div class="card-header">Club 1</div>
-                    <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                    <a asp-controller="Club" asp-action="Details" asp-route-id="" type="button" class="btn btn-warning">Details</a>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card bg-warning" style="border: 0px">
-                    <div class="card-header">Club 1</div>
-                    <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                    <a asp-controller="Club" asp-action="Details" asp-route-id="" type="button" class="btn btn-warning">Details</a>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card bg-warning" style="border: 0px">
-                    <div class="card-header">Club 1</div>
-                    <img class="card-img-bottom" src="https://cdn.britannica.com/57/183257-050-0BA11B4B/Roger-Federer-2012.jpg" alt="Card image cap">
-                    <a asp-controller="Club" asp-action="Details" asp-route-id="" type="button" class="btn btn-warning">Details</a>
-                </div>
-            </div>
-        </div>
+        }
+        else
+        {
+            <h3 class="text-center">No clubs yet!</h3>
+        }
+
     </div>
 </div>
 <img src="~/images//wave2.png" alt="wave" style="width:100%" />

@@ -1,15 +1,30 @@
 ﻿namespace MySportsClubManager.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.ViewModels;
+    using MySportsClubManager.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        private readonly IClubService clubService;
+
+        public HomeController(IClubService clubService)
         {
-            return this.View();
+            this.clubService = clubService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var model = new HomeViewModel()
+            {
+                RecommendedClubs = await this.clubService.GetClubsWithHightestRating(),
+            };
+
+            return this.View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

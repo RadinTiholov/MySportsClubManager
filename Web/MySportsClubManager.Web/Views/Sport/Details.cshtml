@@ -35,15 +35,17 @@
                             {
                                 <div class="col-3">
                                     <div class="card bg-warning" style="border: 0px">
-                                        <div class="card-header">@item.Name</div>
-                                        <img class="card-img-bottom" src="@item.Image.URL" alt="Card image cap">
+                                        <a asp-area="" asp-controller="Sport" asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none; color: black">
+                                            <div class="card-header">@item.Name</div>
+                                        </a>
+                                        <img class="card-img-bottom" src="@item.Image.URL" alt="Card image cap" style="height: 150px"/>
                                     </div>
                                 </div>
                             }
                         }
                         else
                         {
-                            <p>No sports yet!</p>
+                            <p class="text-center">No sports yet!</p>
                         }
                     </div>
                 </div>
