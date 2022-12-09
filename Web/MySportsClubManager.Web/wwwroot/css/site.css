@@ -24,11 +24,6 @@ a {
     border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    font-size: 14px;
-}
 
 @media (min-width: 768px) {
     html {
@@ -92,3 +87,19 @@ button.accept-policy {
     .grow:hover {
         transform: scale(1.1);
     }
+
+html {
+    font-size: 14px;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+
+main {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+footer {
+    min-height: 100px;
+}
