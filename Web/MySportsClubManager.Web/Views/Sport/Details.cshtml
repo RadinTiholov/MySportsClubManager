@@ -23,22 +23,22 @@
                                 </div>
                             </div>
                         }
-                        <img class="img-fluid rounded" src="@Model.ImageUrl" alt="sport's image" style="width: 100%" />
+                        <img class="img-fluid rounded" src="@Model.ImageUrl" alt="sport's image"/>
                     </div>
                 </div>
                 <div class="card text-light bg-primary mt-3">
                     <h5 class="text-light mx-4 my-2">Recently added sports</h5>
-                    <div class="row row-cols-sm-2 row-cols-md-4 gy-2 m-2">
+                    <div class="row gy-2 m-2">
                         @if (Model.RecentSports.Count() > 0)
                         {
                             @foreach (var item in Model.RecentSports)
                             {
-                                <div class="col-3">
+                                <div class="col-md-3">
                                     <div class="card bg-warning" style="border: 0px">
                                         <a asp-area="" asp-controller="Sport" asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none; color: black">
                                             <div class="card-header">@item.Name</div>
                                         </a>
-                                        <img class="card-img-bottom" src="@item.Image.URL" alt="Card image cap" style="height: 150px"/>
+                                        <img class="card-img-bottom img-fluid" src="@item.Image.URL" alt="Card image cap"/>
                                     </div>
                                 </div>
                             }

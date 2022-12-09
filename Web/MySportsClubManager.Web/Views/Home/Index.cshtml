@@ -62,10 +62,10 @@
         <h1 class="text-center text-light py-2 display-4">Highest rated clubs</h1>
         @if (Model.RecommendedClubs.Count > 0)
         {
-            <div class="row row-cols-sm-2 row-cols-md-4 gy-2">
+            <div class="row gy-2">
                 @foreach (var item in Model.RecommendedClubs)
                 {
-                    <div class="col-3">
+                    <div class="col-md-3">
                         <div class="card bg-warning" style="border: 0px">
                             <div class="card-header">@item.Name</div>
                             <img class="card-img-bottom" src="@item.Image.URL" alt="Card image cap" style="height: 200px">
