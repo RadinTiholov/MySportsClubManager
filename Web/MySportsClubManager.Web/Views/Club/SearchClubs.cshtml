@@ -5,18 +5,18 @@
 @{
     <h1 class="text-center">@this.ViewData["Title"]</h1>
     <div class="container">
+        @if (Model.Count() > 0)
+        {
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-            @if (Model.Count() > 0)
+            @foreach (var item in Model)
             {
-                @foreach (var item in Model)
-                {
-                    @await Html.PartialAsync("../Shared/Club/_ClubCardPartial.cshtml", item)
-                }
-            }
-            else
-            {
-                <h3 class="text-center">No clubs yet!</h3>
+                @await Html.PartialAsync("../Shared/Club/_ClubCardPartial.cshtml", item)
             }
             </div>
+        }
+        else
+        {
+        <h3 class="text-center">No clubs yet!</h3>
+        }
     </div>
 }

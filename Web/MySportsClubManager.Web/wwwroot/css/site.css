@@ -54,6 +54,11 @@ button.accept-policy {
     height: 30px;
 }
 
+.logo {
+    height: 40px;
+    width: 150px;
+}
+
 /*All*/
 .remove-decoration {
     text-decoration: none;
