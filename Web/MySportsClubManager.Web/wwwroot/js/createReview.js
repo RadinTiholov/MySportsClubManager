@@ -28,7 +28,8 @@ function onButtonClick(e, clubId) {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.getElementById("RequestVerificationToken")
             },
             body: JSON.stringify({
                 rating: checkedStar,
@@ -40,6 +41,7 @@ function onButtonClick(e, clubId) {
                 if (response.ok) {
                     return response.json();
                 }
+
                 throw new Error("Something went wrong or you've already posted a review!");
             })
             .then((data) => {

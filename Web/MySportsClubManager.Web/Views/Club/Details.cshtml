@@ -1,4 +1,8 @@
 ﻿@inject IAthleteService athleteService
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    var requestToken = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+}
 @model ClubDetailsViewModel
 @{
     <div class="container my-5">
@@ -46,7 +50,7 @@
              <div class="card text-light bg-primary mt-3">
                 <h5 class="text-light mx-4 my-2">Reviews</h5>
                 <div class="container">
-                   <form>
+                   <form id="reviewForm">
                       <div class=" mt-2">
                          <span class="input-stars fa fa-star checked" id="1"></span>
                          <span class="input-stars fa fa-star" id="2"></span>
@@ -59,6 +63,8 @@
                          <textarea id="review-text" class="form-control" rows="3"></textarea>
                          <span id="review-error" class="text-danger"></span>
                       </div>
+                      <input id="RequestVerificationToken" type="hidden" value="@requestToken" />
+
                       <div class="mb-3 mt-2">
                          <button onclick="onButtonClick(event, '@Model.Id')" type="button" class="btn btn-warning">Submit</button>
                       </div>
