@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.ML.Trainers.FastTree;
     using ML.Model;
     using MySportsClubManager.Data.Common.Repositories;
     using MySportsClubManager.Data.Models;
@@ -97,10 +98,10 @@
             };
         }
 
-        public async Task DeleteAsync(int clubId)
+        public async Task DeleteAsync(int reviewId)
         {
             var review = await this.reviewRepository.AllAsNoTracking()
-                .Where(s => s.Id == clubId)
+                .Where(s => s.Id == reviewId)
                 .FirstOrDefaultAsync();
 
             if (review == null)
