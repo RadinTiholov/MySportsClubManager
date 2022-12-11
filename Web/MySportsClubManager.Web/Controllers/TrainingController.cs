@@ -75,7 +75,7 @@
         {
             try
             {
-                var model = await this.trainingService.GetAllClubsForUserAsync(this.User.Id());
+                var model = await this.trainingService.GetAllTrainingsForUserAsync(this.User.Id());
                 return this.View(model);
             }
             catch (Exception)

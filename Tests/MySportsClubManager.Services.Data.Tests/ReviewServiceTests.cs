@@ -25,7 +25,7 @@
         public ReviewServiceTests()
         {
             var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase("MySportsClubManagerDb")
+            .UseInMemoryDatabase("MySportsClubManagerDbReviews")
             .Options;
 
             this.applicationDbContext = new ApplicationDbContext(contextOptions);

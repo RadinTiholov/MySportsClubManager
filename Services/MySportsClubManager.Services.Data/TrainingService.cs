@@ -95,7 +95,7 @@
                 .ToListAsync();
         }
 
-        public async Task<List<TrainingInListViewModel>> GetAllClubsForUserAsync(string userId)
+        public async Task<List<TrainingInListViewModel>> GetAllTrainingsForUserAsync(string userId)
         {
             return await this.trainingRepository
                 .All()

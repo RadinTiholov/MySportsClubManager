@@ -11,7 +11,7 @@
 
         Task<List<TrainingInListViewModel>> GetAllForClubAsync(int clubId);
 
-        Task<List<TrainingInListViewModel>> GetAllClubsForUserAsync(string userId);
+        Task<List<TrainingInListViewModel>> GetAllTrainingsForUserAsync(string userId);
 
         Task DeleteAsync(int trainingId);
 
