@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
 
@@ -47,14 +48,29 @@
 
             this.formFile = this.CreateFakeFormFile();
             var mockImageService = new Mock<IImageService>();
-            mockImageService.Setup(x => x.AddByFile(this.formFile, "test"))
+            mockImageService.Setup(x => x.AddByFile(It.IsAny<IFormFile>(), It.IsAny<string>()))
                 .Returns(async () =>
                 {
                     await Task.Delay(1);
-                    return new Image()
+                    var image = new Image()
                     {
                         URL = "testUrl",
                     };
+                    await this.applicationDbContext.Images.AddAsync(image);
+                    await this.applicationDbContext.SaveChangesAsync();
+                    return image;
+                });
+            mockImageService.Setup(x => x.AddByUrlAsync(It.IsAny<string>()))
+                .Returns(async () =>
+                {
+                    await Task.Delay(1);
+                    var image = new Image()
+                    {
+                        URL = "testUrl",
+                    };
+                    await this.applicationDbContext.Images.AddAsync(image);
+                    await this.applicationDbContext.SaveChangesAsync();
+                    return image;
                 });
             this.imageService = mockImageService.Object;
 
@@ -144,6 +160,174 @@
             await Assert.ThrowsAsync<ArgumentException>(async () => { await this.sportService.DeleteAsync(3); });
         }
 
+        [Fact]
+        public async Task CreateShouldWorksCorrectly()
+        {
+            this.SeedData();
+            var model = new CreateSportInputModel()
+            {
+                Name = "Test2",
+                Description = "Test2",
+                CreationDate = DateTime.Now,
+                ImageFile = this.CreateFakeFormFile(),
+                Country = "Test",
+                Creator = "Test",
+            };
+            await this.sportService.CreateAsync(model);
+            var sports = await this.applicationDbContext.Sports.ToListAsync();
+            Assert.Equal(2, sports.Count);
+        }
+
+        [Fact]
+        public async Task CreateShouldWorksCorrectlyWhenCreator()
+        {
+            this.SeedData();
+            var model = new CreateSportInputModel()
+            {
+                Name = "Test2",
+                Description = "Test2",
+                CreationDate = DateTime.Now,
+                ImageFile = this.CreateFakeFormFile(),
+                Country = "Test",
+                Creator = "Test2",
+            };
+            await this.sportService.CreateAsync(model);
+            var sports = await this.applicationDbContext.Sports.ToListAsync();
+            var creators = await this.applicationDbContext.Creators.ToListAsync();
+            Assert.Equal(2, creators.Count);
+            Assert.Equal(2, sports.Count);
+        }
+
+        [Fact]
+        public async Task CreateShouldWorksCorrectlyWhenCountry()
+        {
+            this.SeedData();
+            var model = new CreateSportInputModel()
+            {
+                Name = "Test2",
+                Description = "Test2",
+                CreationDate = DateTime.Now,
+                ImageFile = this.CreateFakeFormFile(),
+                Country = "Test2",
+                Creator = "Test",
+            };
+            await this.sportService.CreateAsync(model);
+            var sports = await this.applicationDbContext.Sports.ToListAsync();
+            var countries = await this.applicationDbContext.Countries.ToListAsync();
+            Assert.Equal(2, countries.Count);
+            Assert.Equal(2, sports.Count);
+        }
+
+        [Fact]
+        public async Task EditShouldWorksCorrectlyWhenFileIsPassed()
+        {
+            this.SeedData();
+            var model = new EditSportInputModel()
+            {
+                Id = 1,
+                Name = "TestEdit",
+                Description = "TestEdit",
+                CreationDate = DateTime.Now,
+                ImageFile = this.CreateFakeFormFile(),
+                ImageUrl = "aaa.com",
+                Country = "Test",
+                Creator = "Test",
+            };
+            await this.sportService.EditAsync(model);
+            var images = await this.applicationDbContext.Images.ToListAsync();
+            var sport = await this.applicationDbContext.Sports.Where(x => x.Id == 1).FirstOrDefaultAsync();
+            Assert.Equal("TestEdit", sport.Name);
+            Assert.Equal("TestEdit", sport.Description);
+            Assert.Equal(2, images.Count);
+        }
+
+        [Fact]
+        public async Task EditShouldWorksCorrectlyWhenUrlIsPassed()
+        {
+            this.SeedData();
+            var model = new EditSportInputModel()
+            {
+                Id = 1,
+                Name = "TestEdit",
+                Description = "TestEdit",
+                CreationDate = DateTime.Now,
+                ImageUrl = "aaa.com",
+                Country = "Test",
+                Creator = "Test",
+            };
+            await this.sportService.EditAsync(model);
+            var images = await this.applicationDbContext.Images.ToListAsync();
+            var sport = await this.applicationDbContext.Sports.Where(x => x.Id == 1).FirstOrDefaultAsync();
+            Assert.Equal("TestEdit", sport.Name);
+            Assert.Equal("TestEdit", sport.Description);
+            Assert.Equal(2, images.Count);
+        }
+
+        [Fact]
+        public async Task EditShouldWorksCorrectlyWhenCreatorDoesntExists()
+        {
+            this.SeedData();
+            var model = new EditSportInputModel()
+            {
+                Id = 1,
+                Name = "TestEdit",
+                Description = "TestEdit",
+                CreationDate = DateTime.Now,
+                ImageUrl = "aaa.com",
+                Country = "Test",
+                Creator = "Test2",
+            };
+            await this.sportService.EditAsync(model);
+            var images = await this.applicationDbContext.Images.ToListAsync();
+            var sport = await this.applicationDbContext.Sports.Where(x => x.Id == 1).FirstOrDefaultAsync();
+            var creators = await this.applicationDbContext.Creators.ToListAsync();
+            Assert.Equal("TestEdit", sport.Name);
+            Assert.Equal("TestEdit", sport.Description);
+            Assert.Equal(2, images.Count);
+            Assert.Equal(2, creators.Count);
+        }
+
+        [Fact]
+        public async Task EditShouldWorksCorrectlyWhenCountryDoesntExists()
+        {
+            this.SeedData();
+            var model = new EditSportInputModel()
+            {
+                Id = 1,
+                Name = "TestEdit",
+                Description = "TestEdit",
+                CreationDate = DateTime.Now,
+                ImageUrl = "aaa.com",
+                Country = "Test2",
+                Creator = "Test",
+            };
+            await this.sportService.EditAsync(model);
+            var images = await this.applicationDbContext.Images.ToListAsync();
+            var sport = await this.applicationDbContext.Sports.Where(x => x.Id == 1).FirstOrDefaultAsync();
+            var country = await this.applicationDbContext.Countries.ToListAsync();
+            Assert.Equal("TestEdit", sport.Name);
+            Assert.Equal("TestEdit", sport.Description);
+            Assert.Equal(2, images.Count);
+            Assert.Equal(2, country.Count);
+        }
+
+        [Fact]
+        public async Task EditShouldThrowExWhenDoesntExists()
+        {
+            this.SeedData();
+            var model = new EditSportInputModel()
+            {
+                Id = 10,
+                Name = "TestEdit",
+                Description = "TestEdit",
+                CreationDate = DateTime.Now,
+                ImageUrl = "aaa.com",
+                Country = "Test2",
+                Creator = "Test",
+            };
+            await Assert.ThrowsAsync<ArgumentException>(async () => { await this.sportService.EditAsync(model); });
+        }
+
         private async void SeedData()
         {
             var image = new Image()
@@ -181,7 +365,7 @@
         private IFormFile CreateFakeFormFile()
         {
             var content = "Hello World from a Fake File";
-            var fileName = "test.pdf";
+            var fileName = "test";
             var stream = new MemoryStream();
             var writer = new StreamWriter(stream);
             writer.Write(content);
