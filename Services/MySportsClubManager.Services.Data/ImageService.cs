@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data.Common.Repositories;
@@ -52,6 +53,7 @@
             };
 
             await this.imagesRepository.AddAsync(image);
+            await this.imagesRepository.SaveChangesAsync();
             return await this.GetByUrlAsync(image.URL);
         }
 
