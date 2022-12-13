@@ -78,7 +78,7 @@
         }
 
         [Fact]
-        public async Task AllAsyncShouldWorksCorrectly()
+        public async Task AllAsyncShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(SportInListViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -89,7 +89,7 @@
         }
 
         [Fact]
-        public async Task AllForInputShouldWorksCorrectly()
+        public async Task AllForInputShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(SportInDropdownViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -100,7 +100,7 @@
         }
 
         [Fact]
-        public async Task GetRecentShouldWorksCorrectly()
+        public async Task GetRecentShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(SportInDropdownViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -111,7 +111,7 @@
         }
 
         [Fact]
-        public async Task GetRecentFullShouldWorksCorrectly()
+        public async Task GetRecentFullShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(SportInListViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -122,7 +122,7 @@
         }
 
         [Fact]
-        public void GetCountShouldWorksCorrectly()
+        public void GetCountShouldWorkCorrectly()
         {
             this.SeedData();
 
@@ -132,7 +132,7 @@
         }
 
         [Fact]
-        public async Task GetOneShouldWorksCorrectly()
+        public async Task GetOneShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(SportDetailsViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -161,7 +161,7 @@
         }
 
         [Fact]
-        public async Task CreateShouldWorksCorrectly()
+        public async Task CreateShouldWorkCorrectly()
         {
             this.SeedData();
             var model = new CreateSportInputModel()
@@ -179,7 +179,7 @@
         }
 
         [Fact]
-        public async Task CreateShouldWorksCorrectlyWhenCreator()
+        public async Task CreateShouldWorkCorrectlyWhenCreator()
         {
             this.SeedData();
             var model = new CreateSportInputModel()
@@ -199,7 +199,7 @@
         }
 
         [Fact]
-        public async Task CreateShouldWorksCorrectlyWhenCountry()
+        public async Task CreateShouldWorkCorrectlyWhenCountry()
         {
             this.SeedData();
             var model = new CreateSportInputModel()
@@ -219,7 +219,7 @@
         }
 
         [Fact]
-        public async Task EditShouldWorksCorrectlyWhenFileIsPassed()
+        public async Task EditShouldWorkCorrectlyWhenFileIsPassed()
         {
             this.SeedData();
             var model = new EditSportInputModel()
@@ -242,7 +242,7 @@
         }
 
         [Fact]
-        public async Task EditShouldWorksCorrectlyWhenUrlIsPassed()
+        public async Task EditShouldWorkCorrectlyWhenUrlIsPassed()
         {
             this.SeedData();
             var model = new EditSportInputModel()
@@ -264,7 +264,7 @@
         }
 
         [Fact]
-        public async Task EditShouldWorksCorrectlyWhenCreatorDoesntExists()
+        public async Task EditShouldWorkCorrectlyWhenCreatorDoesntExists()
         {
             this.SeedData();
             var model = new EditSportInputModel()
@@ -288,7 +288,7 @@
         }
 
         [Fact]
-        public async Task EditShouldWorksCorrectlyWhenCountryDoesntExists()
+        public async Task EditShouldWorkCorrectlyWhenCountryDoesntExists()
         {
             this.SeedData();
             var model = new EditSportInputModel()

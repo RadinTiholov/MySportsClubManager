@@ -79,7 +79,7 @@
         }
 
         [Fact]
-        public async Task AllAsyncShouldWorksCorrectly()
+        public async Task AllAsyncShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(ContestInListViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -90,7 +90,7 @@
         }
 
         [Fact]
-        public async Task CreateContestShouldWorksCorrectly()
+        public async Task CreateContestShouldWorkCorrectly()
         {
             this.SeedData();
             var model = new CreateContestViewModel()
@@ -110,7 +110,7 @@
         }
 
         [Fact]
-        public void GetCountShouldWorksCorrectly()
+        public void GetCountShouldWorkCorrectly()
         {
             this.SeedData();
 
@@ -118,7 +118,7 @@
         }
 
         [Fact]
-        public async Task GetOneAsyncShouldWorksCorrectly()
+        public async Task GetOneAsyncShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(ContestDetailsViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -130,7 +130,7 @@
         }
 
         [Fact]
-        public async Task GetOneAsyncShouldThrowsExWhenWrongData()
+        public async Task GetOneAsyncShouldThrowExWhenWrongData()
         {
             AutoMapperConfig.RegisterMappings(typeof(ContestDetailsViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -139,7 +139,7 @@
         }
 
         [Fact]
-        public async Task DeleteAsyncShouldWorksCorrectly()
+        public async Task DeleteAsyncShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(ContestDetailsViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -152,7 +152,7 @@
         }
 
         [Fact]
-        public async Task DeleteShouldThrowsExWhenWrongData()
+        public async Task DeleteShouldThrowExWhenWrongData()
         {
             AutoMapperConfig.RegisterMappings(typeof(ContestDetailsViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -161,7 +161,7 @@
         }
 
         [Fact]
-        public async Task EditAsyncShouldWorksCorrectlyWhenFileIsUploaded()
+        public async Task EditAsyncShouldWorkCorrectlyWhenFileIsUploaded()
         {
             this.SeedData();
 
@@ -186,7 +186,7 @@
         }
 
         [Fact]
-        public async Task EditAsyncShouldWorksCorrectlyWhenFileIsntUploaded()
+        public async Task EditAsyncShouldWorkCorrectlyWhenFileIsntUploaded()
         {
             this.SeedData();
 
@@ -210,7 +210,7 @@
         }
 
         [Fact]
-        public async Task EditShouldThrowsExWhenWrongData()
+        public async Task EditShouldThrowExWhenWrongData()
         {
             AutoMapperConfig.RegisterMappings(typeof(ContestDetailsViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -229,7 +229,7 @@
         }
 
         [Fact]
-        public async Task GetAllParticipantsAsyncShouldWorksCorrectly()
+        public async Task GetAllParticipantsAsyncShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(AthleteInDropdownViewModel).GetTypeInfo().Assembly);
             this.SeedData();
@@ -240,7 +240,7 @@
         }
 
         [Fact]
-        public async Task RegisterAsyncShouldWorksCorrectly()
+        public async Task RegisterAsyncShouldWorkCorrectly()
         {
             this.SeedData();
 
@@ -251,7 +251,7 @@
         }
 
         [Fact]
-        public async Task RegisterAsyncShouldThrowsExWhenAlreadyRegistered()
+        public async Task RegisterAsyncShouldThrowExWhenAlreadyRegistered()
         {
             this.SeedData();
 
@@ -261,7 +261,7 @@
         }
 
         [Fact]
-        public async Task RegisterAsyncShouldThrowsExWhenItIsOver()
+        public async Task RegisterAsyncShouldThrowExWhenItIsOver()
         {
             this.SeedData();
 
@@ -271,7 +271,7 @@
         }
 
         [Fact]
-        public async Task RegisterAsyncShouldThrowsExWhenTheContestIsNotFound()
+        public async Task RegisterAsyncShouldThrowExWhenTheContestIsNotFound()
         {
             this.SeedData();
 
@@ -279,7 +279,7 @@
         }
 
         [Fact]
-        public async Task SetWinnersShouldWorksCorrectly()
+        public async Task SetWinnersShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(AthleteInDropdownViewModel).GetTypeInfo().Assembly);
             this.SeedData();

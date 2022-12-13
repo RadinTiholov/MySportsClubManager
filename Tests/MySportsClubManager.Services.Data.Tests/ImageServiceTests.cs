@@ -48,7 +48,7 @@
         }
 
         [Fact]
-        public async Task AddByUrlAsyncShouldWorksCorrectly()
+        public async Task AddByUrlAsyncShouldWorkCorrectly()
         {
             this.SeedData();
 
@@ -58,7 +58,7 @@
         }
 
         [Fact]
-        public async Task AddByUrlAsyncShouldWorksFine()
+        public async Task AddByUrlAsyncShouldWorkFine()
         {
             this.SeedData();
 

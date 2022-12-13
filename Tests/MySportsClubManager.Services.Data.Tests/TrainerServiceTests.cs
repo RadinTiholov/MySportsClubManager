@@ -60,7 +60,7 @@
         }
 
         [Fact]
-        public async Task GetTrainerInformationAsyncShouldWorksCorrectly()
+        public async Task GetTrainerInformationAsyncShouldWorkCorrectly()
         {
             AutoMapperConfig.RegisterMappings(typeof(ContactTrainerInputModel).GetTypeInfo().Assembly);
             await this.SeedData();
@@ -73,7 +73,7 @@
         }
 
         [Fact]
-        public async Task OwnsClubAsyncShouldWorksCorrectlyWhenTheUserOwns()
+        public async Task OwnsClubAsyncShouldWorkCorrectlyWhenTheUserOwns()
         {
             await this.SeedData();
 
