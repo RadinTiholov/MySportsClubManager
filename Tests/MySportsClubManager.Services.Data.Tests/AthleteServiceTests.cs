@@ -1,6 +1,10 @@
 ﻿namespace MySportsClubManager.Services.Data.Tests
 {
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using MySportsClubManager.Data;
     using MySportsClubManager.Data.Common.Repositories;
@@ -9,10 +13,6 @@
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Web.ViewModels.Athlete;
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading.Tasks;
     using Xunit;
 
     public class AthleteServiceTests
