@@ -102,6 +102,9 @@
 
             Cloudinary cloudinary = new Cloudinary(account);
 
+            // Memory Cache
+            services.AddMemoryCache();
+
             services.AddSingleton(cloudinary);
         }
 
