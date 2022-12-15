@@ -43,7 +43,7 @@
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options => options.UseSqlServer(configuration.GetConnectionString("ProductionConnectionString")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
@@ -105,6 +105,8 @@
             // Memory Cache
             services.AddMemoryCache();
 
+            services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
+
             services.AddSingleton(cloudinary);
         }
 
@@ -119,6 +121,7 @@
             }
 
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
 
             if (app.Environment.IsDevelopment())
             {
