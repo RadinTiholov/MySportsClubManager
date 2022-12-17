@@ -43,7 +43,7 @@
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("ProductionConnectionString")));
+                options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
@@ -63,10 +63,6 @@
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddAntiforgery(options =>
-            {
-                options.HeaderName = "X-CSRF-TOKEN";
-            });
             services.AddSingleton(configuration);
 
             services.ConfigureApplicationCookie(options =>
@@ -105,7 +101,7 @@
             // Memory Cache
             services.AddMemoryCache();
 
-            services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
+            // services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
 
             services.AddSingleton(cloudinary);
         }
@@ -121,7 +117,6 @@
             }
 
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
 
             if (app.Environment.IsDevelopment())
             {

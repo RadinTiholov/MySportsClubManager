@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using MySportsClubManager.Common;
     using MySportsClubManager.Data.Models;
 
     public class AdminSeeder : ISeeder
@@ -62,10 +63,11 @@
 
         private async Task AssignToRole(ApplicationDbContext dbContext, ApplicationUser createdUser)
         {
+            var adminRole = await dbContext.Roles.Where(x => x.Name == GlobalConstants.AdministratorRoleName).FirstOrDefaultAsync();
             await dbContext.UserRoles.AddAsync(new IdentityUserRole<string>()
             {
                 UserId = createdUser.Id,
-                RoleId = "f5ccae1a-1755-4c72-be25-0c6cd475ea76",
+                RoleId = adminRole.Id,
             });
         }
     }
