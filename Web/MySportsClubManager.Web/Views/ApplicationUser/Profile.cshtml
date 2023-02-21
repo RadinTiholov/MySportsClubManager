@@ -7,7 +7,7 @@
                 <div class="card bg-primary" style=" width: 18rem; border-radius: 0px">
                     <img class="card-img-top" src="@Model.ImageUrl" alt="Card img cap" style="border-radius: 0px" />
                     <div class="card-body">
-                        <h3 class="card-title">Your information</h3>
+                        <h3 class="card-title">@Model.UserName's information</h3>
                         <p>Username:<strong>@Model.UserName</strong></p>
                         <p>First Name:<strong>@Model.FirstName</strong></p>
                         <p>Last Name:<strong>@Model.LastName</strong></p>
@@ -24,7 +24,7 @@
                         else
                         {
                             <p>
-                                You haven't won anything yet!
+                                They haven't won anything yet!
                             </p>
                         }
                     </div>
@@ -52,7 +52,7 @@
                         }
                         else
                         {
-                            <h4 class="text-secondary">You haven't enrolled in a club yet!</h4>
+                            <h4 class="text-secondary">They haven't enrolled in a club yet!</h4>
                         }
                         
                         <h3>Reviews</h3>
@@ -86,7 +86,7 @@
                         }
                         else
                         {
-                            <h4 class="text-secondary">You haven't written any reviews yet!</h4>
+                            <h4 class="text-secondary">They haven't written any reviews yet!</h4>
                         }
                     </div>
                 </div>

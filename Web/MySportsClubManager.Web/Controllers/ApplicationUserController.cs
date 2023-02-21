@@ -8,9 +8,9 @@
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Services.Data.Contracts;
-    using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.ApplicationUser;
     using MySportsClubManager.Web.ViewModels.Club;
+
     using static MySportsClubManager.Common.GlobalConstants;
 
     [Authorize]
@@ -142,15 +142,21 @@
             return this.RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Profile()
+        [HttpGet]
+        public async Task<IActionResult> Profile(ProfileInputModel inputModel)
         {
+            if (!this.ModelState.IsValid || await this.userManager.FindByIdAsync(inputModel.Id) == null)
+            {
+                return this.Redirect(NotFoundRoute);
+            }
+
             ProfileViewModel model = null;
             try
             {
-                model = await this.applicationUserService.GetProfileInformationAsync(this.User.Id());
-                model.Reviews = await this.reviewService.GetAllForAthleteAsync(await this.athleteService.GetAthleteIdAsync(this.User.Id()));
-                model.Achievements = await this.athleteService.GetAllAchievementsForAthleteAsync(await this.athleteService.GetAthleteIdAsync(this.User.Id()));
-                var clubId = await this.athleteService.GetMyClub(this.User.Id());
+                model = await this.applicationUserService.GetProfileInformationAsync(inputModel.Id);
+                model.Reviews = await this.reviewService.GetAllForAthleteAsync(await this.athleteService.GetAthleteIdAsync(inputModel.Id));
+                model.Achievements = await this.athleteService.GetAllAchievementsForAthleteAsync(await this.athleteService.GetAthleteIdAsync(inputModel.Id));
+                var clubId = await this.athleteService.GetMyClub(inputModel.Id);
                 model.Club = await this.clubService.GetOneAsync<ClubInListViewModel>(clubId);
                 return this.View(model);
             }

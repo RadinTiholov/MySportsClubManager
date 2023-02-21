@@ -24,6 +24,8 @@
 
         public const string TimeFormat = "hh':'mm";
 
+        public const string NotFoundRoute = "404";
+
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png" };
     }
 }

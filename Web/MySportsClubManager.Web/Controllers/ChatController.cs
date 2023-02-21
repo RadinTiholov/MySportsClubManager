@@ -4,6 +4,8 @@
     using Microsoft.AspNetCore.Mvc;
     using MySportsClubManager.Web.ViewModels.Chat;
 
+    using static MySportsClubManager.Common.GlobalConstants;
+
     [Authorize]
     public class ChatController : BaseController
     {
@@ -12,7 +14,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Redirect("404");
+                return this.Redirect(NotFoundRoute);
             }
 
             var viewModel = new ChatViewModel()
