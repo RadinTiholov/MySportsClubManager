@@ -138,7 +138,8 @@
                    <h5 class="mt-1">First name: <strong>@Model.Trainer.FirstName</strong></h5>
                    <h5>Last name:    <strong>@Model.Trainer.LastName</strong></h5>
                    <h5>Email: <strong>@Model.Trainer.Email</strong></h5>
-                   <a type="submit" class="btn btn-warning" asp-area="" asp-controller="Trainer" asp-action="Contact" asp-route-id="@Model.Trainer.Id">Contact trainer</a>
+                   <a type="submit" class="btn btn-warning mb-1" asp-area="" asp-controller="Trainer" asp-action="Contact" asp-route-id="@Model.Trainer.Id">Contact trainer</a>
+                   <a type="submit" class="btn btn-warning" asp-area="" asp-controller="ApplicationUser" asp-action="Profile" asp-route-user="@Model.Trainer.ApplicationUserId">See profile</a>
                 </div>
              </div>
              <div class="card text-white bg-primary mt-3">

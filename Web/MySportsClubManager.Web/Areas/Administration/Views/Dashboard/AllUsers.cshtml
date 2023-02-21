@@ -20,7 +20,11 @@
                     <td>
                         <img src="@user.Image.URL" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
                     </td>
-                    <td>@user.UserName</td>
+                    <td>
+                        <a asp-area="" asp-controller="ApplicationUser" asp-action="Profile" asp-route-user="@user.Id" style="text-decoration: none;">      
+                            @user.UserName
+                        </a>
+                    </td>
                     <td>@user.FirstName</td>
                     <td>@user.LastName</td>
                     <td>@user.Email</td>

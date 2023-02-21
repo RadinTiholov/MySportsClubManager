@@ -6,7 +6,7 @@
 
     public class ProfileInputModel
     {
-        [FromQuery(Name = "id")]
+        [FromQuery(Name = "user")]
         [Required]
         public string Id { get; set; } = null!;
     }

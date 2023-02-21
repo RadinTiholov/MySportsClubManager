@@ -45,9 +45,23 @@
                 .ForMember(x => x.ClubsEnrolledCount, opt =>
                 opt.MapFrom(c => c.Clubs.Count()))
                 .ForMember(x => x.Athletes, opt =>
-                opt.MapFrom(c => c.Participants.Select(x => new AthleteInListViewModel() { Name = x.ApplicationUser.UserName, ProfilePic = x.ApplicationUser.Image.URL })))
+                opt.MapFrom(c => c.Participants.Select(x => new AthleteInListViewModel()
+                {
+                    Name = x.ApplicationUser.UserName,
+                    ProfilePic = x.ApplicationUser.Image.URL,
+                    ApplicationUserId = x.ApplicationUserId,
+                })))
                 .ForMember(x => x.Champions, opt =>
-                opt.MapFrom(c => c.Participants.Where(p => c.Wins.Any(w => w.AthleteId == p.Id)).Select(x => new WinnerInListViewModel() { Name = x.ApplicationUser.UserName, ProfilePic = x.ApplicationUser.Image.URL, Place = x.Wins.Where(w => w.AthleteId == x.Id).FirstOrDefault().Place })));
+                opt.MapFrom(c => c.Participants
+                .Where(p => c.Wins
+                .Any(w => w.AthleteId == p.Id))
+                .Select(x => new WinnerInListViewModel()
+                {
+                    Name = x.ApplicationUser.UserName,
+                    ProfilePic = x.ApplicationUser.Image.URL,
+                    ApplicationUserId = x.ApplicationUserId,
+                    Place = x.Wins.Where(w => w.AthleteId == x.Id).FirstOrDefault().Place,
+                })));
         }
     }
 }

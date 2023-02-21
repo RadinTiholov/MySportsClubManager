@@ -51,7 +51,11 @@
                                                 <img class="img-fluid rounded-circle" src="@Model.Champions[0].ProfilePic" alt="image" style="height: 50px; width: 50px"/>
                                             </div>
                                             <div class="col mt-2">
-                                                <h5>@Model.Champions[0].Name</h5>
+                                                <h5>
+                                                    <a asp-area="" asp-controller="ApplicationUser" asp-action="Profile" asp-route-user="@Model.Champions[0].ApplicationUserId" style="text-decoration: none; color: inherit;">
+                                                        @Model.Champions[0].Name
+                                                    </a>
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>
@@ -63,10 +67,14 @@
                                                 <h1 style="color: silver">2.</h1>
                                             </div>
                                             <div class="col-1">
-                                            <img class="img-fluid rounded-circle" src="@Model.Champions[1].ProfilePic" alt="image" style="height: 50px; width: 50px" />
+                                                <img class="img-fluid rounded-circle" src="@Model.Champions[1].ProfilePic" alt="image" style="height: 50px; width: 50px" />
                                             </div>
                                             <div class="col mt-2">
-                                                <h5>@Model.Champions[1].Name</h5>
+                                                <h5>
+                                                    <a asp-area="" asp-controller="ApplicationUser" asp-action="Profile" asp-route-user="@Model.Champions[1].ApplicationUserId" style="text-decoration: none; color: inherit;">
+                                                        @Model.Champions[1].Name
+                                                    </a>
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +89,11 @@
                                                 <img class="img-fluid rounded-circle" src="@Model.Champions[2].ProfilePic" alt="image" style="height: 50px; width: 50px"/>
                                             </div>
                                             <div class="col mt-2">
-                                                <h5>@Model.Champions[2].Name</h5>
+                                                <h5>
+                                                    <a asp-area="" asp-controller="ApplicationUser" asp-action="Profile" asp-route-user="@Model.Champions[2].ApplicationUserId" style="text-decoration: none; color: inherit;">
+                                                        @Model.Champions[2].Name
+                                                    </a>
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>

@@ -20,13 +20,17 @@
 
         public string OwnerName { get; set; }
 
+        public string OwnerId { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Review, ReviewInListViewModel>()
                 .ForMember(x => x.ClubName, opt =>
-                opt.MapFrom(r => r.Club.Name))
+                    opt.MapFrom(r => r.Club.Name))
+                .ForMember(x => x.OwnerId, opt =>
+                    opt.MapFrom(r => r.Owner.ApplicationUserId))
                 .ForMember(x => x.OwnerName, opt =>
-                opt.MapFrom(r => r.Owner.ApplicationUser.UserName));
+                    opt.MapFrom(r => r.Owner.ApplicationUser.UserName));
         }
     }
 }

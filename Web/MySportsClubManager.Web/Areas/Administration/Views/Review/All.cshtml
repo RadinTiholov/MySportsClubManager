@@ -26,9 +26,13 @@
                     @foreach (var review in Model.Reviews)
                     {
                         <tr>
-                            <td>@review.OwnerName</td>
                             <td>
-                                <a asp-area="" asp-controller="Club" asp-action="Details" asp-route-id="@review.ClubId" style="text-decoration: none">
+                                <a asp-area="" asp-controller="ApplicationUser" asp-action="Profile" asp-route-user="@review.OwnerId" style="text-decoration: none; color: inherit;">
+                                    @review.OwnerName
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-area="" asp-controller="Club" asp-action="Details" asp-route-id="@review.ClubId" style="text-decoration: none; color: inherit;">
                                     @review.ClubName
                                 </a>
                             </td>

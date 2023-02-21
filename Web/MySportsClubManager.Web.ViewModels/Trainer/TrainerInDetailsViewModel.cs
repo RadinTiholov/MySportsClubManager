@@ -11,5 +11,7 @@
         public string Email { get; set; }
 
         public string ProfilePic { get; set; }
+
+        public string ApplicationUserId { get; set; }
     }
 }

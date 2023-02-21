@@ -13,15 +13,19 @@
 
         public string ProfilePic { get; set; } = null!;
 
+        public string ApplicationUserId { get; set; } = null!;
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Athlete, WinnerInListViewModel>()
                 .ForMember(x => x.Name, opt =>
-                opt.MapFrom(a => a.ApplicationUser.UserName))
+                    opt.MapFrom(a => a.ApplicationUser.UserName))
                 .ForMember(x => x.ProfilePic, opt =>
-                opt.MapFrom(a => a.ApplicationUser.Image.URL))
+                    opt.MapFrom(a => a.ApplicationUser.Image.URL))
+                .ForMember(x => x.ApplicationUserId, opt =>
+                    opt.MapFrom(a => a.ApplicationUserId))
                 .ForMember(x => x.Place, opt =>
-                opt.MapFrom(a => a.Wins.Where(x => x.AthleteId == a.Id).FirstOrDefault().Place));
+                    opt.MapFrom(a => a.Wins.Where(x => x.AthleteId == a.Id).FirstOrDefault().Place));
         }
     }
 }

@@ -24,7 +24,7 @@
                                 <img src="@this.TempData.Peek("ProfilePicture")" class="rounded-circle" style="width: 35px; height: 35px;" alt="Cinque Terre">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="ApplicationUser" asp-action="Profile">Profile</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="ApplicationUser" asp-action="Profile" asp-route-user="@this.User.Id()">Profile</a></li>
                                 @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.IsInRole(GlobalConstants.TrainerRoleName))
                                 {
                                     <a class="dropdown-item" asp-area="Administration" asp-controller="Club" asp-action="CreatedClubs">Created clubs</a>

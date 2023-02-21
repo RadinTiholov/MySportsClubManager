@@ -50,6 +50,7 @@
                     Email = c.Trainer.ApplicationUser.Email,
                     ProfilePic = c.Trainer.ApplicationUser.Image.URL,
                     Id = c.Trainer.Id,
+                    ApplicationUserId = c.Trainer.ApplicationUserId,
                 }))
                 .ForMember(x => x.ImageUrl, opt =>
                 opt.MapFrom(s => s.Image.URL.ToString()))
