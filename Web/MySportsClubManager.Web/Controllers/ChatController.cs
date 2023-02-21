@@ -10,6 +10,11 @@
         [HttpGet]
         public IActionResult Room(ChatInputModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect("404");
+            }
+
             var viewModel = new ChatViewModel()
             {
                 Receiver = model.Username,
