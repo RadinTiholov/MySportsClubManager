@@ -1,7 +1,6 @@
 ﻿namespace MySportsClubManager.Web
 {
     using System.Reflection;
-
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
@@ -20,6 +19,7 @@
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Services.Mapping;
     using MySportsClubManager.Services.Messaging;
+    using MySportsClubManager.Web.Hubs;
     using MySportsClubManager.Web.ViewModels;
 
     public class Program
@@ -62,6 +62,10 @@
                 }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
 
             services.AddSingleton(configuration);
 
@@ -139,6 +143,7 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapHub<ChatHub>("/chatHub");
             app.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
         }
