@@ -14,12 +14,6 @@
             return base.OnConnectedAsync();
         }
 
-        public async Task SendMessage(string message)
-        {
-            var sender = this.Context.User.Identity.Name;
-            await this.Clients.All.SendAsync("ReceiveMessage", sender, message);
-        }
-
         public Task SendMessageToGroup(string receiver, string message)
         {
             var sender = this.Context.User.Identity.Name;

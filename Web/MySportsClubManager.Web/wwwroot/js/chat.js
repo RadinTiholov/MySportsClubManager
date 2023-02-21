@@ -32,7 +32,7 @@ msgerForm.addEventListener("submit", event => {
         return console.error(err.toString());
     });
 
-    appendMessage("Gosho", "https://cdn-icons-png.flaticon.com/512/17/17004.png", "right", message);
+    appendMessage("You", "https://cdn-icons-png.flaticon.com/512/17/17004.png", "right", message);
     msgerInput.value = "";
 });
 
