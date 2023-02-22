@@ -8,16 +8,16 @@
     [Authorize]
     public class ChatHub : Hub
     {
-        public override Task OnConnectedAsync()
+        public void Subscribe(string connectionUsername)
         {
-            this.Groups.AddToGroupAsync(this.Context.ConnectionId, this.Context.User.Identity.Name);
-            return base.OnConnectedAsync();
+            string currentUserName = this.Context.User.Identity.Name;
+            this.Groups.AddToGroupAsync(this.Context.ConnectionId, currentUserName + connectionUsername);
         }
 
         public Task SendMessageToGroup(string receiver, string message)
         {
             var sender = this.Context.User.Identity.Name;
-            return this.Clients.Group(receiver).SendAsync("ReceiveMessage", sender, message);
+            return this.Clients.Group(receiver + sender).SendAsync("ReceiveMessage", sender, message);
         }
     }
 }

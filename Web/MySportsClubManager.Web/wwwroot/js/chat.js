@@ -15,11 +15,19 @@ connection.on("ReceiveMessage", function (user, message) {
     appendMessage(user, "https://cdn-icons-png.flaticon.com/512/17/17004.png", "left", msg);
 });
 
-connection.start().then(function () {
-    msgetSendButton.disabled = false;
-}).catch(function (err) {
-    return console.error(err.toString());
-});
+connection.start()
+    .then(function () {
+        //Subscribe to the group
+        const receiver = get("#receiver").value;
+
+        connection.invoke("Subscribe", receiver).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        msgetSendButton.disabled = false;
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
 
 msgerForm.addEventListener("submit", event => {
     event.preventDefault();
@@ -59,24 +67,3 @@ function appendMessage(name, img, side, text) {
 function get(selector, root = document) {
     return root.querySelector(selector);
 }
-
-
-//document.getElementById("sendButton").addEventListener("click", function (event) {
-//    var receiver = document.getElementById("receiverInput").value;
-//    var message = document.getElementById("messageInput").value;
-
-//    if (receiver != "") {
-
-//        connection.invoke("SendMessageToGroup", receiver, message).catch(function (err) {
-//            return console.error(err.toString());
-//        });
-//    }
-//    else {
-//        connection.invoke("SendMessage", message).catch(function (err) {
-//            return console.error(err.toString());
-//        });
-//    }
-
-
-//    event.preventDefault();
-//});
