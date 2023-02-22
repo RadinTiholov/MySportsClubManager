@@ -12,7 +12,10 @@ msgetSendButton.disabled = true;
 connection.on("ReceiveMessage", function (user, message) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-    appendMessage(user, "https://cdn-icons-png.flaticon.com/512/17/17004.png", "left", msg);
+    const imageUrlRaw = get("#receiver-img").style.backgroundImage;
+    const imageUrl = imageUrlRaw.substring(5, imageUrlRaw.length - 2);
+
+    appendMessage(user, imageUrl, "left", msg);
 });
 
 connection.start()
@@ -40,7 +43,10 @@ msgerForm.addEventListener("submit", event => {
         return console.error(err.toString());
     });
 
-    appendMessage("You", "https://cdn-icons-png.flaticon.com/512/17/17004.png", "right", message);
+    const imageUrlRaw = get("#your-img").style.backgroundImage;
+    const imageUrl = imageUrlRaw.substring(5, imageUrlRaw.length - 2);
+
+    appendMessage("You", imageUrl, "right", message);
     msgerInput.value = "";
 });
 
@@ -61,7 +67,6 @@ function appendMessage(name, img, side, text) {
     msgerChat.insertAdjacentHTML("beforeend", msgHTML);
     msgerChat.scrollTop += 500;
 }
-
 
 // Utils
 function get(selector, root = document) {
