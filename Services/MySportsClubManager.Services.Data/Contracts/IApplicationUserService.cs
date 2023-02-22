@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using MySportsClubManager.Data.Models;
     using MySportsClubManager.Web.ViewModels.ApplicationUser;
 
     public interface IApplicationUserService
@@ -16,5 +16,7 @@
         Task<string> GetCurrentUserProfilePicAsync(string id);
 
         Task<ProfileViewModel> GetProfileInformationAsync(string id);
+
+        Task<ApplicationUser> FindByNameAsync(string username);
     }
 }

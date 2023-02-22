@@ -7,7 +7,14 @@
                 <i class="fas fa-comment-alt"></i> Chat with @Model.Receiver
             </div>
             <div class="msger-header-options">
-                <span><i class="fas fa-cog"></i></span>
+                <div class="row">
+                    <div class="col">
+                        <div class="msg-img" style="background-image: url(@Model.YourImage)"></div>
+                    </div>
+                    <div class="col">
+                        <div class="msg-img" style="background-image: url(@Model.ReceiverImage)"></div>
+                    </div>
+                </div>
             </div>
         </header>
 

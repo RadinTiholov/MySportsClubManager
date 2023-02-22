@@ -52,6 +52,14 @@
             var result = await this.userManager.AddToRoleAsync(user, roleName);
         }
 
+        public async Task<ApplicationUser> FindByNameAsync(string username)
+        {
+            return await this.applicationUserRepository.AllAsNoTracking()
+                .Where(u => u.UserName == username)
+                .Include(au => au.Image)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<string> GetCurrentUserProfilePicAsync(string id)
         {
             string imageUrl = await this.applicationUserRepository.All()
