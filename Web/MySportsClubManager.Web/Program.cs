@@ -93,6 +93,7 @@
             services.AddTransient<IReviewService, ReviewService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IContestService, ContestService>();
+            services.AddTransient<IMessageService, MessageService>();
 
             // Cloudinary service
             Account account = new Account(

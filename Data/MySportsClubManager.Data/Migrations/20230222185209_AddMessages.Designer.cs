@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MySportsClubManager.Data;
 
@@ -11,9 +12,10 @@ using MySportsClubManager.Data;
 namespace MySportsClubManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230222185209_AddMessages")]
+    partial class AddMessages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -546,10 +548,10 @@ namespace MySportsClubManager.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ReceiverId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SenderId")
+                    b.Property<int>("ReceiverId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -559,9 +561,9 @@ namespace MySportsClubManager.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReceiverId");
+                    b.HasIndex("OwnerId");
 
-                    b.HasIndex("SenderId");
+                    b.HasIndex("ReceiverId");
 
                     b.ToTable("Messages");
                 });
@@ -951,21 +953,21 @@ namespace MySportsClubManager.Data.Migrations
 
             modelBuilder.Entity("MySportsClubManager.Data.Models.Message", b =>
                 {
+                    b.HasOne("MySportsClubManager.Data.Models.Athlete", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("MySportsClubManager.Data.Models.Athlete", "Receiver")
                         .WithMany()
                         .HasForeignKey("ReceiverId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MySportsClubManager.Data.Models.Athlete", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("Owner");
 
                     b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("MySportsClubManager.Data.Models.Review", b =>

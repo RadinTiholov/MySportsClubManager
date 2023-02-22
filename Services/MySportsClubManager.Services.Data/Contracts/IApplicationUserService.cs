@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using MySportsClubManager.Data.Models;
     using MySportsClubManager.Web.ViewModels.ApplicationUser;
 

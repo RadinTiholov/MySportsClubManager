@@ -131,6 +131,17 @@
             return athlete.Id;
         }
 
+        public async Task<int> GetAthleteIdByUsernameAsync(string username)
+        {
+            var athlete = await this.athleteRepository
+                .AllAsNoTracking()
+                .Include(x => x.ApplicationUser)
+                .Where(x => x.ApplicationUser.UserName == username)
+                .FirstOrDefaultAsync();
+
+            return athlete.Id;
+        }
+
         public async Task<List<AchievementInListViewModel>> GetAllAchievementsForAthleteAsync(int athleteId)
         {
             var athlete = await this.athleteRepository.AllAsNoTracking()

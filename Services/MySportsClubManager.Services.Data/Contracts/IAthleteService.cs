@@ -24,6 +24,8 @@
 
         Task<int> GetAthleteIdAsync(string userId);
 
+        Task<int> GetAthleteIdByUsernameAsync(string username);
+
         Task<List<AthleteInListViewModel>> GetAllForContestAsync(int clubId);
 
         Task<List<AchievementInListViewModel>> GetAllAchievementsForAthleteAsync(int athleteId);

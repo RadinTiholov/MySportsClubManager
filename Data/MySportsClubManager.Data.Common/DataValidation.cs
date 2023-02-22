@@ -77,5 +77,11 @@
             public const int TopicMinLength = 3;
             public const int TopicMaxLength = 20;
         }
+
+        public static class Message
+        {
+            public const int TextMinLength = 1;
+            public const int TextMaxLength = 250;
+        }
     }
 }
