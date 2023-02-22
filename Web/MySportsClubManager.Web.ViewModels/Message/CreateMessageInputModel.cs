@@ -13,10 +13,6 @@
 
         [Required]
         [StringLength(UserNameMaxLength, MinimumLength = UserNameMinLength)]
-        public string SenderUsername { get; set; }
-
-        [Required]
-        [StringLength(UserNameMaxLength, MinimumLength = UserNameMinLength)]
         public string ReceiverUsername { get; set; }
     }
 }

@@ -21,17 +21,17 @@
             this.athleteService = athleteService;
         }
 
-        public async Task CreateAsync(CreateMessageInputModel model)
+        public async Task CreateAsync(CreateMessageInputModel model, string senderId)
         {
-            var receiverId = await this.athleteService.GetAthleteIdByUsernameAsync(model.ReceiverUsername);
+            var receiverAthleteId = await this.athleteService.GetAthleteIdByUsernameAsync(model.ReceiverUsername);
 
-            var senderId = await this.athleteService.GetAthleteIdByUsernameAsync(model.SenderUsername);
+            var senderAthleteId = await this.athleteService.GetAthleteIdAsync(senderId);
 
             var message = new Message()
             {
                 Text = model.Text,
-                ReceiverId = receiverId,
-                SenderId = senderId,
+                ReceiverId = receiverAthleteId,
+                SenderId = senderAthleteId,
             };
 
             await this.messageRepository.AddAsync(message);

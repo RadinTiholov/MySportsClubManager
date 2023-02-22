@@ -43,12 +43,29 @@ msgerForm.addEventListener("submit", event => {
         return console.error(err.toString());
     });
 
-    const imageUrlRaw = get("#your-img").style.backgroundImage;
-    const imageUrl = imageUrlRaw.substring(5, imageUrlRaw.length - 2);
+    fetch("/api/Message", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.getElementById("RequestVerificationToken")
+        },
+        body: JSON.stringify({
+            text: message,
+            receiverUsername: receiver
+        })
+    })
+        .then(() => {
+            const imageUrlRaw = get("#your-img").style.backgroundImage;
+            const imageUrl = imageUrlRaw.substring(5, imageUrlRaw.length - 2);
 
-    appendMessage("You", imageUrl, "right", message);
-    msgerInput.value = "";
-});
+            appendMessage("You", imageUrl, "right", message);
+            msgerInput.value = "";
+        })
+        .catch(err => { alert(err.message) })
+})
+
+
 
 function appendMessage(name, img, side, text) {
     const msgHTML = `

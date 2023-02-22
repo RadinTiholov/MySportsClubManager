@@ -9,7 +9,7 @@
     using MySportsClubManager.Services.Data.Contracts;
     using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels.Chat;
-
+    using MySportsClubManager.Web.ViewModels.Message;
     using static MySportsClubManager.Common.GlobalConstants;
 
     [Authorize]

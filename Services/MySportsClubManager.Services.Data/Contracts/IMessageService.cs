@@ -6,6 +6,6 @@
 
     public interface IMessageService
     {
-        Task CreateAsync(CreateMessageInputModel model);
+        Task CreateAsync(CreateMessageInputModel model, string senderId);
     }
 }

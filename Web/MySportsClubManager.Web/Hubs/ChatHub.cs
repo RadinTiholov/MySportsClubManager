@@ -27,16 +27,6 @@
         {
             var sender = this.Context.User.Identity.Name;
 
-            // Save to db
-            var inputModel = new CreateMessageInputModel()
-            {
-                Text = message,
-                ReceiverUsername = receiver,
-                SenderUsername = sender,
-            };
-
-            this.messageService.CreateAsync(inputModel);
-
             return this.Clients.Group(receiver + sender).SendAsync("ReceiveMessage", sender, message);
         }
     }
