@@ -19,7 +19,37 @@
         </header>
 
         <div class="msger-chat">
-            
+           @foreach (var message in Model.Messages)
+           {
+                @if (message.ReceiverUsername == Model.Receiver)
+                {
+                    <div class="msg right-msg">
+                        <div class="msg-img" style="background-image: url(@message.SenderImage)">
+                        </div>
+
+                        <div class="msg-bubble">
+                            <div class="msg-info">
+                                <div class="msg-info-name">@message.SenderUsername</div>
+                            </div>
+                            <div class="msg-text">@message.Text</div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="msg left-msg">
+                        <div class="msg-img" style="background-image: url(@message.SenderImage)">
+                        </div>
+
+                        <div class="msg-bubble">
+                            <div class="msg-info">
+                                <div class="msg-info-name">@message.SenderUsername</div>
+                            </div>
+                            <div class="msg-text">@message.Text</div>
+                        </div>
+                    </div>
+                }
+           }
         </div>
 
         <form class="msger-inputarea">

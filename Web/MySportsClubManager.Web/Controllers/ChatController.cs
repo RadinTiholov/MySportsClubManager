@@ -16,10 +16,14 @@
     public class ChatController : BaseController
     {
         private readonly IApplicationUserService applicationUserService;
+        private readonly IMessageService messageService;
 
-        public ChatController(IApplicationUserService applicationUserService, UserManager<ApplicationUser> userManager)
+        public ChatController(
+            IApplicationUserService applicationUserService,
+            IMessageService messageService)
         {
             this.applicationUserService = applicationUserService;
+            this.messageService = messageService;
         }
 
         [HttpGet]
@@ -31,12 +35,16 @@
             }
 
             var receiver = await this.applicationUserService.FindByNameAsync(model.Username);
+            var senderUsername = this.User.Identity.Name;
+
+            var messages = await this.messageService.GetAllForUsersAsync(senderUsername, receiver.UserName);
 
             var viewModel = new ChatViewModel()
             {
                 Receiver = model.Username,
                 YourImage = await this.applicationUserService.GetCurrentUserProfilePicAsync(this.User.Id()),
                 ReceiverImage = receiver.Image.URL,
+                Messages = messages,
             };
 
             return this.View(viewModel);
