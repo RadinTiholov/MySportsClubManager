@@ -6,29 +6,37 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Distributed;
     using Microsoft.Extensions.Caching.Memory;
     using MySportsClubManager.Services.Data.Contracts;
+    using MySportsClubManager.Web.Infrastructure.Extensions;
     using MySportsClubManager.Web.ViewModels;
     using MySportsClubManager.Web.ViewModels.Club;
     using MySportsClubManager.Web.ViewModels.Home;
+    using static Microsoft.ML.ForecastingCatalog;
 
     public class HomeController : BaseController
     {
         private readonly IClubService clubService;
-        private readonly IMemoryCache memoryCache;
+        private readonly IDistributedCache cache;
 
-        public HomeController(IClubService clubService, IMemoryCache memoryCache)
+        public HomeController(IClubService clubService, IDistributedCache cache)
         {
             this.clubService = clubService;
-            this.memoryCache = memoryCache;
+            this.cache = cache;
         }
 
         public async Task<IActionResult> Index()
         {
-            if (!this.memoryCache.TryGetValue<List<ClubInListViewModel>>("RecommendedClubs", out var recommendedClubs))
+            string recordKey = "MySportsClubManager_" + DateTime.Now.ToString("yyyyMMdd_hh");
+
+            var recommendedClubs = await this.cache.GetRecordAsync<List<ClubInListViewModel>>(recordKey);
+
+            if (recommendedClubs is null)
             {
                 recommendedClubs = await this.clubService.GetClubsWithHightestRating();
-                this.memoryCache.Set("RecommendedClubs", recommendedClubs, TimeSpan.FromMinutes(5));
+
+                await this.cache.SetRecordAsync(recordKey, recommendedClubs, TimeSpan.FromHours(1));
             }
 
             var model = new HomeViewModel()
