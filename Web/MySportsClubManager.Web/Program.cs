@@ -106,6 +106,13 @@
             // Memory Cache
             services.AddMemoryCache();
 
+            // Distributed Cache
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetConnectionString("Redis");
+                options.InstanceName = "MySportsClubManager_";
+            });
+
             // services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
 
             services.AddSingleton(cloudinary);
