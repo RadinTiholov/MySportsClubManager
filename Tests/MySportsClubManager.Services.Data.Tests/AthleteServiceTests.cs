@@ -120,6 +120,16 @@
         }
 
         [Fact]
+        public async Task GetAthleteIdByUsernameAsyncShouldWorkCorrectly()
+        {
+            this.SeedData();
+
+            int id = await this.athleteService.GetAthleteIdByUsernameAsync("Test");
+
+            Assembly.Equals(1, id);
+        }
+
+        [Fact]
         public async Task GetMyClubShouldWorkCorrectly()
         {
             this.SeedData();
@@ -190,6 +200,16 @@
             this.SeedData();
 
             await Assert.ThrowsAsync<ArgumentException>(async () => { await this.athleteService.UnregisterSportClubAsync("TestId", 1); });
+        }
+
+        [Fact]
+        public async Task GetAllAchievementsForAthleteAsyncShouldWorkCorrectly()
+        {
+            this.SeedData();
+
+            var achievements = await this.athleteService.GetAllAchievementsForAthleteAsync(1);
+
+            Assert.Empty(achievements);
         }
 
         private async void SeedData()

@@ -105,6 +105,18 @@
         }
 
         [Fact]
+        public async Task FindByNameAsyncShouldWorkCorrectly()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ProfileViewModel).GetTypeInfo().Assembly);
+            this.SeedData();
+
+            var user = await this.applicationUserService.FindByNameAsync("Test");
+
+            Assert.NotNull(user);
+            Assert.Equal("TestId", user.Id);
+        }
+
+        [Fact]
         public async Task AssignUserToRoleAsyncShouldWorkCorrectly()
         {
             this.SeedData();
