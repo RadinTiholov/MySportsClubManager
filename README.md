@@ -21,6 +21,8 @@
 * [Dataset for ML model](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
 * [SendGrid](https://sendgrid.com/)
 * [Cloudinary](https://cloudinary.com/)
+* [Redis](https://redis.io/)
+* [SignalR](https://dotnet.microsoft.com/en-us/apps/aspnet/signalr)
 * [xUnit](https://github.com/xunit/xunit)
 * [In-Memory Database](https://learn.microsoft.com/en-us/sql/relational-databases/in-memory-database?view=sql-server-ver16)
 * [Moq](https://github.com/moq/moq)
